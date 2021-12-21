@@ -1,15 +1,47 @@
 import {db} from '../firebase-config'
-import {addDoc, collection } from 'firebase/firestore'
-import {nanoid} from 'nanoid'
+import { makeAutoObservable } from 'mobx'
+import { collection, addDoc, getDocs, doc, deleteDoc } from 'firebase/firestore'
 
+class PhoneStore {
+    phones = [];
+    constructor(){
+        makeAutoObservable(this)
+        this.getPhones()
+    }
 
-export function createStore() {
-    const phonesColectionRef = collection(db, "phoneMake")
-    return {
-        phones: [],
+    createPhone = async (data) => {
+        const collectionRef = collection(db, "PhoneBrands")
+        await addDoc(collectionRef, {Name: data.name} ).then(docRef => {
+            data.docId = docRef.id
+            this.tempData.push(data)
+            this.setData(this.tempData)
+        })
+    }
 
-        async createUser(name){
-            await addDoc(phonesColectionRef, { name: name, id: nanoid() })
-        },
+    deletePhone = async (id) => {
+        const collectionRef = doc(db, "PhoneBrands", id)
+        await deleteDoc(collectionRef)
+    }
+
+    getPhones = async () => {
+        const collectionRef = collection(db, "PhoneBrands")
+        await getDocs(collectionRef).then((el) => {
+            this.tempData = []
+            el.forEach(doc => {
+                let temp = {
+                    docId: doc.id,
+                    name: doc.data().Name
+                }
+                this.tempData.push(temp)
+            })
+            this.setData(this.tempData)
+            console.log(this.tempData)
+        })
+    }
+
+    setData(data) {
+        this.phones = data
     }
 }
+
+export default new PhoneStore()

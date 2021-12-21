@@ -1,25 +1,34 @@
+import { observer } from 'mobx-react'
 import React from 'react'
-import {db} from '../firebase-config'
-import {collection, addDoc} from 'firebase/firestore'
-// import { useStore } from '../Stores/StoreContext'
-import {nanoid} from 'nanoid'
+import PhoneStore from '../Stores/Store'
 
-
-export const NewDataForm = () => {
-    const phonesColectionRef = collection(db, "phoneMake")
-    const [newName, setNewName] = React.useState("")
-    // const dataStore = useStore()
-    const createUser = async (user) => {
-        await addDoc(phonesColectionRef, { name: newName, id: nanoid() })
-        setNewName('')
+const NewDataForm = observer(() => {
+    let data = {
+        docId: null,
+        name: ""
     }
-    return <>
-        <input 
-            value={newName} 
-            onChange={(e) => setNewName(e.target.value)} 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        data = {
+            docId: "",
+            name: e.target.phoneName.value
+        }
+        PhoneStore.createPhone(data)
+    }
+    return (
+        <div>
+        <form onSubmit={handleSubmit}>
+            <input 
             type="text"
             placeholder='Name...'
+            required
+            name="phoneName"
             />
-        <button onClick={createUser}>Add New Phone</button>
-    </>
-}
+        <button type='submit'>Add New Phone</button>
+        </form>
+            
+        </div>
+    )
+})
+
+export default NewDataForm
