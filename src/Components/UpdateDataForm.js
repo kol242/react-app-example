@@ -1,9 +1,11 @@
 import { observer } from 'mobx-react'
 import React from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import WorkerStore from '../Stores/WorkerStore'
-import { Link } from 'react-router-dom'
 
-const NewDataForm = observer(() => {
+const UpdateDataForm = observer(() => {
+    const location = useLocation()
+    const currentData = location.state
     let data = {
         docId: null,
         name: "",
@@ -12,63 +14,63 @@ const NewDataForm = observer(() => {
         salary: null,
         workPlace: ""
     }
-    const handleSubmit = (e) => {
+    const submitUpdate = (e) => {
         e.preventDefault()
         data = {
-            docId: "",
+            docId: currentData.docId,
             name: e.target.workerName.value,
             lastName: e.target.workerLastName.value,
             age: e.target.workerAge.value,
             salary: e.target.workerSalary.value,
             workPlace: e.target.workerPlace.value
         }
-        WorkerStore.createWorker(data)
+        WorkerStore.updateWorker(data)
     }
     return (
         <div>
-        <h3>Novi radnik</h3>
-        <form onSubmit={handleSubmit}>
+        <h2>Uređivanje</h2>
+        <form onSubmit={submitUpdate}>
             <input 
             type="text"
-            placeholder='Ime...'
+            placeholder={currentData.name}
             required
             name="workerName"
             />
             <br />
             <input 
             type="text"
-            placeholder='Prezime...'
+            placeholder={currentData.lastName}
             required
             name="workerLastName"
             />
             <br />
             <input 
             type="number"
-            placeholder='Dob...'
+            placeholder={currentData.age}
             required
             name="workerAge"
             />
             <br />
             <input 
             type="number"
-            placeholder='Plaća...'
+            placeholder={currentData.salary}
             required
             name="workerSalary"
             />
             <br />
             <input 
             type="text"
-            placeholder='Pozicija...'
+            placeholder={currentData.workPlace}
             required
             name="workerPlace"
             />
-            <br />
-            <Link to="/">Natrag</Link>
-        <button type='submit'>Dodaj</button>
+        <br />
+        <Link to="/">Natrag</Link>
+        <button type='submit'>Spremi promjene</button>
         </form>
             
         </div>
     )
 })
 
-export default NewDataForm
+export default UpdateDataForm
