@@ -1,9 +1,10 @@
 import { observer } from 'mobx-react'
 import React from 'react'
 import WorkerStore from '../Stores/WorkerStore'
+import WorkPlaceStore from '../Stores/WorkPlaceStore'
 import { Link } from 'react-router-dom'
 
-const NewDataForm = observer(() => {
+const NewWorker = observer(() => {
     let data = {
         docId: null,
         name: "",
@@ -56,12 +57,12 @@ const NewDataForm = observer(() => {
             name="workerSalary"
             />
             <br />
-            <input 
-            type="text"
-            placeholder='Pozicija...'
-            required
-            name="workerPlace"
-            />
+            <select name="workerPlace">
+            {WorkPlaceStore.workPlaces.map((work) => (
+                <option value={work.name}>{work.name}</option>
+            ))}
+            </select>
+            <br />
             <br />
             <Link to="/">Natrag</Link>
         <button type='submit'>Dodaj</button>
@@ -71,4 +72,4 @@ const NewDataForm = observer(() => {
     )
 })
 
-export default NewDataForm
+export default NewWorker

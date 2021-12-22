@@ -2,14 +2,15 @@ import { observer } from 'mobx-react'
 import WorkerStore from '../Stores/WorkerStore'
 import { Link } from 'react-router-dom'
 
-const List = observer(() => {
+const WorkersList = observer(() => {
     const deleteSelectedWorker = (id) => {
         WorkerStore.deleteWorker(id)
     }
     return (
       <>
-        <h1>Test Project</h1>
-        <h2>Radnici</h2><Link to="/new-worker"><button>Dodaj radnika</button></Link>
+        <h1>Popis radnika</h1>
+        <Link to="/new-worker"><button>Dodaj radnika</button></Link>
+        <Link to="/workplaces"><button>Radna mjesta</button></Link>
           {WorkerStore.workers.map((worker) => (
           <div>
             <br />
@@ -60,4 +61,4 @@ const List = observer(() => {
     );
   })
 
-export default List
+export default WorkersList

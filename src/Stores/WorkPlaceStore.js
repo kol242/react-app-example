@@ -6,17 +6,16 @@ class WorkPlaceStore {
     workPlaces = [];
     constructor(){
         makeAutoObservable(this)
-        this.getWorkers()
+        this.getWorkplaces()
     }
 
-    createWorker = async (data) => {
+    createWorkplace = async (data) => {
         const collectionRef = collection(db, "WorkPlaces")
         await addDoc(collectionRef, {
-            Ime: data.name,
-            Prezime: data.lastName,
-            Dob: data.age,
+            Naziv: data.name,
+            Br_zaposlenih: data.employees,
+            Opis: data.descr,
             Placa: data.salary,
-            Pozicija: data.workPlace
         }).then(docRef => {
             data.docId = docRef.id
             this.tempData.push(data)
@@ -24,23 +23,22 @@ class WorkPlaceStore {
         })
     }
 
-    deleteWorker = async (id) => {
+    deleteWorkplace = async (id) => {
         const collectionRef = doc(db, "WorkPlaces", id)
         await deleteDoc(collectionRef)
     }
 
-    getWorkers = async () => {
+    getWorkplaces = async () => {
         const collectionRef = collection(db, "WorkPlaces")
         await getDocs(collectionRef).then((el) => {
             this.tempData = []
             el.forEach(doc => {
                 let temp = {
                     docId: doc.id,
-                    name: doc.data().Ime,
-                    lastName: doc.data().Prezime,
-                    age: doc.data().Dob,
-                    salary: doc.data().Placa,
-                    workPlace: doc.data().Pozicija
+                    name: doc.data().Naziv,
+                    emplyees: doc.data().Br_zaposlenih,
+                    descr: doc.data().Opis,
+                    salary: doc.data().Placa
                 }
                 this.tempData.push(temp)
             })
@@ -48,22 +46,20 @@ class WorkPlaceStore {
         })
     }
 
-    updateWorker = async (data) => {
+    updateWorkplace = async (data) => {
         const collectionRef = doc(db, "WorkPlaces", data.docId)
         await updateDoc(collectionRef, { 
-            Ime: data.name,
-            Prezime: data.lastName,
-            Dob: data.age,
+            Naziv: data.name,
+            Br_zaposlenih: data.employees,
+            Opis: data.descr,
             Placa: data.salary,
-            Pozicija: data.workPlace
         })
         for(let i = 0; i < this.tempData.length; i++) {
             if(this.tempData[i].docId === data.docId) {
-                this.tempData[i].Ime = data.name
-                this.tempData[i].Prezime = data.lastName
-                this.tempData[i].Dob = data.age
+                this.tempData[i].Naziv = data.name
+                this.tempData[i].Br_zaposlenih = data.employees
+                this.tempData[i].Opis = data.descr
                 this.tempData[i].Placa = data.salary
-                this.tempData[i].Pozicija = data.workPlace
             }
         }
         this.setData(this.tempData)

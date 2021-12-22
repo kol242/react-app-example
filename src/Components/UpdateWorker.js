@@ -3,7 +3,7 @@ import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import WorkerStore from '../Stores/WorkerStore'
 
-const UpdateDataForm = observer(() => {
+const UpdateWorker = observer(() => {
     const location = useLocation()
     const currentData = location.state
     let data = {
@@ -73,4 +73,4 @@ const UpdateDataForm = observer(() => {
     )
 })
 
-export default UpdateDataForm
+export default UpdateWorker
