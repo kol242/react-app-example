@@ -1,15 +1,18 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import WorkerStore from '../Stores/WorkerStore'
 import WorkPlaceStore from '../Stores/WorkPlaceStore'
 
+
+
 const UpdateWorkplace = observer(() => {
+    let navigate = useNavigate()
     const location = useLocation()
     const currentData = location.state
     let data = {
         docId: null,
         name: "",
-        employees: "",
         descr: null,
         salary: null
     }
@@ -18,11 +21,12 @@ const UpdateWorkplace = observer(() => {
         data = {
             docId: currentData.docId,
             name: e.target.workName.value,
-            employees: e.target.workEmpl.value,
             descr: e.target.workDescr.value,
-            salary: e.target.workSalary.value,
+            salary: Number(e.target.workSalary.value),
         }
         WorkPlaceStore.updateWorkplace(data)
+        WorkerStore.WorkplaceUpdate(data)
+        navigate('/workplaces')
     }
     return (
         <div>
@@ -30,27 +34,21 @@ const UpdateWorkplace = observer(() => {
         <form onSubmit={submitUpdate}>
             <input 
             type="text"
-            placeholder={currentData.name}
+            defaultValue={currentData.name}
             name="workName"
-            />
-            <br />
-            <input 
-            type="number"
-            placeholder={currentData.employees}
-            name="workEmpl"
             />
             <br />
             <textarea 
             type="text"
             rows="3"
             cols="21"
-            placeholder={currentData.descr}
+            defaultValue={currentData.descr}
             name="workDescr"
             />
             <br />
             <input 
             type="number"
-            placeholder={currentData.salary}
+            defaultValue={currentData.salary}
             name="workSalary"
             />
         <br />

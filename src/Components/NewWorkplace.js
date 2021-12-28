@@ -1,13 +1,13 @@
 import { observer } from 'mobx-react'
 import React from 'react'
 import WorkPlaceStore from '../Stores/WorkPlaceStore'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const NewWorkplace = observer(() => {
+    let navigate = useNavigate()
     let data = {
         docId: null,
         name: "",
-        employees: "",
         descr: "",
         salary: null,
     }
@@ -16,11 +16,11 @@ const NewWorkplace = observer(() => {
         data = {
             docId: "",
             name: e.target.workName.value,
-            employees: e.target.workEmpl.value,
             descr: e.target.workDescr.value,
-            salary: e.target.workSalary.value,
+            salary: Number(e.target.workSalary.value),
         }
         WorkPlaceStore.createWorkplace(data)
+        navigate('/workplaces')
     }
     return (
         <div>
@@ -31,13 +31,6 @@ const NewWorkplace = observer(() => {
             placeholder='Naziv...'
             required
             name="workName"
-            />
-            <br />
-            <input 
-            type="number"
-            placeholder='Broj zaposlenih'
-            required
-            name="workEmpl"
             />
             <br />
             <textarea 

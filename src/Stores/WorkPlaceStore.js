@@ -13,7 +13,6 @@ class WorkPlaceStore {
         const collectionRef = collection(db, "WorkPlaces")
         await addDoc(collectionRef, {
             Naziv: data.name,
-            Br_zaposlenih: data.employees,
             Opis: data.descr,
             Placa: data.salary,
         }).then(docRef => {
@@ -26,6 +25,12 @@ class WorkPlaceStore {
     deleteWorkplace = async (id) => {
         const collectionRef = doc(db, "WorkPlaces", id)
         await deleteDoc(collectionRef)
+        for(let i = 0; i < this.tempData.length; i++) {
+            if(this.tempData[i].docId === id) {
+                this.tempData.splice(i, 1)
+            }
+        }
+        this.setData(this.tempData)
     }
 
     getWorkplaces = async () => {
@@ -36,7 +41,6 @@ class WorkPlaceStore {
                 let temp = {
                     docId: doc.id,
                     name: doc.data().Naziv,
-                    emplyees: doc.data().Br_zaposlenih,
                     descr: doc.data().Opis,
                     salary: doc.data().Placa
                 }
@@ -50,16 +54,14 @@ class WorkPlaceStore {
         const collectionRef = doc(db, "WorkPlaces", data.docId)
         await updateDoc(collectionRef, { 
             Naziv: data.name,
-            Br_zaposlenih: data.employees,
             Opis: data.descr,
             Placa: data.salary,
         })
         for(let i = 0; i < this.tempData.length; i++) {
             if(this.tempData[i].docId === data.docId) {
-                this.tempData[i].Naziv = data.name
-                this.tempData[i].Br_zaposlenih = data.employees
-                this.tempData[i].Opis = data.descr
-                this.tempData[i].Placa = data.salary
+                this.tempData[i].name = data.name
+                this.tempData[i].descr = data.descr
+                this.tempData[i].salary = data.salary
             }
         }
         this.setData(this.tempData)

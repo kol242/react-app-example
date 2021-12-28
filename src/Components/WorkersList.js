@@ -8,14 +8,13 @@ const WorkersList = observer(() => {
     }
     return (
       <>
-      <div class="container w-50">
+      <div className="container w-50">
       <h1>Popis radnika</h1>
-        <Link to="/new-worker"><button class="btn btn-success me-2">Dodaj radnika</button></Link>
-        <Link to="/workplaces"><button class="btn btn-secondary">Radna mjesta</button></Link>
+        <Link to="/workplaces"><button className="btn btn-secondary">Radna mjesta</button></Link>
           {WorkerStore.workers.map((worker) => (
           <div>
             <br />
-          <table class="table" key={worker.docId}>
+          <table className="table" key={worker.docId}>
             <tbody>
               <tr>
                 <td>Ime:</td>
@@ -40,7 +39,7 @@ const WorkersList = observer(() => {
             </tbody>
             <tfoot>
               <tr>
-                <td><button onClick={() => deleteSelectedWorker(worker.docId)} class="btn btn-danger me-2">Obriši</button> 
+                <td><button onClick={() => deleteSelectedWorker(worker.docId)} className="btn btn-danger me-2">Obriši</button> 
                 <Link to='/edit-worker' 
                 state={{
                   docId: worker.docId, 
@@ -50,7 +49,7 @@ const WorkersList = observer(() => {
                   salary: worker.salary,
                   workPlace: worker.workPlace
                   }}>
-                  <button class="btn btn-primary">Uredi</button></Link>
+                  <button className="btn btn-primary">Uredi</button></Link>
                 </td>
               </tr>
             </tfoot>
