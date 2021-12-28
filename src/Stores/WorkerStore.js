@@ -3,7 +3,8 @@ import { makeAutoObservable } from 'mobx'
 import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc, query, where } from 'firebase/firestore'
 
 class WorkersStore {
-    workers = [];
+    workers = []
+    searchedWorkers = []
     constructor(){
         makeAutoObservable(this)
         this.getWorkers()
@@ -17,12 +18,34 @@ class WorkersStore {
             Dob: data.age,
             Placa: data.salary,
             Pozicija: data.workPlace,
-            IdRadnogMjesta: data.workPlaceId
+            IdRadnogMjesta: data.workPlaceId,
+            Ugovor: data.contract
         }).then(docRef => {
             data.docId = docRef.id
             this.tempData.push(data)
             this.setData(this.tempData)
         })
+    }
+
+    refreshData = () => {
+        this.searchedWorkers = []
+    }
+
+    searchHandler = async (input) => {
+        for(let i = 0; i < this.tempData.length; i++) {
+            if(input.keyWord) {
+                this.query = this.tempData.filter(el => el.lastName === input.keyWord)
+            } else if(input.salaryRange1 || input.salaryRange2) {
+                this.query = this.tempData.filter(el => el.salary >= input.salaryRange1 && el.salary <= input.salaryRange2)
+            } else if(input.ageRange1 || input.ageRange2) {
+                this.query = this.tempData.filter(el => el.age >= input.ageRange1 && el.age <= input.ageRange2)
+            } else if(input.workPlace) {
+                this.query = this.tempData.filter(el => el.workPlace === input.workPlace)
+            } else if(input.contract) {
+                this.query = this.tempData.filter(el => el.contract === input.contract)
+            }
+        }
+        this.setSearchedData(this.query)
     }
 
     deleteWorker = async (id) => {
@@ -48,7 +71,8 @@ class WorkersStore {
                     age: doc.data().Dob,
                     salary: doc.data().Placa,
                     workPlace: doc.data().Pozicija,
-                    workPlaceId: doc.data().IdRadnogMjesta
+                    workPlaceId: doc.data().IdRadnogMjesta,
+                    contract: doc.data().Ugovor
                 }
                 this.tempData.push(temp)
             })
@@ -98,6 +122,10 @@ class WorkersStore {
 
     setData(data) {
         this.workers = data
+    }
+
+    setSearchedData(data) {
+        this.searchedWorkers = data
     }
 }
 

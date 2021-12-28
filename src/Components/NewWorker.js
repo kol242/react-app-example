@@ -30,7 +30,8 @@ const NewWorker = observer(() => {
             age: Number(e.target.workerAge.value),
             workPlaceId: currentData.docId,
             workPlace: collectionRef.data().Naziv,
-            salary: Number(collectionRef.data().Placa)
+            salary: Number(collectionRef.data().Placa),
+            contract: e.target.contractType.value
         }
         WorkerStore.createWorker(data)
         navigate('/workplaces')
@@ -72,6 +73,13 @@ const NewWorker = observer(() => {
             className="form-control"
             />
             </div>
+            <div className="mb-3">
+                <label htmlFor="contractType" className="form-label">Odaberite vrstu ugovora...</label> 
+                <select className="form-select" name="contractType" id="contractType">
+                    <option>Neodređeno</option>
+                    <option>Određeno</option>
+                </select>
+            </div>   
             <Link to="/workplaces"><button className="btn btn-outline-secondary me-3">Natrag</button></Link>
             <button type='submit' className="btn btn-success">Dodaj</button>
         </form>

@@ -17,7 +17,8 @@ const UpdateWorker = observer(() => {
         age: null,
         salary: null,
         workPlace: "",
-        workPlaceId: ""
+        workPlaceId: "",
+        contract: ""
     }
     const submitUpdate = async (e) => {
         e.preventDefault()
@@ -31,7 +32,8 @@ const UpdateWorker = observer(() => {
             age: Number(e.target.workerAge.value),
             salary: Number(doc.data().Placa),
             workPlace: doc.data().Naziv,
-            workPlaceId: doc.id
+            workPlaceId: doc.id,
+            contract: e.target.contractType.value
         })
         WorkerStore.updateWorker(data)
         navigate('/')
@@ -76,6 +78,13 @@ const UpdateWorker = observer(() => {
             ))}
             </select>   
             </div>
+            <div className="mb-3">
+                <label htmlFor="contractType" className="form-label">Odaberite vrstu ugovora...</label> 
+                <select className="form-select" name="contractType" id="contractType">
+                    <option>Neodređeno</option>
+                    <option>Određeno</option>
+                </select>
+            </div>   
         <br />
         <Link to="/">Natrag</Link>
         <button type='submit'>Spremi promjene</button>
