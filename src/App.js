@@ -1,17 +1,20 @@
-import WorkersList from './Components/WorkersList'
-import WorkPlaceList from './Components/WorkPlaceList'
-import UpdateWorker from './Components/UpdateWorker'
-import UpdateWorkplace from './Components/UpdateWorkplace'
-import NewWorker from './Components/NewWorker'
-import NewWorkplace from './Components/NewWorkplace'
+import Workers from './Pages/Workers/Workers'
+import Workplaces from './Pages/Workplaces/Workplaces'
+import UpdateWorker from './Pages/Workers/UpdateWorker'
+import UpdateWorkplace from './Pages/Workplaces/UpdateWorkplace'
+import NewWorker from './Pages/Workers/NewWorker'
+import NewWorkplace from './Pages/Workplaces/NewWorkplace'
+import Home from './Pages/Home'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import './Common/style/app.scss'
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path= "/" element={<WorkersList/>}/>
-        <Route path= "/workplaces" element={<WorkPlaceList/>}/>
+        <Route path= "/" element={<Home/>}/>
+        <Route path= "/workers" element={<Workers/>}/>
+        <Route path= "/workplaces" element={<Workplaces/>}/>
         <Route path= "/edit-worker" element={<UpdateWorker/>}/>
         <Route path= "/edit-workplace" element={<UpdateWorkplace/>}/>
         <Route path= "/new-worker" element={<NewWorker/>}/>

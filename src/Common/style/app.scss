@@ -1,0 +1,50 @@
+@import 'variables';
+body {
+    font-family: $montserrat;
+    background-color: #ffff;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-primary {
+    background-color: $green;
+    padding: 10px;
+    border-style: none;
+    font-family: $montserrat;
+    border-radius: 13px;
+    transition: all 0.3s ease;
+    &:hover {
+        transition: all 0.3s ease;
+        box-shadow: $btn__box-shadow;
+        cursor: pointer;
+    }
+}
+
+.btn-secondary {
+    color: #ffff;
+    background-color: $blue;
+    padding: 10px;
+    border-style: none;
+    font-family: $montserrat;
+    border-radius: 13px;
+    transition: all 0.3s ease;
+    &:hover {
+        transition: all 0.3s ease;
+        box-shadow: $btn__box-shadow;
+        cursor: pointer;
+    }
+}
+
+.btn-red {
+    background-color: $red;
+    padding: 10px;
+    border-style: none;
+    font-family: $montserrat;
+    border-radius: 13px;
+    transition: all 0.3s ease;
+    &:hover {
+        transition: all 0.3s ease;
+        box-shadow: $btn__box-shadow;
+        cursor: pointer;
+    }
+}

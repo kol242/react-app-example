@@ -1,4 +1,4 @@
-import {db} from '../firebase-config'
+import {db} from '../Common/firebase-config'
 import { makeAutoObservable } from 'mobx'
 import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc, query, where } from 'firebase/firestore'
 
@@ -31,21 +31,70 @@ class WorkersStore {
         this.searchedWorkers = []
     }
 
-    searchHandler = async (input) => {
+
+    searchHandler = (input) => {
         for(let i = 0; i < this.tempData.length; i++) {
-            if(input.keyWord) {
-                this.query = this.tempData.filter(el => el.lastName === input.keyWord)
-            } else if(input.salaryRange1 || input.salaryRange2) {
-                this.query = this.tempData.filter(el => el.salary >= input.salaryRange1 && el.salary <= input.salaryRange2)
-            } else if(input.ageRange1 || input.ageRange2) {
-                this.query = this.tempData.filter(el => el.age >= input.ageRange1 && el.age <= input.ageRange2)
-            } else if(input.workPlace) {
-                this.query = this.tempData.filter(el => el.workPlace === input.workPlace)
-            } else if(input.contract) {
-                this.query = this.tempData.filter(el => el.contract === input.contract)
-            }
+            this.query = this.tempData.filter(el => 
+                el.lastName.toUpperCase() === input.keyWord.toUpperCase() || (el.salary >= input.salaryRange1 && el.salary <= input.salaryRange2)
+                || (el.age >= input.ageRange1 && el.age <= input.ageRange2)
+                || el.workPlace === input.workPlace
+                || el.contract === input.contract
+            )
         }
         this.setSearchedData(this.query)
+    }
+
+    sorter = (sortingType) => {
+        switch(sortingType) {
+            case 'a>':
+                this.workers.sort((a, b) => {
+                    const nameA = a.lastName.toUpperCase()
+                    const nameB = b.lastName.toUpperCase()
+                    if (nameA < nameB) {
+                        return -1
+                    }
+                    if (nameA > nameB) {
+                        return 1
+                    }
+                    return 0
+                })
+            break
+            case 'a<':
+                this.workers.sort((a, b) => {
+                    const nameA = a.lastName.toUpperCase()
+                    const nameB = b.lastName.toUpperCase()
+                    if (nameA > nameB) {
+                        return -1
+                    }
+                    if (nameA < nameB) {
+                        return 1
+                    }
+                    return 0
+                })
+            break
+            case 'p>': 
+                this.workers.sort((a, b) => {
+                    return b.salary - a.salary
+                })
+            break
+            case 'p<': 
+                this.workers.sort((a, b) => {
+                    return a.salary - b.salary
+                })
+            break
+            case 'g<': 
+                this.workers.sort((a, b) => {
+                    return b.age - a.age
+                })
+            break
+            case 'g>': 
+                this.workers.sort((a, b) => {
+                    return a.age - b.age
+                })
+            break
+            default: 
+                console.log()
+        }
     }
 
     deleteWorker = async (id) => {

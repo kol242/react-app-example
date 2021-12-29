@@ -1,11 +1,10 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import WorkerStore from '../Stores/WorkerStore'
-// import WorkPlaceStore from '../Stores/WorkPlaceStore'
+import WorkerStore from '../../Stores/WorkerStore'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 import { doc, getDoc } from 'firebase/firestore'
-import {db} from '../firebase-config'
+import {db} from '../../Common/firebase-config'
 
 const NewWorker = observer(() => {
     let navigate = useNavigate()

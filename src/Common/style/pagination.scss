@@ -1,0 +1,22 @@
+@import 'variables';
+.pagination {
+    margin: 25px 0;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    gap: 10px;
+    .page-link {
+        font-size: 15px;
+        border: none;
+        border-radius: 100px;
+        background: $white;
+        padding: 8px 15px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        &:hover {
+            transition: all 0.2s ease-in-out;
+            transform: scale(1.2);
+        }
+    }
+}

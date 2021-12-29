@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react'
 import React from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import WorkerStore from '../Stores/WorkerStore'
-import WorkPlaceStore from '../Stores/WorkPlaceStore'
+import WorkerStore from '../../Stores/WorkerStore'
+import WorkPlaceStore from '../../Stores/WorkPlaceStore'
 
 
 

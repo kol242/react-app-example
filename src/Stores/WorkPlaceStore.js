@@ -1,4 +1,4 @@
-import {db} from '../firebase-config'
+import {db} from '../Common/firebase-config'
 import { makeAutoObservable } from 'mobx'
 import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from 'firebase/firestore'
 
@@ -40,15 +40,55 @@ class WorkPlaceStore {
 
     searchHandler = async (input) => {
         for(let i = 0; i < this.tempData.length; i++) {
-            if(input.keyWord !== "") {
-                this.query = this.tempData.filter(el => el.descr === input.keyWord)
-            } else if(input.salaryRange1 || input.salaryRange2) {
-                this.query = this.tempData.filter(el => el.salary >= input.salaryRange1 && el.salary <= input.salaryRange2)
-            } else if(input.workPlaces !== "") {
-                this.query = this.tempData.filter(el => el.name === input.workPlace)
-            }
+            this.query = this.tempData.filter(el => el.descr.toUpperCase() === input.keyWord.toUpperCase() 
+            || (el.salary >= input.salaryRange1 && el.salary <= input.salaryRange2)
+            || el.name === input.workPlace
+            )
         }
         this.setSearchedData(this.query)
+    }
+
+    sorter = (sortingType) => {
+        switch(sortingType) {
+            case 'a>':
+                this.workPlaces.sort((a, b) => {
+                    const nameA = a.name.toUpperCase()
+                    const nameB = b.name.toUpperCase()
+                    if (nameA < nameB) {
+                        return -1
+                    }
+                    if (nameA > nameB) {
+                        return 1
+                    }
+                    return 0
+                })
+            break
+            case 'a<':
+                this.workPlaces.sort((a, b) => {
+                    const nameA = a.name.toUpperCase()
+                    const nameB = b.name.toUpperCase()
+                    if (nameA > nameB) {
+                        return -1
+                    }
+                    if (nameA < nameB) {
+                        return 1
+                    }
+                    return 0
+                })
+            break
+            case 'p>': 
+                this.workPlaces.sort((a, b) => {
+                    return b.salary - a.salary
+                })
+            break
+            case 'p<': 
+                this.workPlaces.sort((a, b) => {
+                    return a.salary - b.salary
+                })
+            break
+            default: 
+                console.log()
+        }
     }
 
     getWorkplaces = async () => {

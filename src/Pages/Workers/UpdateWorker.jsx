@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react'
 import React from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import WorkerStore from '../Stores/WorkerStore'
-import WorkPlaceStore from '../Stores/WorkPlaceStore'
+import WorkerStore from '../../Stores/WorkerStore'
+import WorkPlaceStore from '../../Stores/WorkPlaceStore'
 import { collection, getDocs, query, where } from 'firebase/firestore'
-import {db} from '../firebase-config'
+import {db} from '../../Common/firebase-config'
 
 const UpdateWorker = observer(() => {
     let navigate = useNavigate()
@@ -36,7 +36,7 @@ const UpdateWorker = observer(() => {
             contract: e.target.contractType.value
         })
         WorkerStore.updateWorker(data)
-        navigate('/')
+        navigate('/workers')
     }
     return (
         <div>
@@ -86,7 +86,7 @@ const UpdateWorker = observer(() => {
                 </select>
             </div>   
         <br />
-        <Link to="/">Natrag</Link>
+        <Link to="/workers">Natrag</Link>
         <button type='submit'>Spremi promjene</button>
         </form>
             
