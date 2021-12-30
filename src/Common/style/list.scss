@@ -1,4 +1,22 @@
 @import 'variables';
+.main-container__list {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+}
+
+.container {
+    font-family: $montserrat;
+    background-color: #ffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+h2 {
+    text-align: center;
+}
+
 .btn-wrapper {
     display: flex;
     align-items: center;

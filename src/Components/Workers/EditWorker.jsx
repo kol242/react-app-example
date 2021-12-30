@@ -1,15 +1,12 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
 import WorkerStore from '../../Stores/WorkerStore'
 import WorkPlaceStore from '../../Stores/WorkPlaceStore'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import {db} from '../../Common/firebase-config'
 
-const UpdateWorker = observer(() => {
-    let navigate = useNavigate()
-    const location = useLocation()
-    const currentData = location.state
+const UpdateWorker = observer(({state}) => {
+    const currentData = state
     let data = {
         docId: null,
         name: "",
@@ -36,7 +33,7 @@ const UpdateWorker = observer(() => {
             contract: e.target.contractType.value
         })
         WorkerStore.updateWorker(data)
-        navigate('/workers')
+        WorkerStore.editWorkerChecker()
     }
     return (
         <div>
@@ -78,15 +75,13 @@ const UpdateWorker = observer(() => {
             ))}
             </select>   
             </div>
-            <div className="mb-3">
-                <label htmlFor="contractType" className="form-label">Odaberite vrstu ugovora...</label> 
-                <select className="form-select" name="contractType" id="contractType">
+            <div>
+                <select name="contractType" id="contractType">
                     <option>Neodređeno</option>
                     <option>Određeno</option>
                 </select>
             </div>   
         <br />
-        <Link to="/workers">Natrag</Link>
         <button type='submit'>Spremi promjene</button>
         </form>
             

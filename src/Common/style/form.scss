@@ -1,0 +1,30 @@
+@import 'variables';
+form {
+    textArea,
+    input {
+        margin-bottom: 5px;
+        padding: 7px 7px;
+        border-radius: 5px;
+        border: 1px solid rgb(141, 141, 141);
+        font-family: $montserrat;
+    }
+    button {
+        background-color: $green;
+        padding: 10px;
+        border-style: none;
+        font-family: $montserrat;
+        border-radius: 13px;
+        transition: all 0.3s ease;
+        &:hover {
+            transition: all 0.3s ease;
+            opacity: 0.8;
+            cursor: pointer;
+        }
+    }
+    select {
+        padding: 7px 7px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+        border: 1px solid rgb(141, 141, 141);
+    }
+}

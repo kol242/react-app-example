@@ -1,6 +1,10 @@
 import React from 'react'
 import WorkPlaceStore from '../../Stores/WorkPlaceStore'
 
+import '../../Common/style/filter.scss'
+import Search from '../../Common/images/search.png'
+import Delete from '../../Common/images/bin.png'
+
 function Filter() {
     const searchSubmit = (e) => {
         e.preventDefault()
@@ -21,40 +25,41 @@ function Filter() {
 
     return (
         <div>
-          <form onSubmit={searchSubmit}>
-          <div className="mb-3 mt-3">
-            <label htmlFor="searchInput">Pretraži po opisu:</label>
-            <input type="text" className="form-control w-50 mb-3" id="searchInput" name="inputText"/>
+          <form className="filter-wrapper" onSubmit={searchSubmit}>
+            <h3>Filtriranje</h3>
+          <div>
+            <input type="text" className="form-control w-50 mb-3" id="searchInput" name="inputText" placeholder="Pretraži po opisu..."/>
           </div>
-          <div className="mb-3 w-50">
-          <label htmlFor="salaryRange" className="form-label">Raspon plaće:</label>
-                <p>Od:</p>
-                <select className="form-select" name="salaryRange1" id="salaryRange">
+          <div className="salary-wrapper">
+                <p>Od</p>
+                <select name="salaryRange1" id="salaryRange">
                     <option defaultValue> </option>
                     { salaries.map((salary) => 
                       (<option value={salary}>{salary}</option>)
                     ) }
                 </select>
-                <p>Do:</p>
+                <p>kn do</p>
                 <select className="form-select" name="salaryRange2">
                     <option defaultValue> </option>
                     { salaries.map((salary) => 
                       (<option value={salary}>{salary}</option>)
                     ) }
                 </select>
+                <p>kn</p>
             </div>
-          <div className="mb-3 w-50">
-          <label htmlFor="workPlaces" className="form-label">Radno mjesto:</label>
+          <div>
             <select className="form-select" name="workPlaces" id="workPlaces">
-            <option defaultValue> </option>
+            <option defaultValue disabled selected>Radno mjesto...</option>
           {WorkPlaceStore.workPlaces.map((work) => (
               <option value={work.name}>{work.name}</option>
           ))}
           </select>
           </div>
-          <button type="submit" className="btn btn-primary">Traži</button>
+          <div className="btn-wrapper">
+            <button type="submit" className="btn-undo"><img src={Search} alt="Search" />Traži</button>
+            <button onClick={refreshHandler} className="btn-red"><img src={Delete} alt="Delete" />Poništi filter</button> 
+          </div>
         </form>
-        <button onClick={refreshHandler} className="btn btn-warning mt-3">Poništi filter</button>    
         </div>
     )
 }

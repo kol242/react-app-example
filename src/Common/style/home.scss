@@ -1,0 +1,40 @@
+@import 'variables';
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    .home-wrapper {
+        h1 {
+            color: $blue;
+        }
+        font-family: $montserrat;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: stretch;
+        align-items: stretch;
+        gap: 20px;
+        img {
+            width: 100%;
+            height: auto;
+        }
+        span {
+            font-weight: 700;
+            color: $blue;
+        }
+    }
+    .btn-list-select {
+        color: $white;
+        background-color: $blue;
+        padding: 20px;
+        font-size: 15px;
+        border-style: none;
+        font-family: $montserrat;
+        border-radius: 13px;
+        transition: all 0.3s ease;
+        &:hover {
+            transition: all 0.3s ease;
+            opacity: 0.8;
+            cursor: pointer;
+        }
+    }
+}

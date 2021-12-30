@@ -1,15 +1,10 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
 import WorkerStore from '../../Stores/WorkerStore'
 import WorkPlaceStore from '../../Stores/WorkPlaceStore'
 
-
-
-const UpdateWorkplace = observer(() => {
-    let navigate = useNavigate()
-    const location = useLocation()
-    const currentData = location.state
+const UpdateWorkplace = observer(({state}) => {
+    const currentData = state
     let data = {
         docId: null,
         name: "",
@@ -26,7 +21,7 @@ const UpdateWorkplace = observer(() => {
         }
         WorkPlaceStore.updateWorkplace(data)
         WorkerStore.WorkplaceUpdate(data)
-        navigate('/workplaces')
+        WorkPlaceStore.editWorkplaceChecker()
     }
     return (
         <div>
@@ -52,7 +47,6 @@ const UpdateWorkplace = observer(() => {
             name="workSalary"
             />
         <br />
-        <Link to="/workplaces">Natrag</Link>
         <button type='submit'>Spremi promjene</button>
         </form>
             

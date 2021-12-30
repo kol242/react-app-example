@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react'
 import React from 'react'
 import WorkPlaceStore from '../../Stores/WorkPlaceStore'
-import { Link, useNavigate } from 'react-router-dom'
+
+import '../../Common/style/form.scss'
 
 const NewWorkplace = observer(() => {
-    let navigate = useNavigate()
     let data = {
         docId: null,
         name: "",
@@ -20,12 +20,15 @@ const NewWorkplace = observer(() => {
             salary: Number(e.target.workSalary.value),
         }
         WorkPlaceStore.createWorkplace(data)
-        navigate('/workplaces')
+        e.target.workName.value = null
+        e.target.workDescr.value = null
+        e.target.workSalary.value = null
+        WorkPlaceStore.newWorkplaceChecker()
     }
     return (
         <div>
             <h3>Novo radno mjesto</h3>
-            <form onSubmit={handleSubmit}>
+            <form className="form-wrapper" onSubmit={handleSubmit}>
                 <input 
                 type="text"
                 placeholder='Naziv...'
@@ -49,7 +52,6 @@ const NewWorkplace = observer(() => {
                 name="workSalary"
                 />
                 <br />
-                <Link to="/workplaces">Natrag</Link>
                 <button type='submit'>Dodaj</button>
             </form>
         </div>

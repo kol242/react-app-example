@@ -2,6 +2,9 @@ import React from 'react'
 import WorkerStore from '../../Stores/WorkerStore'
 import WorkPlaceStore from '../../Stores/WorkPlaceStore'
 
+import Search from '../../Common/images/search.png'
+import Delete from '../../Common/images/bin.png'
+
 function WorkerFilter() {
     const salaries = [3500, 4500, 5500, 6500, 7500, 9500, 10500]
     const ages = [18, 25, 35, 45, 55, 65, 75]
@@ -24,65 +27,65 @@ function WorkerFilter() {
       }
     return (
       <div>
-        <form onSubmit={searchSubmit}>
-          <div className="mb-3 mt-3">
-            <label htmlFor="searchInput">Prezime:</label>
-            <input type="text" className="form-control w-50 mb-3" id="searchInput" name="inputText"/>
+        <form className="filter-wrapper" onSubmit={searchSubmit}>
+          <h3>Filtriranje</h3>
+          <div>
+            <input type="text" className="form-control w-50 mb-3" id="searchInput" name="inputText" placeholder="Prezime..."/>
           </div>
-          <div className="mb-3 w-50">
-                <label htmlFor="salaryRange" className="form-label">Raspon plaće:</label>
-                <p>Od:</p>
-                <select className="form-select" name="salaryRange1" id="salaryRange">
+          <div className="salary-wrapper">
+                <p>Od</p>
+                <select name="salaryRange1" id="salaryRange">
                     <option defaultValue> </option>
                     { salaries.map((salary) => 
                       (<option value={salary}>{salary}</option>)
                     ) }
                 </select>
-                <p>Do:</p>
-                <select className="form-select" name="salaryRange2">
+                <p>kn do</p>
+                <select name="salaryRange2">
                     <option defaultValue> </option>
                     { salaries.map((salary) => 
                       (<option value={salary}>{salary}</option>)
                     ) }
                 </select>
+                <p>kn</p>
             </div>
-          <div className="mb-3 w-50">
-                <label htmlFor="ageRange" className="form-label">Raspon godina:</label>
-                <p>Od:</p>
-                <select className="form-select" name="ageRange1" id="ageRange">
+          <div className="salary-wrapper">   
+                <p>Od</p>
+                <select name="ageRange1" id="ageRange">
                     <option defaultValue> </option>
                     { ages.map((age) => (
                       <option value={age}>{age}</option>
                     )) }
                 </select>
-                <p>Do:</p>
-                <select className="form-select" name="ageRange2">
+                <p>do</p>
+                <select name="ageRange2">
                     <option defaultValue> </option>
                     { ages.map((age) => (
                       <option value={age}>{age}</option>
                     )) }
                 </select>
             </div>
-          <div className="mb-3 w-50">
-          <label htmlFor="workPlaces" className="form-label">Radno mjesto:</label>
+          <div>
             <select className="form-select" name="workPlaces" id="workPlaces">
-            <option defaultValue> </option>
+            <option defaultValue disabled selected>Radno mjesto...</option>
           {WorkPlaceStore.workPlaces.map((work) => (
               <option value={work.name}>{work.name}</option>
           ))}
           </select>
           </div>
-          <div className="mb-3 w-50">
-          <label htmlFor="contractType" className="form-label">Vrsta ugovora:</label>
-            <select className="form-select" name="contractType" id="contractType">
-            <option defaultValue> </option>
+          <div>
+            <select name="contractType" id="contractType">
+            <option defaultValue disabled selected>Vrsta ugovora...</option>
             <option>Neodređeno</option>
             <option>Određeno</option>
           </select>
           </div>
-          <button type="submit" className="btn btn-primary me-3">Traži</button>  
+          <div className="btn-wrapper">
+            <button type="submit" className="btn-undo"><img src={Search} alt="Search" />Traži</button>
+            <button onClick={refreshHandler} className="btn-red"><img src={Delete} alt="Delete" />Poništi filter</button>
+          </div>
       </form>
-      <button onClick={refreshHandler} className="btn btn-warning mt-3">Poništi filter</button>
+      
       </div> 
     )
 }

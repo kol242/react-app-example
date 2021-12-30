@@ -5,9 +5,21 @@ import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc, query, where } 
 class WorkersStore {
     workers = []
     searchedWorkers = []
+    editChecked = false
+    deletedChecked = false
     constructor(){
         makeAutoObservable(this)
         this.getWorkers()
+    }
+
+    deleteChecker = () => {
+        this.deletedChecked = true
+        setTimeout(() => {this.deletedChecked = false}, 3000)
+    }
+
+    editWorkerChecker = () => {
+        this.editChecked = true
+        setTimeout(() => {this.editChecked = false}, 3000)
     }
 
     createWorker = async (data) => {

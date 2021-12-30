@@ -5,9 +5,33 @@ import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from 'firebase
 class WorkPlaceStore {
     workPlaces = []
     searchedWorkplaces = []
+    newChecked = false
+    newCheckedWP = false
+    editChecked = false
+    deletedChecked = false
     constructor(){
         makeAutoObservable(this)
         this.getWorkplaces()
+    }
+
+    newWorkerChecker = () => {
+        this.newChecked = true
+        setTimeout(() => {this.newChecked = false}, 3000)
+    }
+
+    deletedWPChecker = () => {
+        this.deletedChecked = true
+        setTimeout(() => {this.deletedChecked = false}, 3000)
+    }
+
+    editWorkplaceChecker = () => {
+        this.editChecked = true
+        setTimeout(() => {this.editChecked = false}, 3000)
+    }
+
+    newWorkplaceChecker = () => {
+        this.newCheckedWP = true
+        setTimeout(() => {this.newCheckedWP = false}, 3000)
     }
 
     createWorkplace = async (data) => {

@@ -11,9 +11,11 @@ import Filter from '../../Common/images/filter.png'
 
 import WorkerSorter from '../../Components/Workers/WorkerSorter'
 import WorkerFilter from '../../Components/Workers/WorkerFilter'
+import EditWorker from '../../Components/Workers/EditWorker'
 
 const WorkersList = observer(() => {
   const [filter, setFilter] = useState(false)
+  const [editWorker, setEditWorker] = useState(false)
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
 
@@ -21,8 +23,13 @@ const WorkersList = observer(() => {
     filter ? setFilter(false) : setFilter(true)
   }
 
+  const editWorkerHandler = () => {
+    editWorker ? setEditWorker(false) : setEditWorker(true)
+  }
+
   const deleteSelectedWorker = (id) => {
       WorkerStore.deleteWorker(id)
+      WorkerStore.deleteChecker()
   }
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -32,65 +39,56 @@ const WorkersList = observer(() => {
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
   return (
-    <div className="container">
-      <h1>Popis radnika</h1>
-      <div className="btn-wrapper">
-      <Link to="/workplaces"><button className="btn-primary">Radna mjesta</button></Link>
-      <button className="btn-secondary" onClick={filterHandler}><img src={Filter} alt="Filter" />Filtriraj</button>
-      <WorkerSorter />
-      </div>
-      { filter ? <WorkerFilter /> : null }
-      { filter ? currentPosts2.map((worker) => (
-        <ul className="card">
-          <li className="card-item">{worker.name} {worker.lastName}, {worker.age}</li>
-          <hr />
-          <li className="card-item">{worker.salary} Kn (neto)</li>
-          <li className="card-item">{worker.workPlace}</li>
-          <li className="card-item">{worker.contract}</li>
-          <div className="btn-wrapper">
-            <button onClick={() => deleteSelectedWorker(worker.docId)} className="btn-red"><img src={Delete} alt="Delete" />Obriši</button>
-            <Link to='/edit-worker' 
-            state={{
-              docId: worker.docId, 
-              name: worker.name,
-              lastName: worker.lastName,
-              age: worker.age,
-              salary: worker.salary,
-              workPlace: worker.workPlace,
-              contract: worker.contract
-              }}>
-              <button className="btn-secondary"><img src={Edit} alt="Edit" />Uredi</button></Link>
-          </div>
-        </ul>
-      )) :  currentPosts.map((worker) => (
-      <ul className="card">
-        <li className="card-item">{worker.name} {worker.lastName}, {worker.age}</li>
-        <hr />
-        <li className="card-item">{worker.salary} Kn (neto)</li>
-        <li className="card-item">{worker.workPlace}</li>
-        <li className="card-item">{worker.contract}</li>
+    <div className="main-container__list">
+      <div/>
+      <div className="container">
+        { WorkerStore.editChecked ? <p className="alert-info">Radnik je uspješno uređen!</p> : null }
+        { WorkerStore.deletedChecked ? <p className="alert-warning">Radnik je uspješno obrisan!</p> : null }
+        <h2>Popis radnika</h2>
         <div className="btn-wrapper">
-            <button onClick={() => deleteSelectedWorker(worker.docId)} className="btn-red"><img src={Delete} alt="Delete" />Obriši</button>
-            <Link to='/edit-worker' 
-            state={{
-              docId: worker.docId, 
-              name: worker.name,
-              lastName: worker.lastName,
-              age: worker.age,
-              salary: worker.salary,
-              workPlace: worker.workPlace,
-              contract: worker.contract
-              }}>
-              <button className="btn-secondary"><img src={Edit} alt="Edit" />Uredi</button></Link>
-          </div> 
-      </ul>
-      ))}   
-      <Pagination 
-        itemsPerPage={itemsPerPage}
-        totalItems={WorkerStore.workers.length}
-        totalSearchedItems={WorkerStore.searchedWorkers.length}
-        paginate={paginate}
-      />  
+          <Link to="/"><button className="btn-link">Natrag na početnu</button></Link>
+        </div>
+        <div className="btn-wrapper">
+          <Link to="/workplaces"><button className="btn-secondary">Lista radnih mjesta</button></Link>
+          <button className="btn-undo" onClick={filterHandler}><img src={Filter} alt="Filter" />Filtriraj</button>
+          <WorkerSorter />
+        </div>
+        { filter ? <WorkerFilter /> : null }
+        { (filter ? currentPosts2 : currentPosts).map((worker) => (
+          <ul className="card">
+            <li className="card-item">{worker.name} {worker.lastName}, {worker.age}</li>
+            <hr />
+            <li className="card-item">{worker.salary} Kn (neto)</li>
+            <li className="card-item">{worker.workPlace}</li>
+            <li className="card-item">{worker.contract}</li>
+            <div className="btn-wrapper">
+              <button onClick={() => deleteSelectedWorker(worker.docId)} className="btn-red">
+                <img src={Delete} alt="Delete" />Obriši
+              </button>
+              <button className="btn-secondary" onClick={editWorkerHandler}>
+                <img src={Edit} alt="Edit" />Uredi
+              </button>
+            </div>
+            { editWorker ? <EditWorker
+              state={{
+                docId: worker.docId, 
+                name: worker.name,
+                lastName: worker.lastName,
+                age: worker.age,
+                salary: worker.salary,
+                workPlace: worker.workPlace,
+                contract: worker.contract
+                }} /> : null }
+          </ul>
+        ))}   
+        <Pagination 
+          itemsPerPage={itemsPerPage}
+          totalItems={WorkerStore.workers.length}
+          totalSearchedItems={WorkerStore.searchedWorkers.length}
+          paginate={paginate}
+        />  
+      </div>
+      <div/>
     </div>
   );
 })
