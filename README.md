@@ -1,6 +1,14 @@
-# Getting Started with Create React App
+# React web app example - getting started
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Webpage image](https://i.imgur.com/7ot9WRd.jpg)
+
+To run the script, first clone or download this repository on your PC, then follow next steps.
+
+## Running the app
+
+First, install all dependencies by typing:
+
+### `npm install`
 
 ## Available Scripts
 
