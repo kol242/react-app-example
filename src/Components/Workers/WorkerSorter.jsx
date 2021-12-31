@@ -13,12 +13,12 @@ function WorkerSorter() {
         <div>
             <select onChange={sorting} className="sorter" name="sorting" id="sorting">
                 <option defaultValue>Sortiraj...</option>
-                <option value="a>">Abecedno silazno</option>
-                <option value="a<">Abecedno uzlazno</option>
-                <option value="p>">Plaća silazno</option>
-                <option value="p<">Plaća uzlazno</option>  
-                <option value="g>">Godine uzlazno</option>  
-                <option value="g<">Godine silazno</option>  
+                <option value="a>">Abecedno A-Z</option>
+                <option value="a<">Abecedno Z-A</option>
+                <option value="p>">Plaća od najviše</option>
+                <option value="p<">Plaća od najmanje</option>  
+                <option value="g>">Godine od najstarijeg</option>  
+                <option value="g<">Godine od najmlađeg</option>  
             </select>
         </div>
     )

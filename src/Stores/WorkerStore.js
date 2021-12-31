@@ -41,7 +41,6 @@ class WorkersStore {
 
     refreshData = () => {
         this.searchedWorkers = []
-        console.log('prošlo')
     }
 
     searchHandler = (input) => {

@@ -75,19 +75,19 @@ const WorkerFilter = observer(() => {
               </select>
           </div>
         <div>
-          <select className="form-select" name="workPlaces" id="workPlaces">
-          <option defaultValue disabled selected>Radno mjesto...</option>
+          <select defaultValue={'default'} className="form-select" name="workPlaces" id="workPlaces">
+          <option key='default1' value='default' disabled>Radno mjesto...</option>
         {WorkPlaceStore.workPlaces.map((work) => (
             <option key={work.docId} value={work.name}>{work.name}</option>
         ))}
         </select>
         </div>
         <div>
-          <select name="contractType" id="contractType">
-          <option defaultValue disabled selected>Vrsta ugovora...</option>
-          <option key="Neodređeno">Neodređeno</option>
-          <option key="Određeno">Određeno</option>
-        </select>
+          <select defaultValue={'default'} name="contractType" id="contractType">
+            <option key='default2' value='default' disabled>Vrsta ugovora...</option>
+            <option key="Neodređeno">Neodređeno</option>
+            <option key="Određeno">Određeno</option>
+          </select>
         </div>
         <button type="submit" className="btn-undo"><img src={Search} alt="Search" />Traži</button>
     </form>

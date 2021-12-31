@@ -11,12 +11,12 @@ function WorkplaceSorter() {
 
     return (
         <div>
-            <select onChange={sorting} className="sorter" name="sorting" id="sorting">
-                <option defaultValue disabled selected>Sortiraj...</option>
-                <option value="a>">Abecedno silazno</option>
-                <option value="a<">Abecedno uzlazno</option>
-                <option value="p>">Plaća silazno</option>
-                <option value="p<">Plaća uzlazno</option>  
+            <select defaultValue={'default'} onChange={sorting} className="sorter" name="sorting" id="sorting">
+                <option value="default" disabled>Sortiraj...</option>
+                <option value="a>">Abecedno A-Z</option>
+                <option value="a<">Abecedno Z-A</option>
+                <option value="p>">Plaća od najviše</option>
+                <option value="p<">Plaća od najmanje</option>   
             </select>
         </div>
     )

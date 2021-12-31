@@ -72,7 +72,7 @@ body {
     transition: all 0.3s ease;
     &:hover {
         transition: all 0.3s ease;
-        box-shadow: $btn__box-shadow;
+        opacity: 0.8;
         cursor: pointer;
     }
 }

@@ -70,7 +70,7 @@ const UpdateWorker = observer(({state}) => {
              <select className="form-select" name="workerPlace">
              <option defaultValue>{currentData.workPlace}</option>
             {WorkPlaceStore.workPlaces.map((work) => (
-                <option name="workerPlace" value={work.name}>{work.name}</option>
+                <option key={work.name} name="workerPlace" value={work.name}>{work.name}</option>
             ))}
             </select>   
             </div>
