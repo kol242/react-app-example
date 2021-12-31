@@ -162,6 +162,7 @@ class WorkersStore {
             }
         }
         this.setData(this.tempData)
+        this.setSearchedData(this.tempData)
         this.editWorkerChecker()
     }
 
