@@ -45,10 +45,11 @@ const WorkPlaceList = observer(() => {
     WorkPlaceStore.deletedWPChecker()
   }
   
+  const arrayLength = filter === true ? WorkPlaceStore.searchedWorkplaces.length : WorkPlaceStore.workPlaces.length
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentPosts = WorkPlaceStore.workPlaces.slice(indexOfFirstItem, indexOfLastItem)
-  const currentPosts2 = WorkPlaceStore.searchedWorkplaces.slice(indexOfFirstItem, indexOfLastItem)
+  const allItems = WorkPlaceStore.workPlaces.slice(indexOfFirstItem, indexOfLastItem)
+  const searchedItems = WorkPlaceStore.searchedWorkplaces.slice(indexOfFirstItem, indexOfLastItem)
   const paginate = pageNumber => setCurrentPage(pageNumber)
 
   return (
@@ -71,7 +72,7 @@ const WorkPlaceList = observer(() => {
           </div>
           { filter ? <WorkplaceFilter /> : null }
           { newWorkplace ? <NewWorkplace /> : null }
-          { (filter ? currentPosts2 : currentPosts).map((workplace) => (
+          { (filter ? searchedItems : allItems).map((workplace) => (
             <ul className="card" key={workplace.docId}>
               <li className="card-item">{workplace.name}</li>
               <hr />
@@ -99,8 +100,7 @@ const WorkPlaceList = observer(() => {
           ))} 
           <Pagination 
           itemsPerPage={itemsPerPage}
-          totalItems={WorkPlaceStore.workPlaces.length}
-          totalSearchedItems={WorkPlaceStore.searchedWorkplaces.length}
+          totalItems={arrayLength}
           paginate={paginate}
           /> 
         </div>

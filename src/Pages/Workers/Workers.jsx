@@ -8,6 +8,7 @@ import '../../Common/style/list.scss'
 import Delete from '../../Common/images/bin.png'
 import Edit from '../../Common/images/edit.png'
 import Filter from '../../Common/images/filter.png'
+import React from 'react'
 
 import WorkerSorter from '../../Components/Workers/WorkerSorter'
 import WorkerFilter from '../../Components/Workers/WorkerFilter'
@@ -32,10 +33,12 @@ const WorkersList = observer(() => {
       WorkerStore.deleteChecker()
   }
 
+  const arrayLength = filter === true ? WorkerStore.searchedWorkers.length : WorkerStore.workers.length
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentPosts = WorkerStore.workers.slice(indexOfFirstItem, indexOfLastItem);
-  const currentPosts2 = WorkerStore.searchedWorkers.slice(indexOfFirstItem, indexOfLastItem)
+  const allItems = WorkerStore.workers.slice(indexOfFirstItem, indexOfLastItem);
+  const searchedItems = WorkerStore.searchedWorkers.slice(indexOfFirstItem, indexOfLastItem)
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
   return (
@@ -54,7 +57,7 @@ const WorkersList = observer(() => {
           <WorkerSorter />
         </div>
         { filter ? <WorkerFilter /> : null }
-        { (filter ? currentPosts2 : currentPosts).map((worker) => (
+        { (filter ? searchedItems : allItems).map((worker) => (
           <ul className="card">
             <li className="card-item">{worker.name} {worker.lastName}, {worker.age}</li>
             <hr />
@@ -83,8 +86,7 @@ const WorkersList = observer(() => {
         ))}   
         <Pagination 
           itemsPerPage={itemsPerPage}
-          totalItems={WorkerStore.workers.length}
-          totalSearchedItems={WorkerStore.searchedWorkers.length}
+          totalItems={arrayLength}
           paginate={paginate}
         />  
       </div>

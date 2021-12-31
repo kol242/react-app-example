@@ -15,6 +15,10 @@ function Filter() {
           workPlace: e.target.workPlaces.value
         }
         WorkPlaceStore.searchHandler(input)
+        e.target.inputText.value = null
+        e.target.salaryRange1.value = null
+        e.target.salaryRange2.value = null
+        e.target.workPlaces.value = null
       }
 
     const refreshHandler = () => {
@@ -24,8 +28,8 @@ function Filter() {
     const salaries = [3500, 4500, 5500, 6500, 7500, 9500, 10500]
 
     return (
-        <div>
-          <form className="filter-wrapper" onSubmit={searchSubmit}>
+        <div className="filter-wrapper">
+          <form onSubmit={searchSubmit}>
             <h3>Filtriranje</h3>
           <div>
             <input type="text" className="form-control w-50 mb-3" id="searchInput" name="inputText" placeholder="Pretraži po opisu..."/>
@@ -55,11 +59,9 @@ function Filter() {
           ))}
           </select>
           </div>
-          <div className="btn-wrapper">
-            <button type="submit" className="btn-undo"><img src={Search} alt="Search" />Traži</button>
-            <button onClick={refreshHandler} className="btn-red"><img src={Delete} alt="Delete" />Poništi filter</button> 
-          </div>
+          <button type="submit" className="btn-undo"><img src={Search} alt="Search" />Traži</button>
         </form>
+        <button onClick={refreshHandler} className="btn-red"><img src={Delete} alt="Delete" />Poništi filter</button> 
         </div>
     )
 }

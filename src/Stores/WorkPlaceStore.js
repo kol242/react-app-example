@@ -147,6 +147,8 @@ class WorkPlaceStore {
             }
         }
         this.setData(this.tempData)
+        this.setSearchedData(this.tempData)
+        this.editWorkplaceChecker()
     }
 
     setData(data) {

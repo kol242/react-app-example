@@ -41,8 +41,8 @@ class WorkersStore {
 
     refreshData = () => {
         this.searchedWorkers = []
+        console.log('prošlo')
     }
-
 
     searchHandler = (input) => {
         for(let i = 0; i < this.tempData.length; i++) {
@@ -148,7 +148,8 @@ class WorkersStore {
             Prezime: data.lastName,
             Dob: data.age,
             Placa: data.salary,
-            Pozicija: data.workPlace
+            Pozicija: data.workPlace,
+            Ugovor: data.contract
         })
         for(let i = 0; i < this.tempData.length; i++) {
             if(this.tempData[i].docId === data.docId) {
@@ -157,9 +158,11 @@ class WorkersStore {
                 this.tempData[i].age = data.age
                 this.tempData[i].salary = data.salary
                 this.tempData[i].workPlace = data.workPlace
+                this.tempData[i].contract = data.contract
             }
         }
         this.setData(this.tempData)
+        this.editWorkerChecker()
     }
 
     WorkplaceUpdate = async (data) => {

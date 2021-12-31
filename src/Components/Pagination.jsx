@@ -1,11 +1,11 @@
 import React from 'react'
 import '../Common/style/pagination.scss'
 
-const Pagination = ({ itemsPerPage, totalItems, totalSearchedItems, paginate }) => {
+const Pagination = ({ itemsPerPage, totalItems, paginate }) => {
   const pageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil((totalItems || totalSearchedItems) / itemsPerPage); i++) {
-      pageNumbers.push(i);
+  for (let i = 1; i <= Math.ceil(totalItems/ itemsPerPage); i++) {
+    pageNumbers.push(i);
   }
 
   return (

@@ -33,11 +33,10 @@ const UpdateWorker = observer(({state}) => {
             contract: e.target.contractType.value
         })
         WorkerStore.updateWorker(data)
-        WorkerStore.editWorkerChecker()
     }
     return (
         <div>
-        <h2>Uređivanje</h2>
+        <h3>Uređivanje</h3>
         <form onSubmit={submitUpdate}>
             <input 
             type="text"

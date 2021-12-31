@@ -13,16 +13,20 @@
         justify-content: stretch;
         align-items: stretch;
         gap: 20px;
-        img {
-            width: 100%;
-            height: auto;
-        }
         span {
             font-weight: 700;
             color: $blue;
         }
+        #img {
+            text-align: center;
+            img {
+                width: 70%;
+                height: auto;
+            }
+        }
     }
     .btn-list-select {
+        margin-right: 13px;
         color: $white;
         background-color: $blue;
         padding: 20px;

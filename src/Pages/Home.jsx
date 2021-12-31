@@ -8,7 +8,6 @@ function Home() {
     return (
         <div className="main-container">
             <div>
-
             </div>
             <div className="home-wrapper">
                 <div>
@@ -19,11 +18,9 @@ function Home() {
                 <div>
                     <p>Odaberite listu:</p>
                     <Link to="/workplaces"><button className="btn-list-select">Radna mjesta</button></Link>
-                </div>
-                <div>
                     <Link to="/workers"><button className="btn-list-select">Lista radnika</button></Link>
                 </div>
-                <div>
+                <div id="img">
                     <img src={Image} alt="homeImage" />
                 </div>
             </div> 

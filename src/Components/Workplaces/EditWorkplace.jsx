@@ -21,11 +21,10 @@ const UpdateWorkplace = observer(({state}) => {
         }
         WorkPlaceStore.updateWorkplace(data)
         WorkerStore.WorkplaceUpdate(data)
-        WorkPlaceStore.editWorkplaceChecker()
     }
     return (
         <div>
-        <h2>Uređivanje</h2>
+        <h3>Uređivanje</h3>
         <form onSubmit={submitUpdate}>
             <input 
             type="text"
