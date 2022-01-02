@@ -59,7 +59,7 @@ const WorkersList = observer(() => {
         { filter ? <WorkerFilter /> : null }
         { (filter ? searchedItems : allItems).map((worker) => (
           <ul className="card"  key={worker.docId}>
-            <li className="card-item">{worker.lastName} {worker.name} , {worker.age}</li>
+            <li className="card-item">{worker.lastName} {worker.name}, {worker.age}</li>
             <hr />
             <li className="card-item">{worker.salary} Kn (neto)</li>
             <li className="card-item">{worker.workPlace}</li>
