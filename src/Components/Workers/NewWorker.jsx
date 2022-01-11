@@ -29,7 +29,7 @@ const NewWorker = observer(({state}) => {
             salary: Number(collectionRef.data().Placa),
             contract: e.target.contractType.value
         }
-        WorkerStore.create(data)
+        WorkerStore.createWorker(data)
         e.target.workerName.value = null
         e.target.workerLastName.value = null
         e.target.workerAge.value = null

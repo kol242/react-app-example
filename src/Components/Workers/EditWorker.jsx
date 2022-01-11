@@ -30,7 +30,7 @@ const UpdateWorker = observer(({state}) => {
             workPlaceId: doc.id,
             contract: e.target.contractType.value
         })
-        WorkerStore.update(data)
+        WorkerStore.updateWorker(data)
     }
     return (
         <div>

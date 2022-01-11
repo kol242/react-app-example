@@ -155,13 +155,13 @@ class WorkerStore {
         this.getWorkers()
     }
 
-    create = async (data) => {
-        WorkerService.createWorker(data)
+    createWorker = async (data) => {
+        WorkerService.create(data)
         this.getWorkers()
     }
 
-    update = async (data) => {
-        WorkerService.updateWorker(data)
+    updateWorker = async (data) => {
+        WorkerService.update(data)
         this.getWorkers()
         this.editChecker()
     }
@@ -171,16 +171,16 @@ class WorkerStore {
         this.getWorkers()
     }
 
-    delete = async (id) => {
-        WorkerService.deleteWorker(id)
+    deleteWorker = async (id) => {
+        WorkerService.delete(id)
         this.deleteChecker()
         this.getWorkers()
     }
 
     getWorkers = async () => {
         const documentSnapshot = await (
-            this.filter ? WorkerService.filterGetWorkers(this.filterObj) 
-            : WorkerService.getWorkers(this.sortingType)
+            this.filter ? WorkerService.filterGet(this.filterObj) 
+            : WorkerService.get(this.sortingType)
         )
         this.prevLength = null
         this.nextLength = documentSnapshot.docs.length

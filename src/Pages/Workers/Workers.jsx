@@ -37,7 +37,7 @@ const WorkersList = observer(() => {
             <li className="card-item">{worker.workPlace}</li>
             <li className="card-item">{worker.contract}</li>
             <div className="btn-wrapper">
-              <button onClick={() => WorkerStore.delete(worker.docId)} className="btn-red">
+              <button onClick={() => WorkerStore.deleteWorker(worker.docId)} className="btn-red">
                 <img src={Delete} alt="Delete" />Obriši
               </button>
               <button className="btn-secondary" onClick={WorkerStore.editWorkerHandler}>
