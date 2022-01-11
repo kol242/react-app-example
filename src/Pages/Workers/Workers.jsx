@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import WorkerStore from '../../Stores/WorkerStore'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
-import Pagination from '../../Components/Pagination'
 
 import '../../Common/style/list.scss'
 import Delete from '../../Common/images/bin.png'
@@ -15,49 +13,23 @@ import WorkerFilter from '../../Components/Workers/WorkerFilter'
 import EditWorker from '../../Components/Workers/EditWorker'
 
 const WorkersList = observer(() => {
-  const [filter, setFilter] = useState(false)
-  const [editWorker, setEditWorker] = useState(false)
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
-
-  const filterHandler = () => {
-    filter ? setFilter(false) : setFilter(true)
-  }
-
-  const editWorkerHandler = () => {
-    editWorker ? setEditWorker(false) : setEditWorker(true)
-  }
-
-  const deleteSelectedWorker = (id) => {
-      WorkerStore.deleteWorker(id)
-      WorkerStore.deleteChecker()
-  }
-
-  const arrayLength = filter === true ? WorkerStore.searchedWorkers.length : WorkerStore.workers.length
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const allItems = WorkerStore.workers.slice(indexOfFirstItem, indexOfLastItem);
-  const searchedItems = WorkerStore.searchedWorkers.slice(indexOfFirstItem, indexOfLastItem)
-  const paginate = pageNumber => setCurrentPage(pageNumber);
-
   return (
     <div className="main-container__list">
       <div/>
       <div className="container">
-        { WorkerStore.editChecked ? <p className="alert-info">Radnik je uspješno uređen!</p> : null }
-        { WorkerStore.deletedChecked ? <p className="alert-warning">Radnik je uspješno obrisan!</p> : null }
+        { WorkerStore.isEdited ? <p className="alert-info">Radnik je uspješno uređen!</p> : null }
+        { WorkerStore.isDeleted ? <p className="alert-warning">Radnik je uspješno obrisan!</p> : null }
         <h2>Popis radnika</h2>
         <div className="btn-wrapper">
           <Link to="/"><button className="btn-link">Natrag na početnu</button></Link>
         </div>
         <div className="btn-wrapper">
           <Link to="/workplaces"><button className="btn-secondary">Lista radnih mjesta</button></Link>
-          <button className="btn-undo" onClick={filterHandler}><img src={Filter} alt="Filter" />Filtriraj</button>
+          <button className="btn-undo" onClick={WorkerStore.filterHandler}><img src={Filter} alt="Filter" />Filtriraj</button>
           <WorkerSorter />
         </div>
-        { filter ? <WorkerFilter /> : null }
-        { (filter ? searchedItems : allItems).map((worker) => (
+        { WorkerStore.filter ? <WorkerFilter /> : null }
+        { WorkerStore.workers.map((worker) => (
           <ul className="card"  key={worker.docId}>
             <li className="card-item">{worker.lastName} {worker.name}, {worker.age}</li>
             <hr />
@@ -65,14 +37,14 @@ const WorkersList = observer(() => {
             <li className="card-item">{worker.workPlace}</li>
             <li className="card-item">{worker.contract}</li>
             <div className="btn-wrapper">
-              <button onClick={() => deleteSelectedWorker(worker.docId)} className="btn-red">
+              <button onClick={() => WorkerStore.delete(worker.docId)} className="btn-red">
                 <img src={Delete} alt="Delete" />Obriši
               </button>
-              <button className="btn-secondary" onClick={editWorkerHandler}>
+              <button className="btn-secondary" onClick={WorkerStore.editWorkerHandler}>
                 <img src={Edit} alt="Edit" />Uredi
               </button>
             </div>
-            { editWorker ? <EditWorker
+            { WorkerStore.editWorker ? <EditWorker
               state={{
                 docId: worker.docId, 
                 name: worker.name,
@@ -83,12 +55,11 @@ const WorkersList = observer(() => {
                 contract: worker.contract
                 }} /> : null }
           </ul>
-        ))}   
-        <Pagination 
-          itemsPerPage={itemsPerPage}
-          totalItems={arrayLength}
-          paginate={paginate}
-        />  
+        ))}
+        <div className="btn-wrapper--center">
+          { WorkerStore.prevLength < 6 ? null : <button className="btn-link" onClick={WorkerStore.prevPage}>Prethodno</button> }
+          { WorkerStore.nextLength < 6 ? null : <button className="btn-link" onClick={WorkerStore.nextPage}>Slijedeće</button> }
+        </div>   
       </div>
       <div/>
     </div>

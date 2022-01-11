@@ -2,8 +2,7 @@ import { observer } from 'mobx-react'
 import React from 'react'
 import WorkerStore from '../../Stores/WorkerStore'
 import WorkPlaceStore from '../../Stores/WorkPlaceStore'
-import { collection, getDocs, query, where } from 'firebase/firestore'
-import {db} from '../../Common/firebase-config'
+import WorkplaceService from '../../Stores/WorkplaceService'
 
 const UpdateWorker = observer(({state}) => {
     const currentData = state
@@ -20,8 +19,7 @@ const UpdateWorker = observer(({state}) => {
     const submitUpdate = async (e) => {
         e.preventDefault()
         const docData = e.target.workerPlace.value
-        const q = query(collection(db, "WorkPlaces"), where("Naziv", "==", docData))
-        const temp = await getDocs(q)
+        const temp = await WorkplaceService.getByName(docData)
         temp.forEach(doc => data = {
             docId: currentData.docId,
             name: e.target.workerName.value,
@@ -32,7 +30,7 @@ const UpdateWorker = observer(({state}) => {
             workPlaceId: doc.id,
             contract: e.target.contractType.value
         })
-        WorkerStore.updateWorker(data)
+        WorkerStore.update(data)
     }
     return (
         <div>

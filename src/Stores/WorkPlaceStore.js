@@ -1,14 +1,28 @@
-import {db} from '../Common/firebase-config'
 import { makeAutoObservable } from 'mobx'
-import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc } from 'firebase/firestore'
+import WorkplaceService from './WorkplaceService'
 
 class WorkPlaceStore {
     workPlaces = []
     searchedWorkplaces = []
+    lastVisible = []
+    firstVisible = []
+
+    filterObj = {}
+    sortingType = {
+        field: "Naziv",
+        sorter: "asc"
+    }
+    
+    nextLength = 6
+    prevLength = 6
+
+    filterTypeChecker = "descr"
     newChecked = false
     newCheckedWP = false
     editChecked = false
+    filter = false
     deletedChecked = false
+
     constructor(){
         makeAutoObservable(this)
         this.getWorkplaces()
@@ -34,92 +48,109 @@ class WorkPlaceStore {
         setTimeout(() => {this.newCheckedWP = false}, 3000)
     }
 
+    filterHandler = () => {
+        if(this.filter) {
+            this.filter = false
+            this.getWorkplaces()
+        } else {
+            this.filter = true
+        }
+    }
+
     createWorkplace = async (data) => {
-        const collectionRef = collection(db, "WorkPlaces")
-        await addDoc(collectionRef, {
-            Naziv: data.name,
-            Opis: data.descr,
-            Placa: data.salary,
-        }).then(docRef => {
-            data.docId = docRef.id
-            this.tempData.push(data)
-            this.setData(this.tempData)
-        })
+        WorkplaceService.create(data)
+        this.newWorkplaceChecker()
     }
 
     deleteWorkplace = async (id) => {
-        const collectionRef = doc(db, "WorkPlaces", id)
-        await deleteDoc(collectionRef)
-        for(let i = 0; i < this.tempData.length; i++) {
-            if(this.tempData[i].docId === id) {
-                this.tempData.splice(i, 1)
-            }
-        }
-        this.setData(this.tempData)
+        WorkplaceService.delete(id)
+        this.deletedWPChecker()
     }
 
-    refreshData = () => {
-        this.searchedWorkplaces = []
+    filterTypeHandler = (type) => {
+        this.filterTypeChecker = type
     }
 
-    searchHandler = async (input) => {
-        for(let i = 0; i < this.tempData.length; i++) {
-            this.query = this.tempData.filter(el => el.descr.toUpperCase() === input.keyWord.toUpperCase() 
-            || (el.salary >= input.salaryRange1 && el.salary <= input.salaryRange2)
-            || el.name === input.workPlace
-            )
-        }
-        this.setSearchedData(this.query)
-    }
-
-    sorter = (sortingType) => {
-        switch(sortingType) {
-            case 'a>':
-                this.workPlaces.sort((a, b) => {
-                    const nameA = a.name.toUpperCase()
-                    const nameB = b.name.toUpperCase()
-                    if (nameA < nameB) {
-                        return -1
-                    }
-                    if (nameA > nameB) {
-                        return 1
-                    }
-                    return 0
-                })
+    filterValues = async (input) => {
+        switch(this.filterTypeChecker) {
+            case 'descr':
+                this.filterObj = {
+                    field: "Opis",
+                    operator: "==",
+                    data: input.keyWord
+                }
             break
-            case 'a<':
-                this.workPlaces.sort((a, b) => {
-                    const nameA = a.name.toUpperCase()
-                    const nameB = b.name.toUpperCase()
-                    if (nameA > nameB) {
-                        return -1
-                    }
-                    if (nameA < nameB) {
-                        return 1
-                    }
-                    return 0
-                })
+            case 'salaryMore':
+                this.filterObj = {
+                    field: "Placa",
+                    operator: ">",
+                    data: Number(input.salaryMore)
+                }
             break
-            case 'p>': 
-                this.workPlaces.sort((a, b) => {
-                    return b.salary - a.salary
-                })
+            case 'salaryLess':
+                this.filterObj = {
+                    field: "Placa",
+                    operator: "<",
+                    data: Number(input.salaryLess)
+                }
             break
-            case 'p<': 
-                this.workPlaces.sort((a, b) => {
-                    return a.salary - b.salary
-                })
+            case 'workplace':
+                this.filterObj = {
+                    field: "Naziv",
+                    operator: "==",
+                    data: input.workPlace
+                }
             break
             default: 
-                console.log()
+                return null
         }
+    }
+
+    sorterType = (sortingType) => {
+        switch(sortingType) {
+            case 'nameAsc':
+                this.sortingType = {
+                    field: "Naziv",
+                    sorter: "asc"
+                }
+            break
+            case 'nameDesc':
+                this.sortingType = {
+                    field: "Naziv",
+                    sorter: "desc"
+                }
+            break
+            case 'salaryDesc': 
+                this.sortingType = {
+                    field: "Placa",
+                    sorter: "desc"
+                }
+            break
+            case 'salaryAsc': 
+                this.sortingType = {
+                    field: "Placa",
+                    sorter: "asc"
+                }
+            break
+            default: 
+                return null
+        }
+        this.getWorkplaces()
     }
 
     getWorkplaces = async () => {
-        const collectionRef = collection(db, "WorkPlaces")
-        await getDocs(collectionRef).then((el) => {
+        const documentSnapshot = await (
+            this.filter ? WorkplaceService.filterGet(this.filterObj) 
+            : WorkplaceService.get(this.sortingType)
+        )
+        this.prevLength = null
+        this.nextLength = documentSnapshot.docs.length
+        if(this.nextLength || this.prevLength < 6) {
+            this.nextLength = 6
+        }
+        const docs = documentSnapshot.docs.slice(0,5)
             this.tempData = []
-            el.forEach(doc => {
+            docs.forEach(doc => {
                 let temp = {
                     docId: doc.id,
                     name: doc.data().Naziv,
@@ -128,35 +159,64 @@ class WorkPlaceStore {
                 }
                 this.tempData.push(temp)
             })
-            this.setData(this.tempData)
+        this.workPlaces = this.tempData
+        this.lastVisible = docs[docs.length-1]
+        this.firstVisible = docs[0]
+    }
+
+    prevPage = async () => {
+        const documentSnapshot = await ( 
+            this.filter ? WorkplaceService.filterPrevPage(this.filterObj, this.firstVisible) 
+            : WorkplaceService.prevPage(this.firstVisible, this.sortingType) 
+        )
+        this.prevLength = documentSnapshot.docs.length
+        if(this.nextLength < 6) {
+            this.nextLength = 6
+        }
+        const docs = documentSnapshot.docs.slice(0,5)
+        this.tempData = []
+        docs.forEach(doc => {
+            let temp = {
+                docId: doc.id,
+                name: doc.data().Naziv,
+                descr: doc.data().Opis,
+                salary: doc.data().Placa
+            }
+            this.tempData.push(temp)
         })
+        this.workPlaces = this.tempData
+        this.lastVisible = docs[docs.length-1]
+        this.firstVisible = docs[0]
+    }
+
+    nextPage = async () => {
+        const documentSnapshot = await ( 
+            this.filter ? WorkplaceService.filterNextPage(this.filterObj, this.lastVisible) 
+            : WorkplaceService.nextPage(this.lastVisible, this.sortingType) 
+        )
+        this.nextLength = documentSnapshot.docs.length
+        if(this.prevLength < 6) {
+            this.prevLength = 6
+        }
+        const docs = documentSnapshot.docs.slice(0,5)
+        this.tempData = []
+        docs.forEach(doc => {
+            let temp = {
+                docId: doc.id,
+                name: doc.data().Naziv,
+                descr: doc.data().Opis,
+                salary: doc.data().Placa
+            }
+            this.tempData.push(temp)
+        })
+        this.workPlaces = this.tempData
+        this.lastVisible = docs[docs.length-1]
+        this.firstVisible = docs[0]  
     }
 
     updateWorkplace = async (data) => {
-        const collectionRef = doc(db, "WorkPlaces", data.docId)
-        await updateDoc(collectionRef, { 
-            Naziv: data.name,
-            Opis: data.descr,
-            Placa: data.salary,
-        })
-        for(let i = 0; i < this.tempData.length; i++) {
-            if(this.tempData[i].docId === data.docId) {
-                this.tempData[i].name = data.name
-                this.tempData[i].descr = data.descr
-                this.tempData[i].salary = data.salary
-            }
-        }
-        this.setData(this.tempData)
-        this.setSearchedData(this.tempData)
+        WorkplaceService.update(data)
         this.editWorkplaceChecker()
-    }
-
-    setData(data) {
-        this.workPlaces = data
-    }
-
-    setSearchedData(data) {
-        this.searchedWorkplaces = data
     }
 }
 

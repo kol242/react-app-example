@@ -11,22 +11,14 @@ import Filter from '../../Common/images/filter.png'
 
 import WorkplaceFilter from '../../Components/Workplaces/WorkplaceFilter'
 import WorkplaceSorter from '../../Components/Workplaces/WorkplaceSorter'
-import Pagination from '../../Components/Pagination'
 import NewWorkplace from '../../Components/Workplaces/NewWorkplace'
 import EditWorkplace from '../../Components/Workplaces/EditWorkplace'
 import NewWorker from '../../Components/Workers/NewWorker'
 
 const WorkPlaceList = observer(() => {
-  const [filter, setFilter] = useState(false)
   const [newWorkplace, setNewWorkplace] = useState(false)
   const [newWorker, setNewWorker] = useState(false)
   const [editWorkplace, setEditWorkplace] = useState(false)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage] = useState(4)
-
-  const filterHandler = () => {
-    filter ? setFilter(false) : setFilter(true)
-  }
 
   const newHandler = () => {
     newWorkplace ? setNewWorkplace(false) : setNewWorkplace(true)
@@ -39,18 +31,6 @@ const WorkPlaceList = observer(() => {
   const editHandler = () => {
     editWorkplace ? setEditWorkplace(false) : setEditWorkplace(true)
   }
-
-  const deleteSelectedWorkplace = (id) => {
-    WorkPlaceStore.deleteWorkplace(id)
-    WorkPlaceStore.deletedWPChecker()
-  }
-  
-  const arrayLength = filter === true ? WorkPlaceStore.searchedWorkplaces.length : WorkPlaceStore.workPlaces.length
-  const indexOfLastItem = currentPage * itemsPerPage
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const allItems = WorkPlaceStore.workPlaces.slice(indexOfFirstItem, indexOfLastItem)
-  const searchedItems = WorkPlaceStore.searchedWorkplaces.slice(indexOfFirstItem, indexOfLastItem)
-  const paginate = pageNumber => setCurrentPage(pageNumber)
 
   return (
     <div className="main-container__list">
@@ -67,12 +47,12 @@ const WorkPlaceList = observer(() => {
           <div className="btn-wrapper">
             <Link to="/workers"><button className="btn-secondary">Lista svih radnika</button></Link>
             <button className="btn-primary" onClick={newHandler}><img src={New} alt="New" />Dodaj radno mjesto</button>
-            <button className="btn-undo" onClick={filterHandler}><img src={Filter} alt="Filter" />Filtriraj</button>
+            <button className="btn-undo" onClick={WorkPlaceStore.filterHandler}><img src={Filter} alt="Filter" />Filtriraj</button>
             <WorkplaceSorter />
           </div>
-          { filter ? <WorkplaceFilter /> : null }
+          { WorkPlaceStore.filter ? <WorkplaceFilter /> : null }
           { newWorkplace ? <NewWorkplace /> : null }
-          { (filter ? searchedItems : allItems).map((workplace) => (
+          { WorkPlaceStore.workPlaces.map((workplace) => (
             <ul className="card" key={workplace.docId}>
               <li className="card-item">{workplace.name}</li>
               <hr />
@@ -82,7 +62,7 @@ const WorkPlaceList = observer(() => {
                   <button className="btn-primary" onClick={newWorkerHandler}>
                     <img src={New} alt="new" />Dodaj radnika
                   </button>
-                  <button onClick={() => deleteSelectedWorkplace(workplace.docId)} className="btn-red">
+                  <button onClick={() => WorkPlaceStore.deleteWorkplace(workplace.docId)} className="btn-red">
                     <img src={Delete} alt="Delete" />Obriši
                   </button>
                   <button className="btn-secondary" onClick={editHandler}><img src={Edit} alt="Edit" />Uredi</button>
@@ -98,11 +78,10 @@ const WorkPlaceList = observer(() => {
               { newWorker ? <NewWorker state={{ docId: workplace.docId, name: workplace.name }} /> : null}
             </ul>
           ))} 
-          <Pagination 
-          itemsPerPage={itemsPerPage}
-          totalItems={arrayLength}
-          paginate={paginate}
-          /> 
+        <div className="btn-wrapper--center">
+          { WorkPlaceStore.prevLength < 6 ? null : <button className="btn-link" onClick={WorkPlaceStore.prevPage}>Prethodno</button> }
+          { WorkPlaceStore.nextLength < 6 ? null : <button className="btn-link" onClick={WorkPlaceStore.nextPage}>Slijedeće</button> }
+        </div>  
         </div>
       <div />
     </div>

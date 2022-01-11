@@ -4,94 +4,93 @@ import WorkerStore from '../../Stores/WorkerStore'
 import WorkPlaceStore from '../../Stores/WorkPlaceStore'
 
 import Search from '../../Common/images/search.png'
-import Delete from '../../Common/images/bin.png'
 
 const WorkerFilter = observer(() => {
-  const salaries = [3500, 4500, 5500, 6500, 7500, 9500, 10500]
-  const ages = [18, 25, 35, 45, 55, 65, 75]
-
-  const searchSubmit = (e) => {
+  const filterType = (e) => {
     e.preventDefault()
     const input = {
-      keyWord: e.target.inputText.value,
-      salaryRange1: Number(e.target.salaryRange1.value),
-      salaryRange2: Number(e.target.salaryRange2.value),
-      workPlace: e.target.workPlaces.value,
-      ageRange1: Number(e.target.ageRange1.value),
-      ageRange2: Number(e.target.ageRange2.value),
-      contract: e.target.contractType.value
+      keyWord: WorkerStore.filterTypeChecker === 'lastName' ? e.target.value : null,
+      salaryLess: WorkerStore.filterTypeChecker === 'salaryLess' ? Number(e.target.value) : null,
+      salaryMore: WorkerStore.filterTypeChecker === 'salaryMore' ? Number(e.target.value) : null,
+      workPlace: WorkerStore.filterTypeChecker === 'workplace' ? e.target.value : null,
+      ageMore: WorkerStore.filterTypeChecker === 'ageMore' ? Number(e.target.value) : null,
+      ageLess: WorkerStore.filterTypeChecker === 'ageLess' ? Number(e.target.value) : null,
+      contract: WorkerStore.filterTypeChecker === 'contract' ? e.target.value : null
     }
-    WorkerStore.searchHandler(input)
-    e.target.inputText.value = null
-    e.target.salaryRange1.value = null
-    e.target.salaryRange2.value = null
-    e.target.workPlaces.value = null
-    e.target.ageRange1.value = null
-    e.target.ageRange2.value = null
-    e.target.contractType.value = null
+    WorkerStore.filterValues(input)
+  }
+
+  const filterSubmit = (e) => {
+    e.preventDefault()
+    WorkerStore.getWorkers()
   }
   
-  const refreshHandler = () => {
-    WorkerStore.refreshData()
+  const filterTypeChecker = (e) => {
+    e.preventDefault()
+    const type = e.target.value
+    WorkerStore.filterTypeHandler(type)
   }
+
   return (
     <div className="filter-wrapper">
-      <form onSubmit={searchSubmit}>
-        <h3>Filtriranje</h3>
+      <h3>Filtriranje</h3>
+      <select onChange={filterTypeChecker} name="filter-type" id="filter-type">
+          <option defaultValue key="lastName" value="lastName">Po prezimenu</option>          
+          <option key="salaryMore" value="salaryMore">Plaća više od</option>          
+          <option key="salaryLess" value="salaryLess">Plaća manje od</option>          
+          <option key="ageMore" value="ageMore">Starost više od</option>          
+          <option key="ageLess" value="ageLess">Starost manje od</option>          
+          <option key="workplace" value="workplace">Po radnom mjestu</option>          
+          <option key="contract" value="contract">Po ugovoru</option>          
+        </select>
+      <form onChange={filterType} onSubmit={filterSubmit}>
+        { WorkerStore.filterTypeChecker === 'lastName' ? 
         <div>
           <input type="text" className="form-control w-50 mb-3" id="searchInput" name="inputText" placeholder="Prezime..."/>
-        </div>
+        </div> : null}
+        { WorkerStore.filterTypeChecker === 'salaryMore' ? 
         <div className="salary-wrapper">
-              <p>Od</p>
-              <select name="salaryRange1" id="salaryRange">
-                  <option defaultValue> </option>
-                  { salaries.map((salary) => 
-                    (<option key={salary} value={salary}>{salary}</option>)
-                  ) }
-              </select>
-              <p>kn do</p>
-              <select name="salaryRange2">
-                  <option defaultValue> </option>
-                  { salaries.map((salary) => 
-                    (<option key={salary} value={salary}>{salary}</option>)
-                  ) }
-              </select>
+              <p>Više od </p>
+              <input type="number" name="salary"/>
               <p>kn</p>
-          </div>
+        </div> : null}
+        { WorkerStore.filterTypeChecker === 'salaryLess' ? 
+        <div className="salary-wrapper">
+              <p>Manje od </p>
+              <input type="number" name="salary"/>
+              <p>kn</p>
+        </div> : null}
+        { WorkerStore.filterTypeChecker === 'ageMore' ? 
         <div className="salary-wrapper">   
-              <p>Od</p>
-              <select name="ageRange1" id="ageRange">
-                  <option defaultValue> </option>
-                  { ages.map((age) => (
-                    <option key={age} value={age}>{age}</option>
-                  )) }
-              </select>
-              <p>do</p>
-              <select name="ageRange2">
-                  <option defaultValue> </option>
-                  { ages.map((age) => (
-                    <option key={age} value={age}>{age}</option>
-                  )) }
-              </select>
-          </div>
+              <p>Više od </p>
+              <input type="number" name="age"/>
+              <p>godina</p>
+        </div> : null }
+        { WorkerStore.filterTypeChecker === 'ageLess' ? 
+        <div className="salary-wrapper">   
+              <p>Manje od </p>
+              <input type="number" name="age"/>
+              <p>godina</p>
+        </div> : null }
+        { WorkerStore.filterTypeChecker === 'workplace' ? 
         <div>
           <select defaultValue={'default'} className="form-select" name="workPlaces" id="workPlaces">
           <option key='default1' value='default' disabled>Radno mjesto...</option>
-        {WorkPlaceStore.workPlaces.map((work) => (
+          {WorkPlaceStore.workPlaces.map((work) => (
             <option key={work.docId} value={work.name}>{work.name}</option>
-        ))}
-        </select>
-        </div>
-        <div>
+          ))}
+          </select>
+        </div> : null}
+        { WorkerStore.filterTypeChecker === 'contract' ?
+         <div>
           <select defaultValue={'default'} name="contractType" id="contractType">
             <option key='default2' value='default' disabled>Vrsta ugovora...</option>
             <option key="Neodređeno">Neodređeno</option>
             <option key="Određeno">Određeno</option>
           </select>
-        </div>
+        </div> : null}
         <button type="submit" className="btn-undo"><img src={Search} alt="Search" />Traži</button>
     </form>
-    <button onClick={refreshHandler} className="btn-red"><img src={Delete} alt="Delete" />Poništi filter</button>
     </div> 
   )
 })

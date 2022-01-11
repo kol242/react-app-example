@@ -30,6 +30,14 @@ h2 {
     }
 }
 
+.btn-wrapper--center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 10px;
+}
+
 .card {
     display: flex;
     flex-direction: column;

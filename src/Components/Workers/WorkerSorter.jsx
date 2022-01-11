@@ -6,20 +6,21 @@ function WorkerSorter() {
     const sorting = (e) => {
         e.preventDefault()
         const sorterType = e.target.value
-        WorkerStore.sorter(sorterType)
+        WorkerStore.sorterType(sorterType)
     }
     
     return (
         <div>
             <select onChange={sorting} className="sorter" name="sorting" id="sorting">
                 <option defaultValue>Sortiraj...</option>
-                <option value="a>">Abecedno A-Z</option>
-                <option value="a<">Abecedno Z-A</option>
-                <option value="p>">Plaća od najviše</option>
-                <option value="p<">Plaća od najmanje</option>  
-                <option value="g>">Godine od najstarijeg</option>  
-                <option value="g<">Godine od najmlađeg</option>  
+                <option value="nameAsc">Abecedno A-Z</option>
+                <option value="nameDesc">Abecedno Z-A</option>
+                <option value="salaryDesc">Plaća od najviše</option>
+                <option value="salaryAsc">Plaća od najmanje</option>  
+                <option value="ageDesc">Godine od najstarijeg</option>  
+                <option value="ageAsc">Godine od najmlađeg</option>  
             </select>
+            
         </div>
     )
 }

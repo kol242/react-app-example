@@ -2,12 +2,9 @@ import { observer } from 'mobx-react'
 import { React } from 'react'
 import WorkerStore from '../../Stores/WorkerStore'
 import WorkPlaceStore from '../../Stores/WorkPlaceStore'
-
-import { doc, getDoc } from 'firebase/firestore'
-import {db} from '../../Common/firebase-config'
+import WorkplaceService from '../../Stores/WorkplaceService'
 
 const NewWorker = observer(({state}) => {
-
     const currentData = state
     let data = {
         docId: null,
@@ -21,7 +18,7 @@ const NewWorker = observer(({state}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const collectionRef = await getDoc(doc(db, "WorkPlaces", currentData.docId))
+        const collectionRef = await WorkplaceService.getById(currentData.docId)
         data = {
             docId: "",
             name: e.target.workerName.value,
@@ -32,7 +29,7 @@ const NewWorker = observer(({state}) => {
             salary: Number(collectionRef.data().Placa),
             contract: e.target.contractType.value
         }
-        WorkerStore.createWorker(data)
+        WorkerStore.create(data)
         e.target.workerName.value = null
         e.target.workerLastName.value = null
         e.target.workerAge.value = null
