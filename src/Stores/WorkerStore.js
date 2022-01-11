@@ -55,7 +55,7 @@ class WorkerStore {
         this.filterTypeChecker = type
     }
 
-    filterValues = async (input) => {
+    filterValues = (input) => {
         switch(this.filterTypeChecker) {
             case 'lastName':
                 this.filterObj = {
@@ -155,23 +155,23 @@ class WorkerStore {
         this.getWorkers()
     }
 
-    createWorker = async (data) => {
+    createWorker = (data) => {
         WorkerService.create(data)
         this.getWorkers()
     }
 
-    updateWorker = async (data) => {
+    updateWorker = (data) => {
         WorkerService.update(data)
         this.getWorkers()
         this.editChecker()
     }
 
-    WorkplaceUpdate = async (data) => {
+    WorkplaceUpdate = (data) => {
         WorkerService.WorkplaceUpdate(data)
         this.getWorkers()
     }
 
-    deleteWorker = async (id) => {
+    deleteWorker = (id) => {
         WorkerService.delete(id)
         this.deleteChecker()
         this.getWorkers()
