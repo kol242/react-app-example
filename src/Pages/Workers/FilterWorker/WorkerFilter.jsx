@@ -1,9 +1,9 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import WorkerStore from '../../Stores/WorkerStore'
-import WorkPlaceStore from '../../Stores/WorkPlaceStore'
+import WorkerStore from '../../../Stores/WorkerStore'
 
-import Search from '../../Common/images/search.png'
+import Search from '../../../Common/images/search.png'
+import List from '../../../Components/Workers/FilterWorker/List'
 
 const WorkerFilter = observer(() => {
   const filterType = (e) => {
@@ -74,12 +74,7 @@ const WorkerFilter = observer(() => {
         </div> : null }
         { WorkerStore.filterTypeChecker === 'workplace' ? 
         <div>
-          <select defaultValue={'default'} className="form-select" name="workPlaces" id="workPlaces">
-          <option key='default1' value='default' disabled>Radno mjesto...</option>
-          {WorkPlaceStore.workPlaces.map((work) => (
-            <option key={work.docId} value={work.name}>{work.name}</option>
-          ))}
-          </select>
+          <List />
         </div> : null}
         { WorkerStore.filterTypeChecker === 'contract' ?
          <div>

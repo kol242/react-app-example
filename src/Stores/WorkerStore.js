@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx'
-import WorkerService from './WorkerService'
+import WorkerService from '../Common/Services/WorkerService'
 
 class WorkerStore {
     workers = []
@@ -184,9 +184,6 @@ class WorkerStore {
         )
         this.prevLength = null
         this.nextLength = documentSnapshot.docs.length
-        if(this.nextLength || this.prevLength < 6) {
-            this.nextLength = 6
-        }
         const docs = documentSnapshot.docs.slice(0,5)
             this.tempData = []
             docs.forEach(doc => {

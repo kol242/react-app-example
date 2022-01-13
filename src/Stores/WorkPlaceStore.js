@@ -1,8 +1,9 @@
 import { makeAutoObservable } from 'mobx'
-import WorkplaceService from './WorkplaceService'
+import WorkplaceService from '../Common/Services/WorkplaceService'
 
 class WorkPlaceStore {
     workPlaces = []
+    names = []
     searchedWorkplaces = []
     lastVisible = []
     firstVisible = []
@@ -22,10 +23,14 @@ class WorkPlaceStore {
     editChecked = false
     filter = false
     deletedChecked = false
+    newWorkplace = false
+    newWorker = false
+    editWorkplace = false
 
     constructor(){
         makeAutoObservable(this)
         this.getWorkplaces()
+        this.getNames()
     }
 
     newWorkerChecker = () => {
@@ -48,6 +53,18 @@ class WorkPlaceStore {
         setTimeout(() => {this.newCheckedWP = false}, 3000)
     }
 
+    newHandler = () => {
+        this.newWorkplace ? this.newWorkplace = false : this.newWorkplace = true
+    }
+    
+    newWorkerHandler = () => {
+        this.newWorker ? this.newWorker = false : this.newWorker = true
+    }
+    
+    editHandler = () => {
+        this.editWorkplace ? this.editWorkplace = false : this.editWorkplace = true
+    }
+
     filterHandler = () => {
         if(this.filter) {
             this.filter = false
@@ -59,11 +76,13 @@ class WorkPlaceStore {
 
     createWorkplace = async (data) => {
         WorkplaceService.create(data)
+        this.getNames()
         this.newWorkplaceChecker()
     }
 
     deleteWorkplace = async (id) => {
         WorkplaceService.delete(id)
+        this.getNames()
         this.deletedWPChecker()
     }
 
@@ -73,9 +92,9 @@ class WorkPlaceStore {
 
     filterValues = async (input) => {
         switch(this.filterTypeChecker) {
-            case 'descr':
+            case 'name':
                 this.filterObj = {
-                    field: "Opis",
+                    field: "Naziv",
                     operator: "==",
                     data: input.keyWord
                 }
@@ -92,13 +111,6 @@ class WorkPlaceStore {
                     field: "Placa",
                     operator: "<",
                     data: Number(input.salaryLess)
-                }
-            break
-            case 'workplace':
-                this.filterObj = {
-                    field: "Naziv",
-                    operator: "==",
-                    data: input.workPlace
                 }
             break
             default: 
@@ -145,9 +157,6 @@ class WorkPlaceStore {
         )
         this.prevLength = null
         this.nextLength = documentSnapshot.docs.length
-        if(this.nextLength || this.prevLength < 6) {
-            this.nextLength = 6
-        }
         const docs = documentSnapshot.docs.slice(0,5)
             this.tempData = []
             docs.forEach(doc => {
@@ -162,6 +171,19 @@ class WorkPlaceStore {
         this.workPlaces = this.tempData
         this.lastVisible = docs[docs.length-1]
         this.firstVisible = docs[0]
+    }
+    
+    getNames = async () => {
+        const docs = await WorkplaceService.getNames()
+        this.tempData = []
+        docs.forEach(doc => {
+            let temp = {
+                id: doc.id,
+                name: doc.data().Naziv
+            }
+            this.tempData.push(temp)
+        })
+        this.names = this.tempData
     }
 
     prevPage = async () => {
@@ -216,6 +238,7 @@ class WorkPlaceStore {
 
     updateWorkplace = async (data) => {
         WorkplaceService.update(data)
+        this.getNames()
         this.editWorkplaceChecker()
     }
 }

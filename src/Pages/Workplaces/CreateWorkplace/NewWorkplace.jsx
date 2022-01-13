@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import WorkPlaceStore from '../../Stores/WorkPlaceStore'
+import WorkPlaceStore from '../../../Stores/WorkPlaceStore'
 
-import '../../Common/style/form.scss'
+import '../../../Common/style/form.scss'
 
 const NewWorkplace = observer(() => {
     let data = {
@@ -30,26 +30,26 @@ const NewWorkplace = observer(() => {
             <h3>Novo radno mjesto</h3>
             <form className="form-wrapper" onSubmit={handleSubmit}>
                 <input 
-                type="text"
-                placeholder='Naziv...'
-                required
-                name="workName"
+                    type="text"
+                    placeholder='Naziv...'
+                    required
+                    name="workName"
                 />
                 <br />
                 <textarea 
-                type="text"
-                rows="3"
-                cols="21"
-                placeholder='Opis...'
-                required
-                name="workDescr"
+                    type="text"
+                    rows="3"
+                    cols="21"
+                    placeholder='Opis...'
+                    required
+                    name="workDescr"
                 />
                 <br />
                 <input 
-                type="number"
-                placeholder='Plaća...'
-                required
-                name="workSalary"
+                    type="number"
+                    placeholder='Plaća...'
+                    required
+                    name="workSalary"
                 />
                 <br />
                 <button type='submit'>Dodaj</button>

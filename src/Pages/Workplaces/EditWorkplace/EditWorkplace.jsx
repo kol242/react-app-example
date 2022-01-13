@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import WorkerStore from '../../Stores/WorkerStore'
-import WorkPlaceStore from '../../Stores/WorkPlaceStore'
+import WorkerStore from '../../../Stores/WorkerStore'
+import WorkPlaceStore from '../../../Stores/WorkPlaceStore'
 
 const UpdateWorkplace = observer(({state}) => {
     const currentData = state

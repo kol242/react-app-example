@@ -1,6 +1,6 @@
 import React from 'react'
-import WorkPlaceStore from '../../Stores/WorkPlaceStore'
-import '../../Common/style/sorter.scss'
+import WorkPlaceStore from '../../../Stores/WorkPlaceStore'
+import '../../../Common/style/sorter.scss'
 
 function WorkplaceSorter() {
     const sorting = (e) => {

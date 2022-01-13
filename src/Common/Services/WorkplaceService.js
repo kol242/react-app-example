@@ -1,8 +1,9 @@
-import {db} from '../Common/firebase-config'
+import {db} from '../firebase-config'
 import { 
     collection, 
     addDoc, 
-    getDocs, 
+    getDocs,
+    getDoc, 
     doc, 
     deleteDoc, 
     updateDoc, 
@@ -20,68 +21,64 @@ import {
 
 class WorkerService {
     constructor(){
-        this.getWorkers()
+        this.get()
+        this.getNames()
     }
 
     create = async (data) => {
-        const collectionRef = collection(db, "Workers")
+        const collectionRef = collection(db, "WorkPlaces")
         await addDoc(collectionRef, {
-            Ime: data.name,
-            Prezime: data.lastName,
-            Dob: data.age,
+            Naziv: data.name,
+            Opis: data.descr,
             Placa: data.salary,
-            Pozicija: data.workPlace,
-            IdRadnogMjesta: data.workPlaceId,
-            Ugovor: data.contract
         })
     }
 
     get = async (sortingType) => {
         const sortData = await sortingType
-        const ref = query(collection(db, "Workers"), 
+        const ref = query(collection(db, "WorkPlaces"), 
         orderBy(sortData.field, sortData.sorter), 
         limit(6))
         return getDocs(ref)
     }
-
-    update = async (data) => {
-        const collectionRef = doc(db, "Workers", data.docId)
-        await updateDoc(collectionRef, { 
-            Ime: data.name,
-            Prezime: data.lastName,
-            Dob: data.age,
-            Placa: data.salary,
-            Pozicija: data.workPlace,
-            Ugovor: data.contract
-        })
+    
+    getById = async (id) => {
+        return getDoc(doc(db, "WorkPlaces", id))
     }
 
-    WorkplaceUpdate = async (data) => {
-        const q = query(collection(db, "Workers"), where("IdRadnogMjesta", "==", data.docId))
-        const querySnapshot = await getDocs(q)
-        querySnapshot.forEach((el) => {
-            let tempData = doc(db, "Workers", el.id)
-            updateDoc(tempData, {
-                Pozicija: data.name,
-                Placa: data.salary
-            })
+    getByName = (docData) => {
+        const q = query(collection(db, "WorkPlaces"), where("Naziv", "==", docData))
+        return getDocs(q)
+    }
+
+    getNames = () => {
+        const ref = collection(db, "WorkPlaces")
+        return getDocs(ref)
+    }
+
+    update = async (data) => {
+        const collectionRef = doc(db, "WorkPlaces", data.docId)
+        await updateDoc(collectionRef, { 
+            Naziv: data.name,
+            Opis: data.descr,
+            Placa: data.salary,
         })
     }
 
     delete = async (id) => {
-        const collectionRef = doc(db, "Workers", id)
+        const collectionRef = doc(db, "WorkPlaces", id)
         await deleteDoc(collectionRef)
     }
 
     nextPage = (lastData, sortingType) => {
-        const ref = query(collection(db, "Workers"), 
+        const ref = query(collection(db, "WorkPlaces"), 
         orderBy(sortingType.field, sortingType.sorter), 
         startAfter(lastData), limit(6))
         return getDocs(ref)   
     }
 
     prevPage = (firstData, sortingType) => {
-        const ref = query(collection(db, "Workers"), 
+        const ref = query(collection(db, "WorkPlaces"), 
         orderBy(sortingType.field, sortingType.sorter), 
         endBefore(firstData), 
         limitToLast(6))
@@ -89,14 +86,14 @@ class WorkerService {
     }
 
     filterGet = (filterData) => {
-        const ref = query(collection(db, "Workers"), 
+        const ref = query(collection(db, "WorkPlaces"), 
         where(filterData.field, filterData.operator, filterData.data), 
         limit(6))
         return getDocs(ref)
     }
 
     filterNextPage = (filterData, lastData) => {
-        const ref = query(collection(db, "Workers"), 
+        const ref = query(collection(db, "WorkPlaces"), 
         where(filterData.field, filterData.operator, filterData.data), 
         startAfter(lastData), 
         limit(6))
@@ -104,7 +101,7 @@ class WorkerService {
     }
 
     filterPrevPage = (filterData, firstData) => {
-        const ref = query(collection(db, "Workers"), 
+        const ref = query(collection(db, "WorkPlaces"), 
         where(filterData.field, filterData.operator, filterData.data), 
         orderBy(documentId(FieldPath)), 
         endBefore(firstData), 

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import '../Common/style/home.scss'
-import Image from '../Common/images/home-image.png'
+import './home.scss'
+import Image from '../../Common/images/home-image.png'
 
 function Home() {
     return (
