@@ -38,7 +38,7 @@ const List = observer(({
                   descr: descr,
                   salary: salary
                 }} /> : null}
-              { WorkPlaceStore.newWorker ? <NewWorker state={{ docId: id, name: name }} /> : null}
+              { WorkPlaceStore.newWorker ? <NewWorker docId={id} /> : null}
             </ul>
         </>
     )

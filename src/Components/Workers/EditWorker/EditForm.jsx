@@ -1,0 +1,47 @@
+import { observer } from 'mobx-react-lite'
+import React from 'react'
+import WorkplaceService from '../../../Common/Services/WorkplaceService'
+import WorkerStore from '../../../Stores/WorkerStore'
+import Age from './Inputs/Age'
+import Contract from './Inputs/Contract'
+import LastName from './Inputs/LastName'
+import Name from './Inputs/Name'
+import Salary from './Inputs/Salary'
+import List from './List'
+
+const EditForm = observer(({state}) => {
+    const currentData = state
+    let data = {}
+    
+    const submitUpdate = async (e) => {
+        e.preventDefault()
+        const docData = e.target.workerPlace.value
+        const temp = await WorkplaceService.getByName(docData)
+        temp.forEach(doc => data = {
+            docId: currentData.docId,
+            name: e.target.workerName.value,
+            lastName: e.target.workerLastName.value,
+            age: Number(e.target.workerAge.value),
+            salary: Number(doc.data().Placa),
+            workPlace: doc.data().Naziv,
+            workPlaceId: doc.id,
+            contract: e.target.contractType.value
+        })
+        WorkerStore.updateWorker(data)
+    }
+    return (
+        <div>
+            <form onSubmit={submitUpdate}>
+                <Name name={currentData.name} />
+                <LastName lastName={currentData.lastName} />
+                <Age age={currentData.age} />
+                <Salary salary={currentData.salary} />
+                <Contract />
+                <List currentData={currentData}/>  
+            <button type='submit'>Spremi promjene</button>
+            </form>
+        </div>
+    )
+})
+
+export default EditForm

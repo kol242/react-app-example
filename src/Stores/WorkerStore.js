@@ -17,7 +17,7 @@ class WorkerStore {
     nextLength = 6
     prevLength = 6
 
-    filterTypeChecker = "lastName"
+    filterTypeChecker = ""
     isEdited = false
     isDeleted = false
     filter = false

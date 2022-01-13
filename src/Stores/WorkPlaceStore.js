@@ -17,7 +17,7 @@ class WorkPlaceStore {
     nextLength = 6
     prevLength = 6
 
-    filterTypeChecker = "descr"
+    filterTypeChecker = ""
     newChecked = false
     newCheckedWP = false
     editChecked = false

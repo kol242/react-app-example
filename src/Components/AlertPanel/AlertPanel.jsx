@@ -3,8 +3,9 @@ import WorkerStore from '../../Stores/WorkerStore'
 import WorkPlaceStore from '../../Stores/WorkPlaceStore'
 // styles
 import '../../Common/style/list.scss'
+import { observer } from 'mobx-react'
 
-const AlertPanel = () => {
+const AlertPanel = observer(() => {
     return (
         <>
             { WorkPlaceStore.newChecked ? <p className="alert-success">Radnik je uspješno dodan!</p> : null }
@@ -15,6 +16,6 @@ const AlertPanel = () => {
             { WorkerStore.isDeleted ? <p className="alert-warning">Radnik je uspješno obrisan!</p> : null }
         </>
     )
-}
+})
 
 export default AlertPanel
