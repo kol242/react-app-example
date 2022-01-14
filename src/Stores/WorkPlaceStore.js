@@ -7,6 +7,7 @@ class WorkPlaceStore {
     searchedWorkplaces = []
     lastVisible = []
     firstVisible = []
+    deleteId = ""
 
     filterObj = {}
     sortingType = {
@@ -26,6 +27,7 @@ class WorkPlaceStore {
     newWorkplace = false
     newWorker = false
     editWorkplace = false
+    deleteModal = false
 
     constructor(){
         makeAutoObservable(this)
@@ -68,22 +70,32 @@ class WorkPlaceStore {
     filterHandler = () => {
         if(this.filter) {
             this.filter = false
+            this.filterTypeChecker = ""
             this.getWorkplaces()
         } else {
             this.filter = true
         }
     }
 
+    deleteModalHandler = (id) => {
+        this.deleteModal ? this.deleteModal = false : this.deleteModal = true
+        this.deleteId = id 
+    }
+
     createWorkplace = async (data) => {
         WorkplaceService.create(data)
+        this.getWorkplaces()
         this.getNames()
         this.newWorkplaceChecker()
     }
 
-    deleteWorkplace = async (id) => {
-        WorkplaceService.delete(id)
+    deleteWorkplace = async () => {
+        WorkplaceService.delete(this.deleteId)
+        this.getWorkplaces()
         this.getNames()
         this.deletedWPChecker()
+        this.deleteId = ""
+        this.deleteModal = false
     }
 
     filterTypeHandler = (type) => {
@@ -238,6 +250,7 @@ class WorkPlaceStore {
 
     updateWorkplace = async (data) => {
         WorkplaceService.update(data)
+        this.getWorkplaces()
         this.getNames()
         this.editWorkplaceChecker()
     }

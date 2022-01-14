@@ -4,6 +4,7 @@ import WorkerService from '../Common/Services/WorkerService'
 class WorkerStore {
     workers = []
     searchedWorkers = []
+    deleteId = ""
 
     lastVisible = []
     firstVisible = []
@@ -22,6 +23,7 @@ class WorkerStore {
     isDeleted = false
     filter = false
     editWorker = false
+    deleteModal = false
     
     constructor(){
         makeAutoObservable(this)
@@ -41,10 +43,16 @@ class WorkerStore {
     filterHandler = () => {
         if(this.filter) {
             this.filter = false
+            this.filterTypeChecker = ""
             this.getWorkers()
         } else {
             this.filter = true
         }
+    }
+
+    deleteModalHandler = (id) => {
+        this.deleteModal ? this.deleteModal = false : this.deleteModal = true
+        this.deleteId = id 
     }
 
     editWorkerHandler = () => {
@@ -171,10 +179,12 @@ class WorkerStore {
         this.getWorkers()
     }
 
-    deleteWorker = (id) => {
-        WorkerService.delete(id)
+    deleteWorker = () => {
+        WorkerService.delete(this.deleteId)
         this.deleteChecker()
         this.getWorkers()
+        this.deleteId = ""
+        this.deleteModal = false
     }
 
     getWorkers = async () => {

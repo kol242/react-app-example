@@ -12,11 +12,13 @@ import NewWorkplace from '../Workplaces/CreateWorkplace/NewWorkplace'
 import AlertPanel from '../../Components/AlertPanel/AlertPanel'
 import Pagination from '../../Components/Workplaces/Pagination/Pagination'
 import List from '../../Components/Workplaces/List'
+import DeleteModal from '../../Components/Workplaces/Modals/DeleteModal'
 
 const WorkPlaceList = observer(() => {
   return (
     <div className="main-container__list">
       <div />
+      { WorkPlaceStore.deleteModal ? <DeleteModal /> : null }
         <div className="container">
           <AlertPanel />
           <h2>Popis radnih mjesta</h2>

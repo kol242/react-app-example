@@ -11,10 +11,12 @@ import WorkerFilter from '../Workers/FilterWorker/WorkerFilter'
 import List from '../../Components/Workers/List'
 import AlertPanel from '../../Components/AlertPanel/AlertPanel'
 import Pagination from '../../Components/Workers/Pagination/Pagination'
+import DeleteModal from '../../Components/Workers/Modals/DeleteModal'
 
 const WorkersList = observer(() => {
   return (
     <div className="main-container__list">
+      { WorkerStore.deleteModal ? <DeleteModal /> : null }
       <div/>
       <div className="container">
         <AlertPanel />

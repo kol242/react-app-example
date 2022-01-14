@@ -10,6 +10,7 @@ import Name from './Inputs/Name'
 
 const CreateForm = observer(({id}) => {
     let data = {}
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         const collectionRef = await WorkplaceService.getById(id)

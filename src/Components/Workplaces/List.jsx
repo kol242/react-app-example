@@ -24,10 +24,12 @@ const List = observer(({
               <li className="card-item">{salary} Kn (neto)</li>
               <div className="btn-wrapper">
                   <button className="btn-primary" onClick={WorkPlaceStore.newWorkerHandler}>
-                    <img src={New} alt="new" />Dodaj radnika
+                    <img src={New} alt="new" />
+                    Dodaj radnika
                   </button>
-                  <button onClick={() => WorkPlaceStore.deleteWorkplace(id)} className="btn-red">
-                    <img src={Delete} alt="Delete" />Obriši
+                  <button onClick={() => WorkPlaceStore.deleteModalHandler(id)} className="btn-red">
+                    <img src={Delete} alt="Delete" />
+                    Obriši
                   </button>
                   <button className="btn-secondary" onClick={WorkPlaceStore.editHandler}><img src={Edit} alt="Edit" />Uredi</button>
               </div>
