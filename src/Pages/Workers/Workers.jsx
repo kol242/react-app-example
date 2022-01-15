@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import WorkerStore from '../../Stores/WorkerStore'
+import WorkerStore from '../../Stores/Workers/WorkerStore'
 import { Link } from 'react-router-dom'
 // styles
 import '../../Common/style/list.scss'
@@ -12,11 +12,13 @@ import List from '../../Components/Workers/List'
 import AlertPanel from '../../Components/AlertPanel/AlertPanel'
 import Pagination from '../../Components/Workers/Pagination/Pagination'
 import DeleteModal from '../../Components/Workers/Modals/DeleteModal'
+import DeleteStore from '../../Stores/Workers/DeleteStore'
+import FilterStore from '../../Stores/Workers/FilterStore'
 
 const WorkersList = observer(() => {
   return (
     <div className="main-container__list">
-      { WorkerStore.deleteModal ? <DeleteModal /> : null }
+      { DeleteStore.deleteModal ? <DeleteModal /> : null }
       <div/>
       <div className="container">
         <AlertPanel />
@@ -26,10 +28,10 @@ const WorkersList = observer(() => {
         </div>
         <div className="btn-wrapper">
           <Link to="/workplaces"><button className="btn-secondary">Lista radnih mjesta</button></Link>
-          <button className="btn-undo" onClick={WorkerStore.filterHandler}><img src={Filter} alt="Filter" />Filtriraj</button>
+          <button className="btn-undo" onClick={FilterStore.filterHandler}><img src={Filter} alt="Filter" />Filtriraj</button>
           <WorkerSorter />
         </div>
-        { WorkerStore.filter ? <WorkerFilter /> : null }
+        { FilterStore.filter ? <WorkerFilter /> : null }
         { WorkerStore.workers.map((worker) => (
           <List 
             lastName={worker.lastName}

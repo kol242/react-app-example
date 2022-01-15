@@ -1,10 +1,11 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import WorkerStore from '../../Stores/WorkerStore'
 import EditWorker from '../../Pages/Workers/EditWorker/EditWorker'
 
 import Delete from '../../Common/images/bin.png'
 import Edit from '../../Common/images/edit.png'
+import DeleteStore from '../../Stores/Workers/DeleteStore'
+import EditStore from '../../Stores/Workers/EditStore'
 
 const List = observer(({
     id,
@@ -24,16 +25,16 @@ const List = observer(({
                 <li className="card-item">{workplace}</li>
                 <li className="card-item">{contract}</li>
                 <div className="btn-wrapper">
-                    <button onClick={() => WorkerStore.deleteModalHandler(id)} className="btn-red">
+                    <button onClick={() => DeleteStore.deleteModalHandler(id)} className="btn-red">
                         <img src={Delete} alt="Delete" />
                         Obriši
                     </button>
-                    <button className="btn-secondary" onClick={WorkerStore.editWorkerHandler}>
+                    <button className="btn-secondary" onClick={EditStore.editWorkerHandler}>
                         <img src={Edit} alt="Edit" />
                         Uredi
                     </button>
                 </div>
-                { WorkerStore.editWorker ? <EditWorker
+                { EditStore.editWorker ? <EditWorker
                 state={{
                     docId: id, 
                     name: name,

@@ -1,11 +1,11 @@
 import React from 'react'
-import WorkPlaceStore from '../../../Stores/WorkPlaceStore'
+import WpFilterStore from '../../../Stores/Workplaces/WpFilterStore'
 
 const FilterSelect = () => {
     const filterTypeChecker = (e) => {
         e.preventDefault()
         const type = e.target.value
-        WorkPlaceStore.filterTypeHandler(type)
+        WpFilterStore.filterTypeHandler(type)
     }
 
     return (

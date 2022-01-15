@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import WorkplaceService from '../../../Common/Services/WorkplaceService'
-import WorkerStore from '../../../Stores/WorkerStore'
+import EditStore from '../../../Stores/Workers/EditStore'
 import Age from './Inputs/Age'
 import Contract from './Inputs/Contract'
 import LastName from './Inputs/LastName'
@@ -27,7 +27,7 @@ const EditForm = observer(({state}) => {
             workPlaceId: doc.id,
             contract: e.target.contractType.value
         })
-        WorkerStore.updateWorker(data)
+        EditStore.updateWorker(data)
     }
     return (
         <div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import WorkerStore from '../../../Stores/WorkerStore'
+import WorkerStore from '../../../Stores/Workers/WorkerStore'
 import Search from '../../../Common/images/search.png'
 import { observer } from 'mobx-react'
 // components
@@ -10,20 +10,21 @@ import SalaryLess from './Inputs/SalaryLess'
 import AgeMore from './Inputs/AgeMore'
 import AgeLess from './Inputs/AgeLess'
 import Contract from './Inputs/Contract'
+import FilterStore from '../../../Stores/Workers/FilterStore'
 
 const FilterForm = observer(() => {
     const filterType = (e) => {
         e.preventDefault()
         const input = {
-            keyWord: WorkerStore.filterTypeChecker === 'lastName' ? e.target.value : null,
-            salaryLess: WorkerStore.filterTypeChecker === 'salaryLess' ? Number(e.target.value) : null,
-            salaryMore: WorkerStore.filterTypeChecker === 'salaryMore' ? Number(e.target.value) : null,
-            workPlace: WorkerStore.filterTypeChecker === 'workplace' ? e.target.value : null,
-            ageMore: WorkerStore.filterTypeChecker === 'ageMore' ? Number(e.target.value) : null,
-            ageLess: WorkerStore.filterTypeChecker === 'ageLess' ? Number(e.target.value) : null,
-            contract: WorkerStore.filterTypeChecker === 'contract' ? e.target.value : null
+            keyWord: FilterStore.filterTypeChecker === 'lastName' ? e.target.value : null,
+            salaryLess: FilterStore.filterTypeChecker === 'salaryLess' ? Number(e.target.value) : null,
+            salaryMore: FilterStore.filterTypeChecker === 'salaryMore' ? Number(e.target.value) : null,
+            workPlace: FilterStore.filterTypeChecker === 'workplace' ? e.target.value : null,
+            ageMore: FilterStore.filterTypeChecker === 'ageMore' ? Number(e.target.value) : null,
+            ageLess: FilterStore.filterTypeChecker === 'ageLess' ? Number(e.target.value) : null,
+            contract: FilterStore.filterTypeChecker === 'contract' ? e.target.value : null
         }
-        WorkerStore.filterValues(input)
+        FilterStore.filterValues(input)
     }
     
     const filterSubmit = (e) => {
@@ -34,13 +35,13 @@ const FilterForm = observer(() => {
     return (
         <>
             <form onChange={filterType} onSubmit={filterSubmit}>
-                { WorkerStore.filterTypeChecker === 'lastName' ? <LastName /> : null}
-                { WorkerStore.filterTypeChecker === 'salaryMore' ? <SalaryMore /> : null}
-                { WorkerStore.filterTypeChecker === 'salaryLess' ? <SalaryLess /> : null}
-                { WorkerStore.filterTypeChecker === 'ageMore' ? <AgeMore /> : null }
-                { WorkerStore.filterTypeChecker === 'ageLess' ? <AgeLess /> : null }
-                { WorkerStore.filterTypeChecker === 'workplace' ? <List /> : null}
-                { WorkerStore.filterTypeChecker === 'contract' ? <Contract /> : null}
+                { FilterStore.filterTypeChecker === 'lastName' ? <LastName /> : null}
+                { FilterStore.filterTypeChecker === 'salaryMore' ? <SalaryMore /> : null}
+                { FilterStore.filterTypeChecker === 'salaryLess' ? <SalaryLess /> : null}
+                { FilterStore.filterTypeChecker === 'ageMore' ? <AgeMore /> : null }
+                { FilterStore.filterTypeChecker === 'ageLess' ? <AgeLess /> : null }
+                { FilterStore.filterTypeChecker === 'workplace' ? <List /> : null}
+                { FilterStore.filterTypeChecker === 'contract' ? <Contract /> : null}
                 <button type="submit" className="btn-undo"><img src={Search} alt="Search" />Traži</button>
             </form>
         </>

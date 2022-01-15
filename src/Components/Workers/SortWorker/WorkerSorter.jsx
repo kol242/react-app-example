@@ -1,12 +1,12 @@
 import React from 'react'
-import WorkerStore from '../../../Stores/WorkerStore'
 import '../../../Common/style/sorter.scss'
+import FilterStore from '../../../Stores/Workers/FilterStore'
 
 function WorkerSorter() {
     const sorting = (e) => {
         e.preventDefault()
         const sorterType = e.target.value
-        WorkerStore.sorterType(sorterType)
+        FilterStore.sorterType(sorterType)
     }
     
     return (
@@ -19,8 +19,7 @@ function WorkerSorter() {
                 <option value="salaryAsc">Plaća od najmanje</option>  
                 <option value="ageDesc">Godine od najstarijeg</option>  
                 <option value="ageAsc">Godine od najmlađeg</option>  
-            </select>
-            
+            </select>   
         </div>
     )
 }

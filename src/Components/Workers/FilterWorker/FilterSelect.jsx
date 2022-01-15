@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import WorkerStore from '../../../Stores/WorkerStore'
+import FilterStore from '../../../Stores/Workers/FilterStore'
 
 const FilterSelect = observer(() => {
     const filterTypeChecker = (e) => {
         e.preventDefault()
         const type = e.target.value
-        WorkerStore.filterTypeHandler(type)
+        FilterStore.filterTypeHandler(type)
     }
     
     return (

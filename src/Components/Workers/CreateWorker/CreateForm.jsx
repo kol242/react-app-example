@@ -1,8 +1,7 @@
 import { observer } from 'mobx-react'
 import React from 'react'
 import WorkplaceService from '../../../Common/Services/WorkplaceService'
-import WorkerStore from '../../../Stores/WorkerStore'
-import WorkPlaceStore from '../../../Stores/WorkPlaceStore'
+import CreateStore from '../../../Stores/Workers/CreateStore'
 import Age from './Inputs/Age'
 import Contract from './Inputs/Contract'
 import LastName from './Inputs/LastName'
@@ -24,11 +23,11 @@ const CreateForm = observer(({id}) => {
             salary: Number(collectionRef.data().Placa),
             contract: e.target.contractType.value
         }
-        WorkerStore.createWorker(data)
+        CreateStore.createWorker(data)
         e.target.workerName.value = null
         e.target.workerLastName.value = null
         e.target.workerAge.value = null
-        WorkPlaceStore.newWorkerChecker()
+        CreateStore.newWorkerChecker()
     }
 
     return (

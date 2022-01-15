@@ -1,5 +1,5 @@
 import React from 'react'
-import WorkPlaceStore from '../../../Stores/WorkPlaceStore'
+import WorkPlaceStore from '../../../Stores/Workplaces/WorkPlaceStore'
 import '../../../Common/style/sorter.scss'
 
 function WorkplaceSorter() {

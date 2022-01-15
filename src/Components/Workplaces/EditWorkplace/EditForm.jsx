@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import WorkerStore from '../../../Stores/WorkerStore'
-import WorkPlaceStore from '../../../Stores/WorkPlaceStore'
+import EditStore from '../../../Stores/Workers/EditStore'
+import WpEditStore from '../../../Stores/Workplaces/WpEditStore'
 import Description from './Inputs/Description'
 import Name from './Inputs/Name'
 import Salary from './Inputs/Salary'
@@ -18,8 +18,8 @@ const EditForm = observer(({currentData}) => {
             descr: e.target.workDescr.value,
             salary: Number(e.target.workSalary.value),
         }
-        WorkPlaceStore.updateWorkplace(data)
-        WorkerStore.WorkplaceUpdate(data)
+        WpEditStore.updateWorkplace(data)
+        EditStore.WorkplaceUpdate(data)
     }
 
     return (

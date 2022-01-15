@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import { Link } from 'react-router-dom'
-import WorkPlaceStore from '../../Stores/WorkPlaceStore'
+import WorkPlaceStore from '../../Stores/Workplaces/WorkPlaceStore'
 // styles
 import '../../Common/style/list.scss'
 import New from '../../Common/images/plus.png'
@@ -13,12 +13,15 @@ import AlertPanel from '../../Components/AlertPanel/AlertPanel'
 import Pagination from '../../Components/Workplaces/Pagination/Pagination'
 import List from '../../Components/Workplaces/List'
 import DeleteModal from '../../Components/Workplaces/Modals/DeleteModal'
+import WpDeleteStore from '../../Stores/Workplaces/WpDeleteStore'
+import WpCreateStore from '../../Stores/Workplaces/WpCreateStore'
+import WpFilterStore from '../../Stores/Workplaces/WpFilterStore'
 
 const WorkPlaceList = observer(() => {
   return (
     <div className="main-container__list">
       <div />
-      { WorkPlaceStore.deleteModal ? <DeleteModal /> : null }
+      { WpDeleteStore.deleteModal ? <DeleteModal /> : null }
         <div className="container">
           <AlertPanel />
           <h2>Popis radnih mjesta</h2>
@@ -27,12 +30,12 @@ const WorkPlaceList = observer(() => {
           </div>
           <div className="btn-wrapper">
             <Link to="/workers"><button className="btn-secondary">Lista svih radnika</button></Link>
-            <button className="btn-primary" onClick={WorkPlaceStore.newHandler}><img src={New} alt="New" />Dodaj radno mjesto</button>
-            <button className="btn-undo" onClick={WorkPlaceStore.filterHandler}><img src={Filter} alt="Filter" />Filtriraj</button>
+            <button className="btn-primary" onClick={WpCreateStore.newHandler}><img src={New} alt="New" />Dodaj radno mjesto</button>
+            <button className="btn-undo" onClick={WpFilterStore.filterHandler}><img src={Filter} alt="Filter" />Filtriraj</button>
             <WorkplaceSorter />
           </div>
-          { WorkPlaceStore.filter ? <WorkplaceFilter /> : null }
-          { WorkPlaceStore.newWorkplace ? <NewWorkplace /> : null }
+          { WpFilterStore.filter ? <WorkplaceFilter /> : null }
+          { WpCreateStore.newWorkplace ? <NewWorkplace /> : null }
           { WorkPlaceStore.workPlaces.map((workplace) => (
             <List 
               id={workplace.docId}

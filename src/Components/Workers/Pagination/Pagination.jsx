@@ -1,5 +1,5 @@
 import React from 'react'
-import WorkerStore from '../../../Stores/WorkerStore'
+import WorkerStore from '../../../Stores/Workers/WorkerStore'
 // styles
 import '../../../Common/style/list.scss'
 

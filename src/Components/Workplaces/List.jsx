@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import WorkPlaceStore from '../../Stores/WorkPlaceStore'
 // styles
 import New from '../../Common/images/plus.png'
 import Delete from '../../Common/images/bin.png'
@@ -8,6 +7,9 @@ import Edit from '../../Common/images/edit.png'
 // components
 import EditWorkplace from '../../Pages/Workplaces/EditWorkplace/EditWorkplace'
 import NewWorker from '../../Pages/Workers/CreateWorker/NewWorker'
+import WpDeleteStore from '../../Stores/Workplaces/WpDeleteStore'
+import WpEditStore from '../../Stores/Workplaces/WpEditStore'
+import CreateStore from '../../Stores/Workers/CreateStore'
 
 const List = observer(({
     id,
@@ -23,24 +25,24 @@ const List = observer(({
               <li className="card-item">{descr}</li>
               <li className="card-item">{salary} Kn (neto)</li>
               <div className="btn-wrapper">
-                  <button className="btn-primary" onClick={WorkPlaceStore.newWorkerHandler}>
+                  <button className="btn-primary" onClick={CreateStore.newWorkerHandler}>
                     <img src={New} alt="new" />
                     Dodaj radnika
                   </button>
-                  <button onClick={() => WorkPlaceStore.deleteModalHandler(id)} className="btn-red">
+                  <button onClick={() => WpDeleteStore.deleteModalHandler(id)} className="btn-red">
                     <img src={Delete} alt="Delete" />
                     Obriši
                   </button>
-                  <button className="btn-secondary" onClick={WorkPlaceStore.editHandler}><img src={Edit} alt="Edit" />Uredi</button>
+                  <button className="btn-secondary" onClick={WpEditStore.editHandler}><img src={Edit} alt="Edit" />Uredi</button>
               </div>
-              { WorkPlaceStore.editWorkplace ? <EditWorkplace 
+              { WpEditStore.editWorkplace ? <EditWorkplace 
                 state={{
                   docId: id,
                   name: name,
                   descr: descr,
                   salary: salary
                 }} /> : null}
-              { WorkPlaceStore.newWorker ? <NewWorker docId={id} /> : null}
+              { CreateStore.newWorker ? <NewWorker docId={id} /> : null}
             </ul>
         </>
     )

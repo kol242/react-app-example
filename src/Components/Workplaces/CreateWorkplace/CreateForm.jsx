@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import WorkPlaceStore from '../../../Stores/WorkPlaceStore'
+import WpCreateStore from '../../../Stores/Workplaces/WpCreateStore'
 import Description from './Inputs/Description'
 import Name from './Inputs/Name'
 import Salary from './Inputs/Salary'
@@ -16,11 +16,11 @@ const CreateForm = observer(() => {
             descr: e.target.workDescr.value,
             salary: Number(e.target.workSalary.value),
         }
-        WorkPlaceStore.createWorkplace(data)
+        WpCreateStore.createWorkplace(data)
         e.target.workName.value = null
         e.target.workDescr.value = null
         e.target.workSalary.value = null
-        WorkPlaceStore.newWorkplaceChecker()
+        WpCreateStore.newWorkplaceChecker()
     }
 
     return (
