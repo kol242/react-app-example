@@ -9,6 +9,8 @@ import Name from './Inputs/Name'
 import Salary from './Inputs/Salary'
 import List from './List'
 
+import '../../../Common/style/form.scss'
+
 const EditForm = observer(() => {
     const currentData = EditStore.currentWorker
     let data = {}

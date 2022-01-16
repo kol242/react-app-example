@@ -6,6 +6,8 @@ import Description from './Inputs/Description'
 import Name from './Inputs/Name'
 import Salary from './Inputs/Salary'
 
+import '../../../Common/style/form.scss'
+
 const EditForm = observer(() => {
     const state = WpEditStore.currentWorkplace
     let data = {}

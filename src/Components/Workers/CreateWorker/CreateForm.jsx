@@ -7,6 +7,8 @@ import Contract from './Inputs/Contract'
 import LastName from './Inputs/LastName'
 import Name from './Inputs/Name'
 
+import '../../../Common/style/form.scss'
+
 const CreateForm = observer(() => {
     let data = {}
     const id = CreateStore.workplaceData.id

@@ -13,7 +13,6 @@ import Filter from '../../Common/images/filter.png'
 // components
 import WorkplaceFilter from '../Workplaces/FilterWorkplace/WorkplaceFilter'
 import WorkplaceSorter from '../../Components/Workplaces/SortWorkplaces/WorkplaceSorter'
-import NewWorkplace from '../Workplaces/CreateWorkplace/NewWorkplace'
 import AlertPanel from '../../Components/AlertPanel/AlertPanel'
 import Pagination from '../../Components/Workplaces/Pagination/Pagination'
 import List from '../../Components/Workplaces/List'
@@ -49,7 +48,6 @@ const WorkPlaceList = observer(() => {
             <WorkplaceSorter />
           </div>
           { WpFilterStore.filter ? <WorkplaceFilter /> : null }
-          { WpCreateStore.newWorkplace ? <NewWorkplace /> : null }
           { WorkPlaceStore.workPlaces.map((workplace) => (
             <List 
               id={workplace.docId}
