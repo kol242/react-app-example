@@ -5,9 +5,16 @@ import WorkerStore from './WorkerStore'
 class EditStore {
     isEdited = false
     editWorker = false
+    editModal = false
+    currentWorker = {}
     
     constructor(){
         makeAutoObservable(this)
+    }
+
+    editModalHandler = (data) => {
+        this.currentWorker = data
+        this.editModal ? this.editModal = false : this.editModal = true
     }
 
     editChecker = () => {
@@ -23,6 +30,7 @@ class EditStore {
         WorkerService.update(data)
         WorkerStore.getWorkers()
         this.editChecker()
+        this.editModal = false
     }
 
     WorkplaceUpdate = (data) => {

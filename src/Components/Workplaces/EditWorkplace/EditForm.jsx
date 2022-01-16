@@ -6,8 +6,8 @@ import Description from './Inputs/Description'
 import Name from './Inputs/Name'
 import Salary from './Inputs/Salary'
 
-const EditForm = observer(({currentData}) => {
-    const state = currentData
+const EditForm = observer(() => {
+    const state = WpEditStore.currentWorkplace
     let data = {}
 
     const submitUpdate = (e) => {
@@ -28,7 +28,10 @@ const EditForm = observer(({currentData}) => {
                 <Name defaultValue={() => state.name} />
                 <Description defaultValue={() => state.descr} />
                 <Salary defaultValue={() => state.salary} />
-                <button type='submit'>Spremi promjene</button>
+                <div className="btn-wrapper">
+                    <button type='submit'>Spremi promjene</button>
+                    <button className="btn-red" onClick={WpEditStore.editModalHandler}>Odustani</button>
+                </div>
             </form>
         </div>
     )

@@ -5,14 +5,22 @@ import WorkerStore from './WorkerStore'
 class CreateStore {
     newChecked = false
     newWorker = false
+    createModal = false
+    workplaceData = ""
     
     constructor(){
         makeAutoObservable(this)
     }
 
+    createModalHandler = (data) => {
+        this.workplaceData = data
+        this.createModal ? this.createModal = false : this.createModal = true
+    }
+
     createWorker = (data) => {
         WorkerService.create(data)
         WorkerStore.getWorkers()
+        this.createModal = false
     }
 
     newWorkerChecker = () => {

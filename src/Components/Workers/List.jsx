@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import EditWorker from '../../Pages/Workers/EditWorker/EditWorker'
 
 import Delete from '../../Common/images/bin.png'
 import Edit from '../../Common/images/edit.png'
@@ -16,6 +15,17 @@ const List = observer(({
     workplace,
     contract
 }) => {
+
+    const workerData = {
+        docId: id, 
+        name: name,
+        lastName: lastName,
+        age: age,
+        salary: salary,
+        workPlace: workplace,
+        contract: contract
+    }
+
     return (
         <>
             <ul className="card"  key={id}>
@@ -29,21 +39,11 @@ const List = observer(({
                         <img src={Delete} alt="Delete" />
                         Obriši
                     </button>
-                    <button className="btn-secondary" onClick={EditStore.editWorkerHandler}>
+                    <button className="btn-secondary" onClick={() => EditStore.editModalHandler(workerData)}>
                         <img src={Edit} alt="Edit" />
                         Uredi
                     </button>
                 </div>
-                { EditStore.editWorker ? <EditWorker
-                state={{
-                    docId: id, 
-                    name: name,
-                    lastName: lastName,
-                    age: age,
-                    salary: salary,
-                    workPlace: workplace,
-                    contract: contract
-                    }} /> : null }
             </ul>
         </>
     )

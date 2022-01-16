@@ -1,6 +1,9 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import WorkerStore from '../../Stores/Workers/WorkerStore'
+import DeleteStore from '../../Stores/Workers/DeleteStore'
+import FilterStore from '../../Stores/Workers/FilterStore'
+import EditStore from '../../Stores/Workers/EditStore'
 import { Link } from 'react-router-dom'
 // styles
 import '../../Common/style/list.scss'
@@ -12,13 +15,14 @@ import List from '../../Components/Workers/List'
 import AlertPanel from '../../Components/AlertPanel/AlertPanel'
 import Pagination from '../../Components/Workers/Pagination/Pagination'
 import DeleteModal from '../../Components/Workers/Modals/DeleteModal'
-import DeleteStore from '../../Stores/Workers/DeleteStore'
-import FilterStore from '../../Stores/Workers/FilterStore'
+import EditModal from '../../Components/Workers/Modals/EditModal'
+
 
 const WorkersList = observer(() => {
   return (
     <div className="main-container__list">
       { DeleteStore.deleteModal ? <DeleteModal /> : null }
+      { EditStore.editModal ? <EditModal /> : null }
       <div/>
       <div className="container">
         <AlertPanel />
@@ -27,7 +31,7 @@ const WorkersList = observer(() => {
           <Link to="/"><button className="btn-link">Natrag na početnu</button></Link>
         </div>
         <div className="btn-wrapper">
-          <Link to="/workplaces"><button className="btn-secondary">Lista radnih mjesta</button></Link>
+          <Link to="/workplaces"><button className="btn-secondary">Popis radnih mjesta</button></Link>
           <button className="btn-undo" onClick={FilterStore.filterHandler}><img src={Filter} alt="Filter" />Filtriraj</button>
           <WorkerSorter />
         </div>

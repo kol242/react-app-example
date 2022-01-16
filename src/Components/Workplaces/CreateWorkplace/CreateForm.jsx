@@ -29,7 +29,10 @@ const CreateForm = observer(() => {
                 <Name />
                 <Description />
                 <Salary />
-                <button type='submit'>Dodaj</button>
+                <div className="btn-wrapper">
+                    <button type='submit'>Dodaj</button>
+                    <button className="btn-red" onClick={WpCreateStore.createModalHandler}>Odustani</button>
+                </div>
             </form>
         </div>
     )

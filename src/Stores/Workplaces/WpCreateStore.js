@@ -6,9 +6,14 @@ import WorkPlaceStore from './WorkPlaceStore'
 class WpCreateStore {
     newCheckedWP = false
     newWorkplace = false
+    createModal = false
 
     constructor() {
         makeAutoObservable(this)
+    }
+
+    createModalHandler = () => {
+        this.createModal ? this.createModal = false : this.createModal = true
     }
 
     newWorkplaceChecker = () => {
@@ -25,6 +30,7 @@ class WpCreateStore {
         WorkPlaceStore.getWorkplaces()
         WorkPlaceStore.getNames()
         this.newWorkplaceChecker()
+        this.createModal = false
     }
 }
 

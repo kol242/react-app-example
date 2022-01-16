@@ -7,8 +7,9 @@ import Contract from './Inputs/Contract'
 import LastName from './Inputs/LastName'
 import Name from './Inputs/Name'
 
-const CreateForm = observer(({id}) => {
+const CreateForm = observer(() => {
     let data = {}
+    const id = CreateStore.workplaceData.id
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -33,11 +34,16 @@ const CreateForm = observer(({id}) => {
     return (
         <div>
             <form onSubmit={handleSubmit}>
+                <p>{CreateStore.workplaceData.name}</p>
+                <p>{CreateStore.workplaceData.salary} kn</p>
                 <Name />
                 <LastName />
                 <Age />
-                <Contract />   
-                <button type='submit' className="btn btn-success">Dodaj</button>
+                <Contract />
+                <div className="btn-wrapper">
+                    <button type='submit' className="btn btn-success">Dodaj</button>
+                    <button className="btn-red" onClick={CreateStore.createModalHandler}>Odustani</button>
+                </div>
             </form>
         </div>
     )

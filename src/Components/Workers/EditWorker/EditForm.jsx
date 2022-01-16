@@ -9,8 +9,8 @@ import Name from './Inputs/Name'
 import Salary from './Inputs/Salary'
 import List from './List'
 
-const EditForm = observer(({state}) => {
-    const currentData = state
+const EditForm = observer(() => {
+    const currentData = EditStore.currentWorker
     let data = {}
     
     const submitUpdate = async (e) => {
@@ -38,7 +38,10 @@ const EditForm = observer(({state}) => {
                 <Salary salary={currentData.salary} />
                 <Contract />
                 <List currentData={currentData}/>  
-            <button type='submit'>Spremi promjene</button>
+            <div className="btn-wrapper">
+               <button type='submit'>Spremi promjene</button>
+               <button className="btn-red" onClick={EditStore.editModalHandler}>Odustani</button> 
+            </div>
             </form>
         </div>
     )

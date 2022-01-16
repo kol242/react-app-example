@@ -6,9 +6,16 @@ import WorkPlaceStore from './WorkPlaceStore'
 class WpEditStore {
     editChecked = false
     editWorkplace = false
+    editModal = false
+    currentWorkplace = {}
 
     constructor() {
         makeAutoObservable(this)
+    }
+
+    editModalHandler = (data) => {
+        this.currentWorkplace = data
+        this.editModal ? this.editModal = false : this.editModal = true
     }
 
     editWorkplaceChecker = () => {
@@ -25,6 +32,7 @@ class WpEditStore {
         WorkPlaceStore.getWorkplaces()
         WorkPlaceStore.getNames()
         this.editWorkplaceChecker()
+        this.editModal = false
     }
 }
 

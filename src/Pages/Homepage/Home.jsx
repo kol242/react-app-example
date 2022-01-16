@@ -12,13 +12,13 @@ function Home() {
             <div className="home-wrapper">
                 <div>
                     <h1>Dobrodošli!</h1>
-                    <p>Jednostavna aplikacija u kojoj se može dodavati, brisati, uređivati i čitati podatke o radnicima i radnim mjestima unutar fiktivne tvrtke.</p>
+                    <p>Jednostavna aplikacija za čitanje, dodavanje, brisanje i uređivanje radnika i radnih mjesta.</p>
                     <p>Aplikaciju izradio: <span>Valentino Kolinger</span></p>
                 </div>
                 <div>
-                    <p>Odaberite listu:</p>
+                    <p>Odaberite popis:</p>
                     <Link to="/workplaces"><button className="btn-list-select">Radna mjesta</button></Link>
-                    <Link to="/workers"><button className="btn-list-select">Lista radnika</button></Link>
+                    <Link to="/workers"><button className="btn-list-select">Radnici</button></Link>
                 </div>
                 <div id="img">
                     <img src={Image} alt="homeImage" />
