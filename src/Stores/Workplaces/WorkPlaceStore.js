@@ -8,8 +8,8 @@ class WorkPlaceStore {
     lastVisible = []
     firstVisible = []
 
-    nextLength = 6
-    prevLength = 6
+    nextLength = 7
+    prevLength = 7
 
     constructor(){
         makeAutoObservable(this)
@@ -59,8 +59,8 @@ class WorkPlaceStore {
             : WorkplaceService.prevPage(this.firstVisible, WpFilterStore.sortingType) 
         )
         this.prevLength = documentSnapshot.docs.length
-        if(this.nextLength < 6) {
-            this.nextLength = 6
+        if(this.nextLength < 7) {
+            this.nextLength = 7
         }
         const docs = documentSnapshot.docs.slice(0,5)
         this.tempData = []
@@ -84,8 +84,8 @@ class WorkPlaceStore {
             : WorkplaceService.nextPage(this.lastVisible, WpFilterStore.sortingType) 
         )
         this.nextLength = documentSnapshot.docs.length
-        if(this.prevLength < 6) {
-            this.prevLength = 6
+        if(this.prevLength < 7) {
+            this.prevLength = 7
         }
         const docs = documentSnapshot.docs.slice(0,5)
         this.tempData = []

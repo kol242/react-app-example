@@ -11,7 +11,7 @@ import '../../../Common/style/form.scss'
 
 const CreateForm = observer(() => {
     let data = {}
-    const id = CreateStore.workplaceData.id
+    const id = CreateStore.workplaceData.docId
 
     const handleSubmit = async (e) => {
         e.preventDefault()

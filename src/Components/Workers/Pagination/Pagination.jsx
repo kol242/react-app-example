@@ -7,9 +7,9 @@ const Pagination = () => {
     return (
         <>
             <div className="btn-wrapper--center">
-                { WorkerStore.prevLength < 6 ? null : 
+                { WorkerStore.prevLength < 7 ? null : 
                     <button className="btn-link" onClick={WorkerStore.prevPage}>Prethodno</button> }
-                { WorkerStore.nextLength < 6 ? null : 
+                { WorkerStore.nextLength < 7 ? null : 
                     <button className="btn-link" onClick={WorkerStore.nextPage}>Slijedeće</button> }
             </div>
         </>

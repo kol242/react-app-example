@@ -4,9 +4,9 @@ import WorkPlaceStore from '../../../Stores/Workplaces/WorkPlaceStore'
 const Pagination = () => {
     return (
         <div>
-            { WorkPlaceStore.prevLength < 6 ? null : 
+            { WorkPlaceStore.prevLength < 7 ? null : 
                     <button className="btn-link" onClick={WorkPlaceStore.prevPage}>Prethodno</button> }
-            { WorkPlaceStore.nextLength < 6 ? null : 
+            { WorkPlaceStore.nextLength < 7 ? null : 
                     <button className="btn-link" onClick={WorkPlaceStore.nextPage}>Slijedeće</button> }
         </div>
     )

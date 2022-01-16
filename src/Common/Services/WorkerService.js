@@ -40,7 +40,7 @@ class WorkerService {
         const sortData = await sortingType
         const ref = query(collection(db, "Workers"), 
         orderBy(sortData.field, sortData.sorter), 
-        limit(6))
+        limit(7))
         return getDocs(ref)
     }
 
@@ -76,7 +76,7 @@ class WorkerService {
     nextPage = (lastData, sortingType) => {
         const ref = query(collection(db, "Workers"), 
         orderBy(sortingType.field, sortingType.sorter), 
-        startAfter(lastData), limit(6))
+        startAfter(lastData), limit(7))
         return getDocs(ref)   
     }
 
@@ -84,14 +84,14 @@ class WorkerService {
         const ref = query(collection(db, "Workers"), 
         orderBy(sortingType.field, sortingType.sorter), 
         endBefore(firstData), 
-        limitToLast(6))
+        limitToLast(7))
         return getDocs(ref)
     }
 
     filterGet = (filterData) => {
         const ref = query(collection(db, "Workers"), 
         where(filterData.field, filterData.operator, filterData.data), 
-        limit(6))
+        limit(7))
         return getDocs(ref)
     }
 
@@ -99,7 +99,7 @@ class WorkerService {
         const ref = query(collection(db, "Workers"), 
         where(filterData.field, filterData.operator, filterData.data), 
         startAfter(lastData), 
-        limit(6))
+        limit(7))
         return getDocs(ref)   
     }
 
@@ -108,7 +108,7 @@ class WorkerService {
         where(filterData.field, filterData.operator, filterData.data), 
         orderBy(documentId(FieldPath)), 
         endBefore(firstData), 
-        limitToLast(6))
+        limitToLast(7))
         return getDocs(ref)
     }
 }

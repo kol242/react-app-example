@@ -49,8 +49,8 @@ class WorkerStore {
             : WorkerService.prevPage(this.firstVisible, FilterStore.sortingType) 
         )
         this.prevLength = documentSnapshot.docs.length
-        if(this.nextLength < 6) {
-            this.nextLength = 6
+        if(this.nextLength < 7) {
+            this.nextLength = 7
         }
         const docs = documentSnapshot.docs.slice(0,5)
         this.tempData = []
@@ -78,8 +78,8 @@ class WorkerStore {
             : WorkerService.nextPage(this.lastVisible, FilterStore.sortingType) 
         )
         this.nextLength = documentSnapshot.docs.length
-        if(this.prevLength < 6) {
-            this.prevLength = 6
+        if(this.prevLength < 7) {
+            this.prevLength = 7
         }
         const docs = documentSnapshot.docs.slice(0,5)
         this.tempData = []
