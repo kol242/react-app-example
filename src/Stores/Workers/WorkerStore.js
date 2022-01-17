@@ -14,8 +14,6 @@ class WorkerStore {
         this.getWorkers()
     }
 
-    
-
     getWorkers = async () => {
         const documentSnapshot = await (
             FilterStore.filter ? WorkerService.filterGet(FilterStore.filterObj) 

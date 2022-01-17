@@ -1,4 +1,4 @@
-import {db} from '../firebase-config'
+import {db} from './firebase-config'
 import { 
     collection, 
     addDoc, 
@@ -37,11 +37,15 @@ class WorkerService {
     }
 
     get = async (sortingType) => {
-        const sortData = await sortingType
-        const ref = query(collection(db, "Workers"), 
-        orderBy(sortData.field, sortData.sorter), 
-        limit(7))
-        return getDocs(ref)
+        try {
+            const sortData = await sortingType
+            const ref = query(collection(db, "Workers"), 
+            orderBy(sortData.field, sortData.sorter), 
+            limit(7))
+            return getDocs(ref)
+        } catch {
+            return null
+        }
     }
 
     update = async (data) => {

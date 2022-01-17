@@ -10,7 +10,7 @@ const List = observer(({currentData}) => {
             <select className="form-select" name="workerPlace">
                 <option defaultValue>{currentData.workPlace}</option>
                 {WorkPlaceStore.names.map((work) => (
-                    <ListItem keyItem={work.id} value={work.name} name="workerPlace"/>
+                    <ListItem key={work.id} keyItem={work.id} value={work.name} name="workerPlace"/>
                 ))}
             </select> 
         </div>

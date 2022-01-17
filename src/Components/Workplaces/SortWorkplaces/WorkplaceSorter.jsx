@@ -1,12 +1,12 @@
 import React from 'react'
-import WorkPlaceStore from '../../../Stores/Workplaces/WorkPlaceStore'
 import '../../../Common/style/sorter.scss'
+import WpFilterStore from '../../../Stores/Workplaces/WpFilterStore'
 
 function WorkplaceSorter() {
     const sorting = (e) => {
         e.preventDefault()
         const sorterType = e.target.value
-        WorkPlaceStore.sorterType(sorterType)
+        WpFilterStore.sorterType(sorterType)
     }
 
     return (
