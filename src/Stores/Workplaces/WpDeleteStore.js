@@ -1,12 +1,13 @@
-import { makeAutoObservable} from 'mobx'
-import WorkplaceService from '../../Common/Services/WorkplaceService'
 import WorkPlaceStore from './WorkPlaceStore'
-
+import WorkplaceService from '../../Common/Services/WorkplaceService'
+import WorkerStore from '../Workers/WorkerStore'
+import { makeAutoObservable} from 'mobx'
 
 class WpDeleteStore {
     deleteId = ""
     deletedChecked = false
     deleteModal = false
+    isDeleteFailed = false
 
     constructor() {
         makeAutoObservable(this)
@@ -17,15 +18,21 @@ class WpDeleteStore {
         setTimeout(() => {this.deletedChecked = false}, 3000)
     }
 
+    deleteFailed = () => {
+        this.isDeleteFailed = true
+        setTimeout(() => {this.isDeleteFailed = false}, 3000)
+    }
+
     deleteModalHandler = (id) => {
         this.deleteModal ? this.deleteModal = false : this.deleteModal = true
         this.deleteId = id 
     }
 
     deleteWorkplace = async () => {
-        WorkplaceService.delete(this.deleteId)
-        WorkPlaceStore.getWorkplaces()
-        WorkPlaceStore.getNames()
+        await WorkplaceService.delete(this.deleteId)
+        await WorkPlaceStore.getWorkplaces()
+        await WorkerStore.getWorkers()
+        await WorkPlaceStore.getNames()
         this.deletedWPChecker()
         this.deleteId = ""
         this.deleteModal = false

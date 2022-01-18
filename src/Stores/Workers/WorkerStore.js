@@ -1,13 +1,13 @@
-import { makeAutoObservable } from 'mobx'
-import WorkerService from '../../Common/Services/WorkerService'
 import FilterStore from './FilterStore'
+import WorkerService from '../../Common/Services/WorkerService'
+import { makeAutoObservable } from 'mobx'
 
 class WorkerStore {
     workers = []
     lastVisible = []
     firstVisible = []
-    nextLength = 6
-    prevLength = 6
+    nextLength = 7
+    prevLength = 7
 
     constructor(){
         makeAutoObservable(this)

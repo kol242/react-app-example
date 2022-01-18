@@ -1,11 +1,12 @@
+import WorkerStore from './WorkerStore'
 import { makeAutoObservable } from 'mobx'
 import WorkerService from '../../Common/Services/WorkerService'
-import WorkerStore from './WorkerStore'
 
 class CreateStore {
     newChecked = false
     newWorker = false
     createModal = false
+    newFailed = false
     workplaceData = ""
     
     constructor(){
@@ -17,15 +18,20 @@ class CreateStore {
         this.createModal ? this.createModal = false : this.createModal = true
     }
 
-    createWorker = (data) => {
-        WorkerService.create(data)
-        WorkerStore.getWorkers()
+    createWorker = async (data) => {
+        await WorkerService.create(data)
+        await WorkerStore.getWorkers()
         this.createModal = false
     }
 
     newWorkerChecker = () => {
         this.newChecked = true
         setTimeout(() => {this.newChecked = false}, 3000)
+    }
+
+    newWorkerFailed = () => {
+        this.newFailed = true
+        setTimeout(() => {this.newFailed = false}, 3000)
     }
 
     newWorkerHandler = () => {

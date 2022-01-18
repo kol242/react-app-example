@@ -1,12 +1,13 @@
-import { makeAutoObservable} from 'mobx'
-import WorkplaceService from '../../Common/Services/WorkplaceService'
 import WorkPlaceStore from './WorkPlaceStore'
-
+import WorkerStore from '../Workers/WorkerStore'
+import WorkplaceService from '../../Common/Services/WorkplaceService'
+import { makeAutoObservable} from 'mobx'
 
 class WpEditStore {
     editChecked = false
     editWorkplace = false
     editModal = false
+    isEditFailed = false
     currentWorkplace = {}
 
     constructor() {
@@ -23,16 +24,23 @@ class WpEditStore {
         setTimeout(() => {this.editChecked = false}, 3000)
     }
 
+    editFailed = () => {
+        this.isEditFailed = true
+        setTimeout(() => {this.isEditFailed = false}, 3000)
+    }
+
     editHandler = () => {
         this.editWorkplace ? this.editWorkplace = false : this.editWorkplace = true
     }
 
     updateWorkplace = async (data) => {
-        WorkplaceService.update(data)
-        WorkPlaceStore.getWorkplaces()
-        WorkPlaceStore.getNames()
+        await WorkplaceService.update(data)
+        await WorkPlaceStore.getNames()
+        await WorkerStore.getWorkers()
+        await WorkPlaceStore.getWorkplaces()
         this.editWorkplaceChecker()
         this.editModal = false
+        
     }
 }
 

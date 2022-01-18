@@ -7,6 +7,7 @@ const DeleteModal = observer(() => {
     return (
         <div id="myModal" className="modal">
             <div className="modal-content">
+                <p>Brisanjem radnog mjesta obrisati će se i svi povezani radnici.</p>
                 <p>Obrisati odabrano radno mjesto?</p>
                 <div className="btn-wrapper">
                     <button className="btn-primary" onClick={WpDeleteStore.deleteWorkplace}>Obriši</button>

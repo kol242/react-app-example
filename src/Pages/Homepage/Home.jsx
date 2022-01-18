@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import './home.scss'
+import '../../Common/style/home.scss'
 import Image from '../../Common/images/home-image.png'
 
 function Home() {

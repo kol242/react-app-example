@@ -1,6 +1,5 @@
-import { makeAutoObservable} from 'mobx'
 import WorkPlaceStore from './WorkPlaceStore'
-
+import { makeAutoObservable} from 'mobx'
 
 class WpFilterStore {
     filterObj = {}

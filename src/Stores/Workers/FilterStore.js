@@ -1,5 +1,5 @@
-import { makeAutoObservable } from 'mobx'
 import WorkerStore from './WorkerStore'
+import { makeAutoObservable } from 'mobx'
 
 class FilterStore {
     filterTypeChecker = ""

@@ -1,3 +1,6 @@
+import WpCreateStore from '../../Stores/Workplaces/WpCreateStore'
+import WpEditStore from '../../Stores/Workplaces/WpEditStore'
+import WpDeleteStore from '../../Stores/Workplaces/WpDeleteStore'
 import {db} from './firebase-config'
 import { 
     collection, 
@@ -15,9 +18,9 @@ import {
     endBefore,
     limitToLast, 
     documentId,
-    FieldPath
+    FieldPath,
+    writeBatch
 } from 'firebase/firestore'
-
 
 class WorkerService {
     constructor(){
@@ -26,12 +29,16 @@ class WorkerService {
     }
 
     create = async (data) => {
-        const collectionRef = collection(db, "WorkPlaces")
-        await addDoc(collectionRef, {
-            Naziv: data.name,
-            Opis: data.descr,
-            Placa: data.salary,
-        })
+        try {
+            const collectionRef = collection(db, "WorkPlaces")
+            await addDoc(collectionRef, {
+                Naziv: data.name,
+                Opis: data.descr,
+                Placa: data.salary,
+            })
+        } catch {
+            WpCreateStore.createFailed()
+        }
     }
 
     get = async (sortingType) => {
@@ -62,17 +69,32 @@ class WorkerService {
     }
 
     update = async (data) => {
-        const collectionRef = doc(db, "WorkPlaces", data.docId)
-        await updateDoc(collectionRef, { 
-            Naziv: data.name,
-            Opis: data.descr,
-            Placa: data.salary,
-        })
+        try {
+            const collectionRef = doc(db, "WorkPlaces", data.docId)
+            await updateDoc(collectionRef, { 
+                Naziv: data.name,
+                Opis: data.descr,
+                Placa: data.salary,
+            })
+        } catch {
+            WpEditStore.editFailed()
+        }
     }
 
     delete = async (id) => {
-        const collectionRef = doc(db, "WorkPlaces", id)
-        await deleteDoc(collectionRef)
+        try {
+            const workplaceRef = doc(db, "WorkPlaces", id)
+            const q = query(collection(db, "Workers"), where("IdRadnogMjesta", "==", id))
+            const workersRef = await getDocs(q)
+            const batch = writeBatch(db)
+            workersRef.forEach(worker => {
+                batch.delete(worker.ref)
+            })
+            await batch.commit()
+            await deleteDoc(workplaceRef)
+        } catch {
+            WpDeleteStore.deleteFailed()
+        }
     }
 
     nextPage = (lastData, sortingType) => {

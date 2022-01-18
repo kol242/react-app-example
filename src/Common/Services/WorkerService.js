@@ -1,3 +1,6 @@
+import CreateStore from '../../Stores/Workers/CreateStore'
+import EditStore from '../../Stores/Workers/EditStore'
+import DeleteStore from '../../Stores/Workers/DeleteStore'
 import {db} from './firebase-config'
 import { 
     collection, 
@@ -17,23 +20,26 @@ import {
     FieldPath
 } from 'firebase/firestore'
 
-
 class WorkerService {
     constructor(){
         this.get()
     }
 
     create = async (data) => {
-        const collectionRef = collection(db, "Workers")
-        await addDoc(collectionRef, {
-            Ime: data.name,
-            Prezime: data.lastName,
-            Dob: data.age,
-            Placa: data.salary,
-            Pozicija: data.workPlace,
-            IdRadnogMjesta: data.workPlaceId,
-            Ugovor: data.contract
-        })
+        try {
+            const collectionRef = collection(db, "Workers")
+            await addDoc(collectionRef, {
+                Ime: data.name,
+                Prezime: data.lastName,
+                Dob: data.age,
+                Placa: data.salary,
+                Pozicija: data.workPlace,
+                IdRadnogMjesta: data.workPlaceId,
+                Ugovor: data.contract
+            }) 
+        } catch {
+            CreateStore.newWorkerFailed()
+        }
     }
 
     get = async (sortingType) => {
@@ -49,15 +55,19 @@ class WorkerService {
     }
 
     update = async (data) => {
-        const collectionRef = doc(db, "Workers", data.docId)
-        await updateDoc(collectionRef, { 
-            Ime: data.name,
-            Prezime: data.lastName,
-            Dob: data.age,
-            Placa: data.salary,
-            Pozicija: data.workPlace,
-            Ugovor: data.contract
-        })
+        try {
+            const collectionRef = doc(db, "Workers", data.docId)
+            await updateDoc(collectionRef, { 
+                Ime: data.name,
+                Prezime: data.lastName,
+                Dob: data.age,
+                Placa: data.salary,
+                Pozicija: data.workPlace,
+                Ugovor: data.contract
+            })
+        } catch {
+            EditStore.editFailed()
+        }
     }
 
     WorkplaceUpdate = async (data) => {
@@ -73,8 +83,12 @@ class WorkerService {
     }
 
     delete = async (id) => {
-        const collectionRef = doc(db, "Workers", id)
-        await deleteDoc(collectionRef)
+        try {
+            const collectionRef = doc(db, "Workers", id)
+            await deleteDoc(collectionRef)
+        } catch {
+            DeleteStore.deleteFailed()
+        }
     }
 
     nextPage = (lastData, sortingType) => {

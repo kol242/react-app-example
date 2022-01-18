@@ -1,11 +1,12 @@
+import WorkerStore from './WorkerStore'
 import { makeAutoObservable } from 'mobx'
 import WorkerService from '../../Common/Services/WorkerService'
-import WorkerStore from './WorkerStore'
 
 class DeleteStore {
     deleteId = ""
     isDeleted = false
     deleteModal = false
+    isDeleteFailed = false
     
     constructor(){
         makeAutoObservable(this)
@@ -16,15 +17,20 @@ class DeleteStore {
         setTimeout(() => {this.isDeleted = false}, 3000)
     }
 
+    deleteFailed = () => {
+        this.isDeleteFailed = true
+        setTimeout(() => {this.isDeleteFailed = false}, 3000)
+    }
+
     deleteModalHandler = (id) => {
         this.deleteModal ? this.deleteModal = false : this.deleteModal = true
         this.deleteId = id 
     }
 
-    deleteWorker = () => {
-        WorkerService.delete(this.deleteId)
+    deleteWorker = async () => {
+        await WorkerService.delete(this.deleteId)
+        await WorkerStore.getWorkers()
         this.deleteChecker()
-        WorkerStore.getWorkers()
         this.deleteId = ""
         this.deleteModal = false
     }
