@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react'
 import React from 'react'
+import WorkPlaceStore from '../../../Stores/Workplaces/WorkPlaceStore'
 import WpCreateStore from '../../../Stores/Workplaces/WpCreateStore'
 import WpDeleteStore from '../../../Stores/Workplaces/WpDeleteStore'
 import WpEditStore from '../../../Stores/Workplaces/WpEditStore'
@@ -15,6 +16,9 @@ const WorkplaceError = observer(() => {
             } 
             { WpEditStore.isEditFailed ? 
                 <p className="alert-warning">Greška prilikom uređivanja radnog mjesta!</p> : null 
+            } 
+            { WorkPlaceStore.isGetFailed ? 
+                <p className="alert-warning">Greška prilikom dohvaćanja radnih mjesta!</p> : null 
             } 
         </>
     )

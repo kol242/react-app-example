@@ -21,6 +21,8 @@ import {
     FieldPath,
     writeBatch
 } from 'firebase/firestore'
+import WpFilterStore from '../../Stores/Workplaces/WpFilterStore'
+import WorkPlaceStore from '../../Stores/Workplaces/WorkPlaceStore'
 
 class WorkerService {
     constructor(){
@@ -41,20 +43,24 @@ class WorkerService {
         }
     }
 
-    get = async (sortingType) => {
+    fetchSorter = () => {
+        return WpFilterStore.sortingType
+    }
+
+    get = async () => {
         try {
-            const sortData = await sortingType
+            const sortData = await this.fetchSorter()
             const ref = query(collection(db, "WorkPlaces"), 
             orderBy(sortData.field, sortData.sorter), 
             limit(7))
             return getDocs(ref)
-        } catch {
-            return null
+        } catch (e) {
+            WorkPlaceStore.isGetFailed()
+            console.error(e)
         }
-        
     }
     
-    getById = async (id) => {
+    getById = (id) => {
         return getDoc(doc(db, "WorkPlaces", id))
     }
 

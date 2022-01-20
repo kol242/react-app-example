@@ -1,7 +1,7 @@
 import WorkPlaceStore from './WorkPlaceStore'
 import WorkerStore from '../Workers/WorkerStore'
 import WorkplaceService from '../../Common/Services/WorkplaceService'
-import { makeAutoObservable} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 class WpEditStore {
     editChecked = false
@@ -38,9 +38,10 @@ class WpEditStore {
         await WorkPlaceStore.getNames()
         await WorkerStore.getWorkers()
         await WorkPlaceStore.getWorkplaces()
-        this.editWorkplaceChecker()
-        this.editModal = false
-        
+        runInAction(() => {
+            this.editWorkplaceChecker()
+            this.editModal = false
+        })
     }
 }
 

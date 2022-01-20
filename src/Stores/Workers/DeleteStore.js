@@ -1,5 +1,5 @@
 import WorkerStore from './WorkerStore'
-import { makeAutoObservable } from 'mobx'
+import { runInAction, makeAutoObservable } from 'mobx'
 import WorkerService from '../../Common/Services/WorkerService'
 
 class DeleteStore {
@@ -30,9 +30,11 @@ class DeleteStore {
     deleteWorker = async () => {
         await WorkerService.delete(this.deleteId)
         await WorkerStore.getWorkers()
-        this.deleteChecker()
-        this.deleteId = ""
-        this.deleteModal = false
+        runInAction(() => {
+            this.deleteChecker()
+            this.deleteId = ""
+            this.deleteModal = false   
+        })
     }
 }
 

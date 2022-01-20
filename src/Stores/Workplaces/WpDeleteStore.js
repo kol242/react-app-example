@@ -1,7 +1,7 @@
 import WorkPlaceStore from './WorkPlaceStore'
-import WorkplaceService from '../../Common/Services/WorkplaceService'
 import WorkerStore from '../Workers/WorkerStore'
-import { makeAutoObservable} from 'mobx'
+import WorkplaceService from '../../Common/Services/WorkplaceService'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 class WpDeleteStore {
     deleteId = ""
@@ -33,9 +33,11 @@ class WpDeleteStore {
         await WorkPlaceStore.getWorkplaces()
         await WorkerStore.getWorkers()
         await WorkPlaceStore.getNames()
-        this.deletedWPChecker()
-        this.deleteId = ""
-        this.deleteModal = false
+        runInAction(() => {
+            this.deletedWPChecker()
+            this.deleteId = ""
+            this.deleteModal = false
+        })
     }
 }
 

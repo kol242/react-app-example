@@ -1,10 +1,9 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-
-import Delete from '../../Common/images/bin.png'
-import Edit from '../../Common/images/edit.png'
 import DeleteStore from '../../Stores/Workers/DeleteStore'
 import EditStore from '../../Stores/Workers/EditStore'
+import Delete from '../../Common/images/bin.png'
+import Edit from '../../Common/images/edit.png'
 
 const List = observer(({
     id,

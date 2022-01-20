@@ -19,8 +19,11 @@ import {
     documentId,
     FieldPath
 } from 'firebase/firestore'
+import FilterStore from '../../Stores/Workers/FilterStore'
+import WorkerStore from '../../Stores/Workers/WorkerStore'
 
 class WorkerService {
+
     constructor(){
         this.get()
     }
@@ -42,15 +45,22 @@ class WorkerService {
         }
     }
 
-    get = async (sortingType) => {
+    fetchSorter = () => {
+        return FilterStore.sortingType
+    }
+
+    get = async () => {
         try {
-            const sortData = await sortingType
-            const ref = query(collection(db, "Workers"), 
-            orderBy(sortData.field, sortData.sorter), 
-            limit(7))
-            return getDocs(ref)
-        } catch {
-            return null
+            const sortBy = await this.fetchSorter()
+            const ref = query(
+                collection(db, "Workers"), 
+                orderBy(sortBy.field, sortBy.sorter), 
+                limit(7)
+            ) 
+        return getDocs(ref)
+        } catch (e) {
+            WorkerStore.getFailed()
+            console.error(e)
         }
     }
 

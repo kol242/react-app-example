@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react'
 import React from 'react'
 import WorkPlaceStore from '../../../Stores/Workplaces/WorkPlaceStore'
+import WpFilterStore from '../../../Stores/Workplaces/WpFilterStore'
 import Search from '../../../Common/images/search.png'
 import Name from './Inputs/Name'
 import SalaryMore from './Inputs/SalaryMore'
 import SalaryLess from './Inputs/SalaryLess'
-import WpFilterStore from '../../../Stores/Workplaces/WpFilterStore'
 
 const FilterForm = observer(() => {
     const filterType = (e) => {

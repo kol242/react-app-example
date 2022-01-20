@@ -18,7 +18,7 @@ const WorkerError = observer(() => {
                 <p className="alert-warning">Greška prilikom uređivanja radnika!</p> : null 
             } 
             { WorkerStore.isGetFailed ? 
-                <p className="alert-warning">Greška na serveru!</p> : null 
+                <p className="alert-warning">Greška prilikom dohvaćanja radnika!</p> : null 
             } 
         </>
     )

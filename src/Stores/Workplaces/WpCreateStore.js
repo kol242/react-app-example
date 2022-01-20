@@ -1,6 +1,6 @@
 import WorkPlaceStore from './WorkPlaceStore'
 import WorkplaceService from '../../Common/Services/WorkplaceService'
-import { makeAutoObservable} from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 
 class WpCreateStore {
     newCheckedWP = false
@@ -34,8 +34,10 @@ class WpCreateStore {
         await WorkplaceService.create(data)
         await WorkPlaceStore.getWorkplaces()
         await WorkPlaceStore.getNames()
-        this.newWorkplaceChecker()
-        this.createModal = false
+        runInAction(() => {
+            this.newWorkplaceChecker()
+            this.createModal = false 
+        })
     }
 }
 

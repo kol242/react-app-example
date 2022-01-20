@@ -28,7 +28,7 @@ class WpFilterStore {
         this.filterTypeChecker = type
     }
 
-    filterValues = async (input) => {
+    filterValues = (input) => {
         switch(this.filterTypeChecker) {
             case 'name':
                 this.filterObj = {

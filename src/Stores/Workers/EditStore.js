@@ -1,5 +1,5 @@
 import WorkerStore from './WorkerStore'
-import { makeAutoObservable } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 import WorkerService from '../../Common/Services/WorkerService'
 
 class EditStore {
@@ -35,13 +35,17 @@ class EditStore {
     updateWorker = async (data) => {
         await WorkerService.update(data)
         await WorkerStore.getWorkers()
-        this.editChecker()
-        this.editModal = false
+        runInAction(() => {
+            this.editChecker()
+            this.editModal = false 
+        })
     }
 
     WorkplaceUpdate = async (data) => {
         await WorkerService.WorkplaceUpdate(data)
-        await WorkerStore.getWorkers()
+        runInAction(() => {
+            WorkerStore.getWorkers()
+        })
     }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
-import '../../../Common/style/sorter.scss'
 import WpFilterStore from '../../../Stores/Workplaces/WpFilterStore'
+import '../../../Common/style/sorter.scss'
 
 function WorkplaceSorter() {
     const sorting = (e) => {
