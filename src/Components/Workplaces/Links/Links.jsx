@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom'
 import WpCreateStore from '../../../Stores/Workplaces/WpCreateStore'
 import WpFilterStore from '../../../Stores/Workplaces/WpFilterStore'
 import WorkplaceSorter from '../SortWorkplaces/WorkplaceSorter'
-
-import New from '../../../Common/images/plus.png'
-import Filter from '../../../Common/images/filter.png'
+import { AiOutlineAppstoreAdd } from 'react-icons/ai'
+import { FaFilter } from 'react-icons/fa'
 
 const Links = () => {
     return (
@@ -16,11 +15,11 @@ const Links = () => {
             <div className="btn-wrapper">
                 <Link to="/workers"><button className="btn-secondary">Popis svih radnika</button></Link>
                 <button className="btn-primary" onClick={WpCreateStore.createModalHandler}>
-                    <img src={New} alt="New" />
+                    <AiOutlineAppstoreAdd className="icon"/>
                     Dodaj radno mjesto
                 </button>
                 <button className="btn-undo" onClick={WpFilterStore.filterHandler}>
-                    <img src={Filter} alt="Filter" />
+                    <FaFilter className="icon"/>
                     Filtriraj
                 </button>
                 <WorkplaceSorter />

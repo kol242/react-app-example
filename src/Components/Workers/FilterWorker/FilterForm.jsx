@@ -1,6 +1,5 @@
 import React from 'react'
 import WorkerStore from '../../../Stores/Workers/WorkerStore'
-import Search from '../../../Common/images/search.png'
 import { observer } from 'mobx-react'
 // components
 import List from '../../../Components/Workers/FilterWorker/List'
@@ -11,6 +10,7 @@ import AgeMore from './Inputs/AgeMore'
 import AgeLess from './Inputs/AgeLess'
 import Contract from './Inputs/Contract'
 import FilterStore from '../../../Stores/Workers/FilterStore'
+import { BiSearch } from 'react-icons/bi'
 
 const FilterForm = observer(() => {
     const filterType = (e) => {
@@ -42,7 +42,7 @@ const FilterForm = observer(() => {
                 { FilterStore.filterTypeChecker === 'ageLess' ? <AgeLess /> : null }
                 { FilterStore.filterTypeChecker === 'workplace' ? <List /> : null}
                 { FilterStore.filterTypeChecker === 'contract' ? <Contract /> : null}
-                <button type="submit" className="btn-undo"><img src={Search} alt="Search" />Traži</button>
+                <button type="submit" className="btn-undo"><BiSearch className="icon"/>Traži</button>
             </form>
         </>
     )

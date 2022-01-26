@@ -1,12 +1,10 @@
 import WorkPlaceStore from './WorkPlaceStore'
 import WorkplaceService from '../../Common/Services/WorkplaceService'
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeAutoObservable } from 'mobx'
 
 class WpCreateStore {
-    newCheckedWP = false
     newWorkplace = false
     createModal = false
-    isCreateFailed = false
 
     constructor() {
         makeAutoObservable(this)
@@ -16,28 +14,21 @@ class WpCreateStore {
         this.createModal ? this.createModal = false : this.createModal = true
     }
 
-    newWorkplaceChecker = () => {
-        this.newCheckedWP = true
-        setTimeout(() => {this.newCheckedWP = false}, 3000)
-    }
-
-    createFailed = () => {
-        this.isCreateFailed = true
-        setTimeout(() => {this.isCreateFailed = false}, 3000)
-    }
-
     newHandler = () => {
         this.newWorkplace ? this.newWorkplace = false : this.newWorkplace = true
     }
 
-    createWorkplace = async (data) => {
-        await WorkplaceService.create(data)
-        await WorkPlaceStore.getWorkplaces()
-        await WorkPlaceStore.getNames()
-        runInAction(() => {
-            this.newWorkplaceChecker()
-            this.createModal = false 
-        })
+    createWorkplace = async (form) => {
+        let data = {
+            docId: "",
+            name: form.name,
+            descr: form.description,
+            salary: Number(form.salary),
+        }
+        WorkplaceService.create(data)
+        WorkPlaceStore.getWorkplaces()
+        WorkPlaceStore.getNames()
+        this.createModal = false 
     }
 }
 

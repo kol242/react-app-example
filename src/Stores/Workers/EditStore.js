@@ -1,13 +1,13 @@
 import WorkerStore from './WorkerStore'
 import { makeAutoObservable, runInAction } from 'mobx'
 import WorkerService from '../../Common/Services/WorkerService'
+import WorkplaceService from '../../Common/Services/WorkplaceService'
 
 class EditStore {
-    isEdited = false
     editWorker = false
     editModal = false
-    isEditFailed = false
     currentWorker = {}
+    contract = ["Određeno", "Neodređeno"]
     
     constructor(){
         makeAutoObservable(this)
@@ -18,25 +18,26 @@ class EditStore {
         this.editModal ? this.editModal = false : this.editModal = true
     }
 
-    editChecker = () => {
-        this.isEdited = true
-        setTimeout(() => {this.isEdited = false}, 3000)
-    }
-    
-    editFailed = () => {
-        this.isEditFailed = true
-        setTimeout(() => {this.isEditFailed = false}, 3000)
-    }
-
     editWorkerHandler = () => {
         this.editWorker ? this.editWorker = false : this.editWorker = true
     }
 
-    updateWorker = async (data) => {
-        await WorkerService.update(data)
-        await WorkerStore.getWorkers()
+    updateWorker = async (form) => {
+        const temp = await WorkplaceService.getByName(form.workplace)
         runInAction(() => {
-            this.editChecker()
+            let data = {}
+            temp.forEach(doc => data = {
+                docId: this.currentWorker.docId,
+                name: form.name,
+                lastName: form.lastName,
+                age: Number(form.age),
+                salary: Number(doc.data().Placa),
+                workPlace: doc.data().Naziv,
+                workPlaceId: doc.id,
+                contract: form.contract
+            })
+            WorkerService.update(data)
+            WorkerStore.getWorkers()
             this.editModal = false 
         })
     }

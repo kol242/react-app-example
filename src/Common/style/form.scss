@@ -2,7 +2,6 @@
 form {
     textArea,
     input {
-        margin-bottom: 5px;
         padding: 7px 7px;
         border-radius: 5px;
         border: 1px solid rgb(141, 141, 141);
@@ -26,5 +25,11 @@ form {
         margin-bottom: 5px;
         border-radius: 5px;
         border: 1px solid rgb(141, 141, 141);
+    }
+    .input-error {
+        margin-top: 2px;
+        margin-bottom: 8px;
+        font-size: 12px;
+        color: rgb(219, 1, 1);
     }
 }

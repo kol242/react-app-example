@@ -3,9 +3,9 @@ import React from 'react'
 import WpDeleteStore from '../../Stores/Workplaces/WpDeleteStore'
 import WpEditStore from '../../Stores/Workplaces/WpEditStore'
 import CreateStore from '../../Stores/Workers/CreateStore'
-import New from '../../Common/images/plus.png'
-import Delete from '../../Common/images/bin.png'
-import Edit from '../../Common/images/edit.png'
+import { IoTrashBin } from 'react-icons/io5'
+import { AiOutlineEdit } from 'react-icons/ai'
+import { BsPersonPlusFill } from 'react-icons/bs'
 
 const List = observer(({
     id,
@@ -29,15 +29,15 @@ const List = observer(({
               <li className="card-item">{salary} Kn (neto)</li>
               <div className="btn-wrapper">
                   <button className="btn-primary" onClick={() => CreateStore.createModalHandler(workplaceData)}>
-                    <img src={New} alt="new" />
+                    <BsPersonPlusFill className="icon"/>
                     Dodaj radnika
                   </button>
                   <button onClick={() => WpDeleteStore.deleteModalHandler(id)} className="btn-red">
-                    <img src={Delete} alt="Delete" />
+                    <IoTrashBin className="icon"/>
                     Obriši
                   </button>
                   <button className="btn-secondary" onClick={() => WpEditStore.editModalHandler(workplaceData)}>
-                    <img src={Edit} alt="Edit" />
+                    <AiOutlineEdit className="icon"/>
                     Uredi
                   </button>
               </div>

@@ -2,12 +2,11 @@ import WorkPlaceStore from './WorkPlaceStore'
 import WorkerStore from '../Workers/WorkerStore'
 import WorkplaceService from '../../Common/Services/WorkplaceService'
 import { makeAutoObservable, runInAction } from 'mobx'
+import EditStore from '../Workers/EditStore'
 
 class WpEditStore {
-    editChecked = false
     editWorkplace = false
     editModal = false
-    isEditFailed = false
     currentWorkplace = {}
 
     constructor() {
@@ -19,27 +18,23 @@ class WpEditStore {
         this.editModal ? this.editModal = false : this.editModal = true
     }
 
-    editWorkplaceChecker = () => {
-        this.editChecked = true
-        setTimeout(() => {this.editChecked = false}, 3000)
-    }
-
-    editFailed = () => {
-        this.isEditFailed = true
-        setTimeout(() => {this.isEditFailed = false}, 3000)
-    }
-
     editHandler = () => {
         this.editWorkplace ? this.editWorkplace = false : this.editWorkplace = true
     }
 
-    updateWorkplace = async (data) => {
-        await WorkplaceService.update(data)
-        await WorkPlaceStore.getNames()
+    updateWorkplace = async (form) => {
+        let data = {
+            docId: this.currentWorkplace.docId,
+            name: form.name,
+            descr: form.description,
+            salary: Number(form.salary),
+        }
+        EditStore.WorkplaceUpdate(data)
+        WorkplaceService.update(data)
         await WorkerStore.getWorkers()
         await WorkPlaceStore.getWorkplaces()
+        await WorkPlaceStore.getNames()
         runInAction(() => {
-            this.editWorkplaceChecker()
             this.editModal = false
         })
     }

@@ -5,22 +5,10 @@ import { makeAutoObservable, runInAction } from 'mobx'
 
 class WpDeleteStore {
     deleteId = ""
-    deletedChecked = false
     deleteModal = false
-    isDeleteFailed = false
 
     constructor() {
         makeAutoObservable(this)
-    }
-
-    deletedWPChecker = () => {
-        this.deletedChecked = true
-        setTimeout(() => {this.deletedChecked = false}, 3000)
-    }
-
-    deleteFailed = () => {
-        this.isDeleteFailed = true
-        setTimeout(() => {this.isDeleteFailed = false}, 3000)
     }
 
     deleteModalHandler = (id) => {
@@ -34,7 +22,6 @@ class WpDeleteStore {
         await WorkerStore.getWorkers()
         await WorkPlaceStore.getNames()
         runInAction(() => {
-            this.deletedWPChecker()
             this.deleteId = ""
             this.deleteModal = false
         })

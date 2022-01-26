@@ -5,7 +5,6 @@ import WpFilterStore from '../../Stores/Workplaces/WpFilterStore'
 import '../../Common/style/list.scss'
 // components
 import WorkplaceFilter from '../Workplaces/FilterWorkplace/WorkplaceFilter'
-import AlertPanel from '../../Components/AlertPanel/AlertPanel'
 import Pagination from '../../Components/Workplaces/Pagination/Pagination'
 import List from '../../Components/Workplaces/List'
 import Links from '../../Components/Workplaces/Links/Links'
@@ -14,10 +13,9 @@ import Modals from '../../Components/Workplaces/Modals'
 const WorkPlaceList = observer(() => {
   return (
     <div className="main-container__list">
-      <div />
       <Modals />
+      <div />
       <div className="container">
-        <AlertPanel />
         <h2>Popis radnih mjesta</h2>
         <Links />
         { WpFilterStore.filter ? <WorkplaceFilter /> : null }

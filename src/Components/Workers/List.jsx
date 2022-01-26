@@ -2,8 +2,9 @@ import { observer } from 'mobx-react'
 import React from 'react'
 import DeleteStore from '../../Stores/Workers/DeleteStore'
 import EditStore from '../../Stores/Workers/EditStore'
-import Delete from '../../Common/images/bin.png'
-import Edit from '../../Common/images/edit.png'
+import { IoTrashBin } from 'react-icons/io5'
+import { AiOutlineEdit } from 'react-icons/ai'
+
 
 const List = observer(({
     id,
@@ -35,11 +36,11 @@ const List = observer(({
                 <li className="card-item">{contract}</li>
                 <div className="btn-wrapper">
                     <button onClick={() => DeleteStore.deleteModalHandler(id)} className="btn-red">
-                        <img src={Delete} alt="Delete" />
+                        <IoTrashBin className="icon"/>
                         Obriši
                     </button>
                     <button className="btn-secondary" onClick={() => EditStore.editModalHandler(workerData)}>
-                        <img src={Edit} alt="Edit" />
+                        <AiOutlineEdit className="icon"/>
                         Uredi
                     </button>
                 </div>

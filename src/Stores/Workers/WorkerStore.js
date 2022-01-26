@@ -8,16 +8,10 @@ class WorkerStore {
     firstVisible = []
     nextLength = 7
     prevLength = 7
-    isGetFailed = false
 
     constructor(){
         makeAutoObservable(this)
         this.getWorkers()
-    }
-
-    getFailed = () => {
-        this.isGetFailed = true
-        setTimeout(() => {this.isGetFailed = false}, 3000)
     }
 
     getWorkers = async () => {

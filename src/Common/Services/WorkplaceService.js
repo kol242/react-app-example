@@ -1,6 +1,3 @@
-import WpCreateStore from '../../Stores/Workplaces/WpCreateStore'
-import WpEditStore from '../../Stores/Workplaces/WpEditStore'
-import WpDeleteStore from '../../Stores/Workplaces/WpDeleteStore'
 import {db} from './firebase-config'
 import { 
     collection, 
@@ -22,7 +19,7 @@ import {
     writeBatch
 } from 'firebase/firestore'
 import WpFilterStore from '../../Stores/Workplaces/WpFilterStore'
-import WorkPlaceStore from '../../Stores/Workplaces/WorkPlaceStore'
+import ToastStore from '../../Stores/ToastStore'
 
 class WorkerService {
     constructor(){
@@ -38,8 +35,17 @@ class WorkerService {
                 Opis: data.descr,
                 Placa: data.salary,
             })
+            ToastStore.notificationType({
+                type: "SUCCESS",
+                title: "Uspjeh!",
+                message: "Radno mjesto je uspješno dodano."
+            })
         } catch {
-            WpCreateStore.createFailed()
+            ToastStore.notificationType({
+                type: "ERROR",
+                title: "Greška!",
+                message: "Greška prilikom dodavanja radnog mjesta."
+            })
         }
     }
 
@@ -55,7 +61,11 @@ class WorkerService {
             limit(7))
             return getDocs(ref)
         } catch (e) {
-            WorkPlaceStore.isGetFailed()
+            ToastStore.notificationType({
+                type: "ERROR",
+                title: "Greška!",
+                message: "Greška prilikom učitavanja radnih mjesta."
+            })
             console.error(e)
         }
     }
@@ -82,8 +92,17 @@ class WorkerService {
                 Opis: data.descr,
                 Placa: data.salary,
             })
+            ToastStore.notificationType({
+                type: "SUCCESS",
+                title: "Uspjeh!",
+                message: "Radno mjesto je uspješno uređeno."
+            })
         } catch {
-            WpEditStore.editFailed()
+            ToastStore.notificationType({
+                type: "ERROR",
+                title: "Greška!",
+                message: "Greška prilikom uređivanja radnog mjesta."
+            })
         }
     }
 
@@ -98,8 +117,17 @@ class WorkerService {
             })
             await batch.commit()
             await deleteDoc(workplaceRef)
+            ToastStore.notificationType({
+                type: "SUCCESS",
+                title: "Uspjeh!",
+                message: "Radno mjesto je uspješno obrisano."
+            })
         } catch {
-            WpDeleteStore.deleteFailed()
+            ToastStore.notificationType({
+                type: "ERROR",
+                title: "Greška!",
+                message: "Greška prilikom brisanja radnog mjesta."
+            })
         }
     }
 

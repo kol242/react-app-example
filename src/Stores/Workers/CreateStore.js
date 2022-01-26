@@ -1,13 +1,14 @@
 import WorkerStore from './WorkerStore'
 import { runInAction, makeAutoObservable } from 'mobx'
 import WorkerService from '../../Common/Services/WorkerService'
+import WorkplaceService from '../../Common/Services/WorkplaceService'
+//import ToastStore from '../ToastStore'
 
 class CreateStore {
-    newChecked = false
     newWorker = false
     createModal = false
-    newFailed = false
     workplaceData = ""
+    contracts = ["Određeno", "Neodređeno"]
     
     constructor(){
         makeAutoObservable(this)
@@ -18,28 +19,28 @@ class CreateStore {
         this.createModal ? this.createModal = false : this.createModal = true
     }
 
-    createWorker = async (data) => {
-        await WorkerService.create(data)
-        await WorkerStore.getWorkers()
+    createWorker = async (form) => {
+        const collectionRef = await WorkplaceService.getById(this.workplaceData.docId)
         runInAction(() => {
-           this.createModal = false 
+            let data = {
+                docId: "",
+                name: form.name,
+                lastName: form.lastName,
+                age: Number(form.age),
+                workPlaceId: this.workplaceData.docId,
+                workPlace: collectionRef.data().Naziv,
+                salary: Number(collectionRef.data().Placa),
+                contract: form.contract
+            }
+            WorkerService.create(data)
+            WorkerStore.getWorkers()
+            this.createModal = false 
         })
-    }
-
-    newWorkerChecker = () => {
-        this.newChecked = true
-        setTimeout(() => {this.newChecked = false}, 3000)
-    }
-
-    newWorkerFailed = () => {
-        this.newFailed = true
-        setTimeout(() => {this.newFailed = false}, 3000)
     }
 
     newWorkerHandler = () => {
         this.newWorker ? this.newWorker = false : this.newWorker = true
     }
-
 
 }
 

@@ -1,6 +1,3 @@
-import CreateStore from '../../Stores/Workers/CreateStore'
-import EditStore from '../../Stores/Workers/EditStore'
-import DeleteStore from '../../Stores/Workers/DeleteStore'
 import {db} from './firebase-config'
 import { 
     collection, 
@@ -20,7 +17,7 @@ import {
     FieldPath
 } from 'firebase/firestore'
 import FilterStore from '../../Stores/Workers/FilterStore'
-import WorkerStore from '../../Stores/Workers/WorkerStore'
+import ToastStore from '../../Stores/ToastStore'
 
 class WorkerService {
 
@@ -39,9 +36,18 @@ class WorkerService {
                 Pozicija: data.workPlace,
                 IdRadnogMjesta: data.workPlaceId,
                 Ugovor: data.contract
+            })
+            ToastStore.notificationType({
+                type: "SUCCESS",
+                title: "Uspjeh!",
+                message: "Uspješno je dodan novi radnik."
             }) 
         } catch {
-            CreateStore.newWorkerFailed()
+            ToastStore.notificationType({
+                type: "ERROR",
+                title: "Greška!",
+                message: "Greška prilikom dodavanja novog radnika."
+            })
         }
     }
 
@@ -59,7 +65,11 @@ class WorkerService {
             ) 
         return getDocs(ref)
         } catch (e) {
-            WorkerStore.getFailed()
+            ToastStore.notificationType({
+                type: "ERROR",
+                title: "Greška!",
+                message: "Greška prilikom učitavanja radnika."
+            })
             console.error(e)
         }
     }
@@ -75,8 +85,17 @@ class WorkerService {
                 Pozicija: data.workPlace,
                 Ugovor: data.contract
             })
+            ToastStore.notificationType({
+                type: "SUCCESS",
+                title: "Uspjeh!",
+                message: "Radnik je uspješno uređen."
+            })
         } catch {
-            EditStore.editFailed()
+            ToastStore.notificationType({
+                type: "ERROR",
+                title: "Greška!",
+                message: "Greška prilikom uređivanja radnika."
+            })
         }
     }
 
@@ -96,8 +115,17 @@ class WorkerService {
         try {
             const collectionRef = doc(db, "Workers", id)
             await deleteDoc(collectionRef)
+            ToastStore.notificationType({
+                type: "SUCCESS",
+                title: "Uspjeh!",
+                message: "Radnik je uspješno obrisan."
+            })
         } catch {
-            DeleteStore.deleteFailed()
+            ToastStore.notificationType({
+                type: "ERROR",
+                title: "Greška!",
+                message: "Greška prilikom brisanja radnika."
+            })
         }
     }
 

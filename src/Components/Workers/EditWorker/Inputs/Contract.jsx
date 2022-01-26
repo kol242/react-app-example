@@ -1,12 +1,14 @@
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import CreateStore from '../../../../Stores/Workers/CreateStore'
 
-const Contract = observer(() => {
+const Contract = observer(({ field }) => {
     return (
         <div>
-            <select name="contractType" id="contractType">
-                <option>Neodređeno</option>
-                <option>Određeno</option>
+            <select {...field.bind()}>
+                {CreateStore.contracts.map(option => (
+                    <option key={option} value={option}>{option}</option>
+                ))}
             </select>
         </div>
     )

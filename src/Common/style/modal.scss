@@ -10,16 +10,20 @@
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4);
     .modal-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         font-family: $montserrat;
         background-color: #fefefe;
-        margin: 15% auto;
+        margin: 10% auto;
         padding: 20px;
         border: 1px solid #888;
-        width: 15%;
+        width: auto;
+        max-width: 20%;
         border-radius: 10px;
-        h3,
-        p {
-            margin-top: 2%;
+        .modal-text {
+            text-align: center;
         }
         .close {
             color: #aaa;

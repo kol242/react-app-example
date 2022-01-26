@@ -7,7 +7,6 @@ class WorkPlaceStore {
     names = []
     lastVisible = []
     firstVisible = []
-    isGetFailed = false
 
     nextLength = 7
     prevLength = 7
@@ -16,11 +15,6 @@ class WorkPlaceStore {
         makeAutoObservable(this)
         this.getWorkplaces()
         this.getNames()
-    }
-
-    getFailed = () => {
-        this.isGetFailed = true
-        setTimeout(() => {this.isGetFailed = false}, 3000)
     }
 
     getWorkplaces = async () => {
@@ -60,6 +54,7 @@ class WorkPlaceStore {
                 this.tempData.push(temp)
             })
             this.names = this.tempData 
+            console.log(this.names)
         })
     }
 

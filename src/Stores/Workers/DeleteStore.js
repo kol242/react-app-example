@@ -4,22 +4,10 @@ import WorkerService from '../../Common/Services/WorkerService'
 
 class DeleteStore {
     deleteId = ""
-    isDeleted = false
     deleteModal = false
-    isDeleteFailed = false
     
     constructor(){
         makeAutoObservable(this)
-    }
-
-    deleteChecker = () => {
-        this.isDeleted = true
-        setTimeout(() => {this.isDeleted = false}, 3000)
-    }
-
-    deleteFailed = () => {
-        this.isDeleteFailed = true
-        setTimeout(() => {this.isDeleteFailed = false}, 3000)
     }
 
     deleteModalHandler = (id) => {
@@ -31,7 +19,6 @@ class DeleteStore {
         await WorkerService.delete(this.deleteId)
         await WorkerStore.getWorkers()
         runInAction(() => {
-            this.deleteChecker()
             this.deleteId = ""
             this.deleteModal = false   
         })
