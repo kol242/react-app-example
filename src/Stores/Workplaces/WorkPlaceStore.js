@@ -17,98 +17,66 @@ class WorkPlaceStore {
         this.getNames()
     }
 
+    pushDocs = (documentSnapshot) => {
+        const docs = documentSnapshot.docs.slice(0,5)
+        this.workPlaces = docs.map(doc => {
+            return {
+                docId: doc.id,
+                name: doc.data().Naziv,
+                descr: doc.data().Opis,
+                salary: doc.data().Placa
+            }
+        })
+        this.lastVisible = docs[docs.length-1]
+        this.firstVisible = docs[0]  
+    }
+
     getWorkplaces = async () => {
         const documentSnapshot = await (
             WpFilterStore.filter ? WorkplaceService.filterGet(WpFilterStore.filterObj) 
-            : WorkplaceService.get(WpFilterStore.sortingType)
-        )
+            : WorkplaceService.get(WpFilterStore.sortingType))
         runInAction(() => {
             this.prevLength = null
             this.nextLength = documentSnapshot.docs.length
-            const docs = documentSnapshot.docs.slice(0,5)
-                this.tempData = []
-                docs.forEach(doc => {
-                    let temp = {
-                        docId: doc.id,
-                        name: doc.data().Naziv,
-                        descr: doc.data().Opis,
-                        salary: doc.data().Placa
-                    }
-                    this.tempData.push(temp)
-                })
-            this.workPlaces = this.tempData
-            this.lastVisible = docs[docs.length-1]
-            this.firstVisible = docs[0]  
+            this.pushDocs(documentSnapshot)
         })
     }
     
     getNames = async () => {
-        this.tempData = []
-        const docs = await WorkplaceService.getNames()
+        const documentSnapshot = await WorkplaceService.getNames()
         runInAction(() => {
-            docs.forEach(doc => {
-                let temp = {
+            this.names = documentSnapshot.docs.map(doc => {
+                return {
                     id: doc.id,
                     name: doc.data().Naziv
                 }
-                this.tempData.push(temp)
             })
-            this.names = this.tempData 
-            console.log(this.names)
         })
     }
 
     prevPage = async () => {
         const documentSnapshot = await ( 
             WpFilterStore.filter ? WorkplaceService.filterPrevPage(WpFilterStore.filterObj, this.firstVisible) 
-            : WorkplaceService.prevPage(this.firstVisible, WpFilterStore.sortingType) 
-        )
+            : WorkplaceService.prevPage(this.firstVisible, WpFilterStore.sortingType))
         runInAction(() => {
             this.prevLength = documentSnapshot.docs.length
             if(this.nextLength < 7) {
                 this.nextLength = 7
             }
-            const docs = documentSnapshot.docs.slice(0,5)
-            this.tempData = []
-            docs.forEach(doc => {
-                let temp = {
-                    docId: doc.id,
-                    name: doc.data().Naziv,
-                    descr: doc.data().Opis,
-                    salary: doc.data().Placa
-                }
-                this.tempData.push(temp)
-            })
-            this.workPlaces = this.tempData
-            this.lastVisible = docs[docs.length-1]
-            this.firstVisible = docs[0]
+            this.pushDocs(documentSnapshot)
         })
     }
 
     nextPage = async () => {
         const documentSnapshot = await ( 
             WpFilterStore.filter ? WorkplaceService.filterNextPage(WpFilterStore.filterObj, this.lastVisible) 
-            : WorkplaceService.nextPage(this.lastVisible, WpFilterStore.sortingType) 
-        )
+            : WorkplaceService.nextPage(this.lastVisible, WpFilterStore.sortingType))
         runInAction(() => {
             this.nextLength = documentSnapshot.docs.length
             if(this.prevLength < 7) {
                 this.prevLength = 7
             }
-            const docs = documentSnapshot.docs.slice(0,5)
-            this.tempData = []
-            docs.forEach(doc => {
-                let temp = {
-                    docId: doc.id,
-                    name: doc.data().Naziv,
-                    descr: doc.data().Opis,
-                    salary: doc.data().Placa
-                }
-                this.tempData.push(temp)
-            })
-            this.workPlaces = this.tempData
-            this.lastVisible = docs[docs.length-1]
-            this.firstVisible = docs[0]
+            this.pushDocs(documentSnapshot)
         })
     }
 }
