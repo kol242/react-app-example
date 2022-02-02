@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import WpCreateStore from '../../../Stores/Workplaces/WpCreateStore'
 import WpFilterStore from '../../../Stores/Workplaces/WpFilterStore'
-import WorkplaceSorter from '../SortWorkplaces/WorkplaceSorter'
 import { AiOutlineAppstoreAdd } from 'react-icons/ai'
 import { FaFilter } from 'react-icons/fa'
 
@@ -22,7 +21,6 @@ const Links = () => {
                     <FaFilter className="icon"/>
                     Filtriraj
                 </button>
-                <WorkplaceSorter />
             </div>
         </>
     )

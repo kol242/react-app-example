@@ -1,14 +1,14 @@
 import { observer } from 'mobx-react'
-import WorkPlaceStore from '../../Stores/Workplaces/WorkPlaceStore'
 import WpFilterStore from '../../Stores/Workplaces/WpFilterStore'
 // styles
 import '../../Common/style/list.scss'
 // components
 import WorkplaceFilter from '../Workplaces/FilterWorkplace/WorkplaceFilter'
-import Pagination from '../../Components/Workplaces/Pagination/Pagination'
-import List from '../../Components/Workplaces/List'
 import Links from '../../Components/Workplaces/Links/Links'
 import Modals from '../../Components/Workplaces/Modals'
+import DataList from '../../Components/DataList'
+import DataListViewStore from '../../Stores/DataListViewStore'
+import WorkplaceList from '../../Components/Workplaces/WorkplaceList'
 
 const WorkPlaceList = observer(() => {
   return (
@@ -19,18 +19,13 @@ const WorkPlaceList = observer(() => {
         <h2>Popis radnih mjesta</h2>
         <Links />
         { WpFilterStore.filter ? <WorkplaceFilter /> : null }
-        { WorkPlaceStore.workPlaces.map((workplace) => (
-          <List
-            key={workplace.docId} 
-            id={workplace.docId}
-            name={workplace.name}
-            descr={workplace.descr}
-            salary={workplace.salary}
-          /> 
-        ))} 
-        <div className="btn-wrapper--center">
-          <Pagination />
-        </div>  
+        <DataList id='docId' dataset='workplaces' items={DataListViewStore.fetchFunc('workplaces')}
+          render={item => <WorkplaceList
+            id={item.docId} 
+            name={item.name}
+            description={item.descr}
+            salary={item.salary} />
+          } />  
       </div>
       <div />
     </div>

@@ -3,7 +3,7 @@ import WorkplaceService from '../../Common/Services/WorkplaceService'
 import { makeAutoObservable, runInAction } from 'mobx'
 
 class WorkPlaceStore {
-    workPlaces = []
+    items = []
     names = []
     lastVisible = []
     firstVisible = []
@@ -19,7 +19,7 @@ class WorkPlaceStore {
 
     pushDocs = (documentSnapshot) => {
         const docs = documentSnapshot.docs.slice(0,5)
-        this.workPlaces = docs.map(doc => {
+        this.items = docs.map(doc => {
             return {
                 docId: doc.id,
                 name: doc.data().Naziv,

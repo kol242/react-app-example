@@ -1,15 +1,15 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import WorkerStore from '../../Stores/Workers/WorkerStore'
 import FilterStore from '../../Stores/Workers/FilterStore'
 // styles
 import '../../Common/style/list.scss'
 // components
 import WorkerFilter from '../Workers/FilterWorker/WorkerFilter'
-import List from '../../Components/Workers/List'
-import Pagination from '../../Components/Workers/Pagination/Pagination'
 import Links from '../../Components/Workers/Links/Links'
 import Modals from '../../Components/Workers/Modals'
+import DataList from '../../Components/DataList'
+import WorkerList from '../../Components/Workers/WorkerList'
+import DataListViewStore from '../../Stores/DataListViewStore'
 
 const WorkersList = observer(() => {
   return (
@@ -20,18 +20,16 @@ const WorkersList = observer(() => {
         <h2>Popis radnika</h2>
         <Links />
         { FilterStore.filter ? <WorkerFilter /> : null }
-        { WorkerStore.workers.map((worker) => (
-          <List key={worker.docId}
-            lastName={worker.lastName}
-            id={worker.docId}
-            name={worker.name}
-            age={worker.age}
-            salary={worker.salary}
-            workplace={worker.workPlace}
-            contract={worker.contract}
-          />
-        ))}
-        <Pagination />
+        <DataList id='docId' dataset='workers' items={DataListViewStore.fetchFunc('workers')}
+          render={item => <WorkerList
+            id={item.docId} 
+            name={item.name}
+            lastName={item.lastName}
+            age={item.age}
+            workplace={item.workPlace}
+            salary={item.salary}
+            contract={item.contract} />
+          } />
       </div>
       <div/>
     </div>

@@ -3,7 +3,7 @@ import WorkerService from '../../Common/Services/WorkerService'
 import { runInAction, makeAutoObservable } from 'mobx'
 
 class WorkerStore {
-    workers = []
+    items = []
     lastVisible = []
     firstVisible = []
     nextLength = 7
@@ -16,7 +16,7 @@ class WorkerStore {
 
     pushDocs = (documentSnapshot) => {
         const docs = documentSnapshot.docs.slice(0,5)
-        this.workers = docs.map(doc => {
+        this.items = docs.map(doc => {
             return {
                 docId: doc.id,
                 name: doc.data().Ime,
