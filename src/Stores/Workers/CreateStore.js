@@ -2,7 +2,6 @@ import WorkerStore from './WorkerStore'
 import { runInAction, makeAutoObservable } from 'mobx'
 import WorkerService from '../../Common/Services/WorkerService'
 import WorkplaceService from '../../Common/Services/WorkplaceService'
-//import ToastStore from '../ToastStore'
 
 class CreateStore {
     newWorker = false

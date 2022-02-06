@@ -6,6 +6,7 @@ import Name from './Inputs/Name'
 import SalaryMore from './Inputs/SalaryMore'
 import SalaryLess from './Inputs/SalaryLess'
 import { BiSearch } from 'react-icons/bi'
+import DataListViewStore from '../../../Stores/DataListViewStore'
 
 const FilterForm = observer(() => {
     const filterType = (e) => {
@@ -21,7 +22,7 @@ const FilterForm = observer(() => {
     
     const filterSubmit = (e) => {
         e.preventDefault()
-        WorkPlaceStore.getWorkplaces()
+        WorkPlaceStore.getWorkplaces(DataListViewStore.fetchFunc)
     }
 
     return (

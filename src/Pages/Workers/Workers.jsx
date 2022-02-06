@@ -10,6 +10,7 @@ import Modals from '../../Components/Workers/Modals'
 import DataList from '../../Components/DataList'
 import WorkerList from '../../Components/Workers/WorkerList'
 import DataListViewStore from '../../Stores/DataListViewStore'
+import WorkerStore from '../../Stores/Workers/WorkerStore'
 
 const WorkersList = observer(() => {
   return (
@@ -20,7 +21,7 @@ const WorkersList = observer(() => {
         <h2>Popis radnika</h2>
         <Links />
         { FilterStore.filter ? <WorkerFilter /> : null }
-        <DataList id='docId' dataset='workers' items={DataListViewStore.fetchFunc('workers')}
+        <DataList id='docId' dataset={WorkerStore} sorter={FilterStore} items={DataListViewStore.dataset}
           render={item => <WorkerList
             id={item.docId} 
             name={item.name}

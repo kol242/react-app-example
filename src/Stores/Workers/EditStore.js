@@ -1,7 +1,8 @@
 import WorkerStore from './WorkerStore'
-import { makeAutoObservable, runInAction } from 'mobx'
 import WorkerService from '../../Common/Services/WorkerService'
 import WorkplaceService from '../../Common/Services/WorkplaceService'
+import { makeAutoObservable, runInAction } from 'mobx'
+import DataListViewStore from '../DataListViewStore'
 
 class EditStore {
     editWorker = false
@@ -37,7 +38,7 @@ class EditStore {
                 contract: form.contract
             })
             WorkerService.update(data)
-            WorkerStore.getWorkers()
+            WorkerStore.getWorkers(DataListViewStore.fetchFunc)
             this.editModal = false 
         })
     }

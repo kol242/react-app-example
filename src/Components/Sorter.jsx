@@ -1,13 +1,12 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import '../../../Common/style/sorter.scss'
-import DataListViewStore from '../../../Stores/DataListViewStore'
+import '../Common/style/sorter.scss'
 
-const WorkerSorter = observer(({ dataset }) => {
+const Sorter = observer(({ sorter }) => {
     const sorting = (e) => {
         e.preventDefault()
         const sorterType = e.target.value
-        DataListViewStore.sorter(dataset, sorterType)
+        sorter.sorterType(sorterType)
     }
     
     return (
@@ -23,4 +22,4 @@ const WorkerSorter = observer(({ dataset }) => {
     )
 })
 
-export default WorkerSorter
+export default Sorter

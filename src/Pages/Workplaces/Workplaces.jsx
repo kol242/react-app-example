@@ -9,6 +9,7 @@ import Modals from '../../Components/Workplaces/Modals'
 import DataList from '../../Components/DataList'
 import DataListViewStore from '../../Stores/DataListViewStore'
 import WorkplaceList from '../../Components/Workplaces/WorkplaceList'
+import WorkPlaceStore from '../../Stores/Workplaces/WorkPlaceStore'
 
 const WorkPlaceList = observer(() => {
   return (
@@ -19,7 +20,7 @@ const WorkPlaceList = observer(() => {
         <h2>Popis radnih mjesta</h2>
         <Links />
         { WpFilterStore.filter ? <WorkplaceFilter /> : null }
-        <DataList id='docId' dataset='workplaces' items={DataListViewStore.fetchFunc('workplaces')}
+        <DataList id='docId' dataset={WorkPlaceStore} sorter={WpFilterStore} items={DataListViewStore.dataset}
           render={item => <WorkplaceList
             id={item.docId} 
             name={item.name}

@@ -32,7 +32,7 @@ class WorkerStore {
         this.firstVisible = docs[0] 
     }
 
-    getWorkers = async () => {
+    getWorkers = async (callback) => {
         const documentSnapshot = await (
             FilterStore.filter ? WorkerService.filterGet(FilterStore.filterObj) 
             : WorkerService.get(FilterStore.sortingType))
@@ -40,10 +40,11 @@ class WorkerStore {
             this.prevLength = null
             this.nextLength = documentSnapshot.docs.length
             this.pushDocs(documentSnapshot)
+            callback(this.items)
         })
     }
 
-    prevPage = async () => {
+    prevPage = async (callback) => {
         const documentSnapshot = await ( 
             FilterStore.filter ? WorkerService.filterPrevPage(FilterStore.filterObj, this.firstVisible) 
             : WorkerService.prevPage(this.firstVisible, FilterStore.sortingType))
@@ -53,10 +54,11 @@ class WorkerStore {
                 this.nextLength = 7
             }
             this.pushDocs(documentSnapshot)
+            callback(this.items)
         })
     }
 
-    nextPage = async () => {
+    nextPage = async (callback) => {
         const documentSnapshot = await ( 
             FilterStore.filter ? WorkerService.filterNextPage(FilterStore.filterObj, this.lastVisible) 
             : WorkerService.nextPage(this.lastVisible, FilterStore.sortingType))
@@ -66,6 +68,7 @@ class WorkerStore {
                 this.prevLength = 7
             }
             this.pushDocs(documentSnapshot)
+            callback(this.items)
         })
     }
 }

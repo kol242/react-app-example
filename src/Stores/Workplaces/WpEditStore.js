@@ -3,6 +3,7 @@ import WorkerStore from '../Workers/WorkerStore'
 import WorkplaceService from '../../Common/Services/WorkplaceService'
 import { makeAutoObservable, runInAction } from 'mobx'
 import EditStore from '../Workers/EditStore'
+import DataListViewStore from '../DataListViewStore'
 
 class WpEditStore {
     editWorkplace = false
@@ -32,7 +33,7 @@ class WpEditStore {
         EditStore.WorkplaceUpdate(data)
         WorkplaceService.update(data)
         await WorkerStore.getWorkers()
-        await WorkPlaceStore.getWorkplaces()
+        await WorkPlaceStore.getWorkplaces(DataListViewStore.fetchFunc)
         await WorkPlaceStore.getNames()
         runInAction(() => {
             this.editModal = false

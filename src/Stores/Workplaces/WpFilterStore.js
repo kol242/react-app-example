@@ -1,5 +1,6 @@
 import WorkPlaceStore from './WorkPlaceStore'
 import { makeAutoObservable} from 'mobx'
+import DataListViewStore from '../DataListViewStore'
 
 class WpFilterStore {
     filterObj = {}
@@ -85,7 +86,7 @@ class WpFilterStore {
             default: 
                 return null
         }
-        WorkPlaceStore.getWorkplaces()
+        WorkPlaceStore.getWorkplaces(DataListViewStore.fetchFunc)
     }
 }
 

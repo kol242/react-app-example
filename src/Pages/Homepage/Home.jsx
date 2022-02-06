@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom'
 
 import '../../Common/style/home.scss'
 import Image from '../../Common/images/home-image.png'
+import WorkPlaceStore from '../../Stores/Workplaces/WorkPlaceStore'
+import DataListViewStore from '../../Stores/DataListViewStore'
+import WorkerStore from '../../Stores/Workers/WorkerStore'
 
 function Home() {
     return (
@@ -17,8 +20,8 @@ function Home() {
                 </div>
                 <div>
                     <p>Odaberite popis:</p>
-                    <Link to="/workplaces"><button className="btn-list-select">Radna mjesta</button></Link>
-                    <Link to="/workers"><button className="btn-list-select">Radnici</button></Link>
+                    <Link to="/workplaces"><button onClick={() => WorkPlaceStore.getWorkplaces(DataListViewStore.fetchFunc)} className="btn-list-select">Radna mjesta</button></Link>
+                    <Link to="/workers"><button onClick={() => WorkerStore.getWorkers(DataListViewStore.fetchFunc)} className="btn-list-select">Radnici</button></Link>
                 </div>
                 <div id="img">
                     <img src={Image} alt="homeImage" />

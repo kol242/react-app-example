@@ -1,6 +1,7 @@
 import WorkPlaceStore from './WorkPlaceStore'
 import WorkplaceService from '../../Common/Services/WorkplaceService'
 import { makeAutoObservable } from 'mobx'
+import DataListViewStore from '../DataListViewStore'
 
 class WpCreateStore {
     newWorkplace = false
@@ -26,7 +27,7 @@ class WpCreateStore {
             salary: Number(form.salary),
         }
         WorkplaceService.create(data)
-        WorkPlaceStore.getWorkplaces()
+        WorkPlaceStore.getWorkplaces(DataListViewStore.fetchFunc)
         WorkPlaceStore.getNames()
         this.createModal = false 
     }
