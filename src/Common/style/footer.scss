@@ -1,0 +1,34 @@
+@import 'variables';
+footer {
+    position: absolute;
+    bottom: 0;
+    height: 2.5rem;
+    width: 100%;
+    .footer {
+        background: #6cf;
+        font-family: $montserrat;
+        font-weight: 500;
+        font-size: 16px;
+        text-decoration: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20%;
+        background-color: $dark;
+        .footer__links {
+            list-style: none;
+            li {
+                display: inline-block;
+                padding: 0px 20px;
+                .link {
+                    color: $white;
+                    text-decoration: none;
+                    transition: all 0.3s ease 0s;
+                    &:hover {
+                        color: $blue;
+                    }
+                }
+            }
+        }
+    }
+}

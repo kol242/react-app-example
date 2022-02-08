@@ -1,0 +1,37 @@
+@import 'variables';
+.nav {
+    font-family: $montserrat;
+    font-weight: 500;
+    font-size: 16px;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20%;
+    background-color: $dark;
+    margin-bottom: 20px;
+    box-shadow: $box-shadow;
+    .link {
+        color: $white;
+        text-decoration: none;
+        transition: all 0.3s ease 0s;
+        &:hover {
+            color: $blue;
+        }
+    }
+    .nav__links {
+        list-style: none;
+        li {
+            display: inline-block;
+            padding: 0px 20px;
+            .link {
+                color: $white;
+                text-decoration: none;
+                transition: all 0.3s ease 0s;
+                &:hover {
+                    color: $blue;
+                }
+            }
+        }
+    }
+}
