@@ -1,4 +1,4 @@
-# React web app example - getting started
+# React web app example - W&W Manager App
 
 To run the script, first clone or download this repository on your PC, then follow next steps.
 
