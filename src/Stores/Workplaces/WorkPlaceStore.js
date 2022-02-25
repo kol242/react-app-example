@@ -24,14 +24,15 @@ class WorkPlaceStore {
                 docId: doc.id,
                 name: doc.data().Naziv,
                 descr: doc.data().Opis,
-                salary: doc.data().Placa
+                salary: doc.data().Placa,
+                currency: doc.data().Valuta
             }
         })
         this.lastVisible = docs[docs.length-1]
         this.firstVisible = docs[0]  
     }
 
-    getWorkplaces = async (callback) => {
+    getWorkplaces = async () => {
         const documentSnapshot = await (
             WpFilterStore.filter ? WorkplaceService.filterGet(WpFilterStore.filterObj) 
             : WorkplaceService.get(WpFilterStore.sortingType))
@@ -39,7 +40,6 @@ class WorkPlaceStore {
             this.prevLength = null
             this.nextLength = documentSnapshot.docs.length
             this.pushDocs(documentSnapshot)
-            callback(this.items)
         })
     }
     
@@ -55,7 +55,7 @@ class WorkPlaceStore {
         })
     }
 
-    prevPage = async (callback) => {
+    prevPage = async () => {
         const documentSnapshot = await ( 
             WpFilterStore.filter ? WorkplaceService.filterPrevPage(WpFilterStore.filterObj, this.firstVisible) 
             : WorkplaceService.prevPage(this.firstVisible, WpFilterStore.sortingType))
@@ -65,11 +65,10 @@ class WorkPlaceStore {
                 this.nextLength = 7
             }
             this.pushDocs(documentSnapshot)
-            callback(this.items)
         })
     }
 
-    nextPage = async (callback) => {
+    nextPage = async () => {
         const documentSnapshot = await ( 
             WpFilterStore.filter ? WorkplaceService.filterNextPage(WpFilterStore.filterObj, this.lastVisible) 
             : WorkplaceService.nextPage(this.lastVisible, WpFilterStore.sortingType))
@@ -79,7 +78,6 @@ class WorkPlaceStore {
                 this.prevLength = 7
             }
             this.pushDocs(documentSnapshot)
-            callback(this.items)
         })
     }
 }

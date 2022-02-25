@@ -1,11 +1,11 @@
 import WorkPlaceStore from './WorkPlaceStore'
 import WorkplaceService from '../../Common/Services/WorkplaceService'
 import { makeAutoObservable } from 'mobx'
-import DataListViewStore from '../DataListViewStore'
 
 class WpCreateStore {
     newWorkplace = false
     createModal = false
+    currencies = ['EUR', 'USD', 'GBP', 'CHF', 'HRK']
 
     constructor() {
         makeAutoObservable(this)
@@ -24,10 +24,11 @@ class WpCreateStore {
             docId: "",
             name: form.name,
             descr: form.description,
+            currency: form.currency,
             salary: Number(form.salary),
         }
         WorkplaceService.create(data)
-        WorkPlaceStore.getWorkplaces(DataListViewStore.fetchFunc)
+        WorkPlaceStore.getWorkplaces()
         WorkPlaceStore.getNames()
         this.createModal = false 
     }

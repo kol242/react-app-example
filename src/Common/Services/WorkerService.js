@@ -20,6 +20,10 @@ import FilterStore from '../../Stores/Workers/FilterStore'
 import ToastStore from '../../Stores/ToastStore'
 
 class WorkerService {
+    sortingType = {
+        field: "Prezime",
+        sorter: "asc"
+    }
 
     constructor(){
         this.get()
@@ -35,40 +39,40 @@ class WorkerService {
                 Placa: data.salary,
                 Pozicija: data.workPlace,
                 IdRadnogMjesta: data.workPlaceId,
-                Ugovor: data.contract
+                Ugovor: data.contract,
+                Valuta: data.currency
             })
             ToastStore.notificationType({
                 type: "SUCCESS",
-                title: "Uspjeh!",
-                message: "Uspješno je dodan novi radnik."
+                title: "Success!",
+                message: "Worker is successfully added."
             }) 
         } catch {
             ToastStore.notificationType({
                 type: "ERROR",
-                title: "Greška!",
-                message: "Greška prilikom dodavanja novog radnika."
+                title: "Error!",
+                message: "Error adding new worker."
             })
         }
     }
 
     fetchSorter = () => {
-        return FilterStore.sortingType
+        return this.sortingType = FilterStore.sortingType
     }
 
     get = async () => {
         try {
-            const sortBy = await this.fetchSorter()
             const ref = query(
                 collection(db, "Workers"), 
-                orderBy(sortBy.field, sortBy.sorter), 
+                orderBy(this.sortingType.field, this.sortingType.sorter), 
                 limit(7)
             ) 
         return getDocs(ref)
         } catch (e) {
             ToastStore.notificationType({
                 type: "ERROR",
-                title: "Greška!",
-                message: "Greška prilikom učitavanja radnika."
+                title: "Error!",
+                message: "Error loading workers."
             })
             console.error(e)
         }
@@ -87,14 +91,14 @@ class WorkerService {
             })
             ToastStore.notificationType({
                 type: "SUCCESS",
-                title: "Uspjeh!",
-                message: "Radnik je uspješno uređen."
+                title: "Success!",
+                message: "Worker is successfully updated."
             })
         } catch {
             ToastStore.notificationType({
                 type: "ERROR",
-                title: "Greška!",
-                message: "Greška prilikom uređivanja radnika."
+                title: "Error!",
+                message: "Error editing worker."
             })
         }
     }
@@ -117,14 +121,14 @@ class WorkerService {
             await deleteDoc(collectionRef)
             ToastStore.notificationType({
                 type: "SUCCESS",
-                title: "Uspjeh!",
-                message: "Radnik je uspješno obrisan."
+                title: "Success!",
+                message: "Worker is successfully deleted."
             })
         } catch {
             ToastStore.notificationType({
                 type: "ERROR",
-                title: "Greška!",
-                message: "Greška prilikom brisanja radnika."
+                title: "Error!",
+                message: "Error deleting worker."
             })
         }
     }

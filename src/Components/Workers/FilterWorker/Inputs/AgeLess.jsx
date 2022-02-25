@@ -3,9 +3,9 @@ import React from 'react'
 const AgeLess = () => {
     return (
         <div className="salary-wrapper">   
-            <p>Manje od </p>
+            <p>Less than </p>
             <input type="number" name="age"/>
-            <p>godina</p>
+            <p>years</p>
         </div>
     )
 }

@@ -12,7 +12,8 @@ const WorkerList = observer(({
     age,
     salary,
     contract,
-    workplace
+    workplace,
+    currency
  }) => {
     const workerData = {
         docId: id, 
@@ -27,17 +28,17 @@ const WorkerList = observer(({
         <>
             <p className="card-item">{lastName} {name}, {age}</p>
             <hr />
-            <p className="card-item">{salary} Kn (neto)</p>
+            <p className="card-item">{salary} {currency} (netto)</p>
             <p className="card-item">{workplace}</p>
             <p className="card-item">{contract}</p>
             <div className="btn-wrapper">
                 <button onClick={() => DeleteStore.deleteModalHandler(id)} className="btn-red">
                     <IoTrashBin className="icon"/>
-                    Obriši
+                    Delete
                 </button>
                 <button className="btn-secondary" onClick={() => EditStore.editModalHandler(workerData)}>
                     <AiOutlineEdit className="icon"/>
-                    Uredi
+                    Edit
                 </button>
             </div>
         </>

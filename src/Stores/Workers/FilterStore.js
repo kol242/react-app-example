@@ -1,12 +1,8 @@
 import WorkerStore from './WorkerStore'
 import { makeAutoObservable } from 'mobx'
-import DataListViewStore from '../DataListViewStore'
 
 class FilterStore {
-    sortingType = {
-        field: "Prezime",
-        sorter: "asc"
-    }
+    sortingType = {}
     filterTypeChecker = ""
     filter = false
     filterObj = {}
@@ -126,7 +122,7 @@ class FilterStore {
             default: 
                 return null
         }
-        WorkerStore.getWorkers(DataListViewStore.fetchFunc)
+        WorkerStore.getWorkers()
     }
 
     

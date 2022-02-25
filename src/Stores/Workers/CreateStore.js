@@ -28,6 +28,7 @@ class CreateStore {
                 age: Number(form.age),
                 workPlaceId: this.workplaceData.docId,
                 workPlace: collectionRef.data().Naziv,
+                currency: collectionRef.data().Valuta,
                 salary: Number(collectionRef.data().Placa),
                 contract: form.contract
             }

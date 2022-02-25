@@ -9,7 +9,7 @@ import FilterForm from '../../../Components/Workplaces/FilterWorkplace/FilterFor
 const WorkplaceFilter = observer(() => {
   return (
     <div className="filter-wrapper">
-      <h3>Filtriranje</h3>
+      <h3>Filtering</h3>
       <FilterSelect />
       <FilterForm />
     </div>

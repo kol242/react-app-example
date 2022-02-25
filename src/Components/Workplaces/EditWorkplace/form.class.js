@@ -10,8 +10,8 @@ export default class EditWP extends Form {
         package: validatorjs,
         extend: ({ validator, form }) => {
           const messages = validator.getMessages('en')
-          messages.required = 'Polje ne smije biti prazno!'
-          messages.integer = 'Polje mora biti broj!'
+          messages.required = "This field can't be empty!"
+          messages.integer = 'This field must be a number!'
           validator.setMessages('en', messages)
         }
       })
@@ -25,18 +25,18 @@ export default class EditWP extends Form {
           name: "name",
           type: "text",
           rules: "required|string",
-          placeholder: "Unesite naziv...",
+          placeholder: "Name...",
         },
         {
           name: "description",
           type: "text",
           rules: "required|string",
-          placeholder: "Unesite opis...",
+          placeholder: "Description...",
         },
         {
           name: "salary",
           rules: "required|integer",
-          placeholder: "Unesite plaću...",
+          placeholder: "Salary...",
         }
       ]
     };

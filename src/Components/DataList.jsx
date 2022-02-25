@@ -1,18 +1,18 @@
 import { observer } from 'mobx-react'
 import React from 'react'
 import Pagination from './Pagination'
-import Sorter from './Sorter'
 
-const DataList = observer(({ items, id, render, dataset, sorter }) => {
+const DataList = observer(({ items, id, render, dataset }) => {
   return (
     <>
-        <Sorter className="sorter" sorter={sorter}/>
-        <ul className="card-list">
+        { items.length === 0 ? <p id="alert">No data to show!</p> : 
+          <ul className="card-list">
             {items.map((item) => (
                 <li key={item[id]} className="card">{render(item)}</li>
             ))}
-        </ul>
-        <Pagination dataset={dataset}/>
+          </ul>
+        }
+        { items.length === 0 ? null : <Pagination dataset={dataset}/> }
     </>
   )
 })

@@ -6,7 +6,6 @@ import Name from './Inputs/Name'
 import SalaryMore from './Inputs/SalaryMore'
 import SalaryLess from './Inputs/SalaryLess'
 import { BiSearch } from 'react-icons/bi'
-import DataListViewStore from '../../../Stores/DataListViewStore'
 
 const FilterForm = observer(() => {
     const filterType = (e) => {
@@ -22,7 +21,7 @@ const FilterForm = observer(() => {
     
     const filterSubmit = (e) => {
         e.preventDefault()
-        WorkPlaceStore.getWorkplaces(DataListViewStore.fetchFunc)
+        WorkPlaceStore.getWorkplaces()
     }
 
     return (
@@ -31,7 +30,7 @@ const FilterForm = observer(() => {
                 { WpFilterStore.filterTypeChecker === 'name' ? <Name /> : null }
                 { WpFilterStore.filterTypeChecker === 'salaryMore' ? <SalaryMore /> : null }
                 { WpFilterStore.filterTypeChecker === 'salaryLess' ? <SalaryLess /> : null }
-                <button type="submit" className="btn-undo"><BiSearch className="icon"/>Traži</button>
+                <button type="submit" className="btn-undo"><BiSearch className="icon"/>Search</button>
             </form>
         </div>
     )

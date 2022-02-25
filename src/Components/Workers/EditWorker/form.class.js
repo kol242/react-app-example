@@ -11,8 +11,8 @@ export default class EditWorkerForm extends Form {
         package: validatorjs,
         extend: ({ validator, form }) => {
           const messages = validator.getMessages('en')
-          messages.required = 'Polje ne smije biti prazno!'
-          messages.integer = 'Polje mora biti broj!'
+          messages.required = "This field can't be empty!"
+          messages.integer = 'This field must be a number!'
           validator.setMessages('en', messages)
         }
       })
@@ -26,13 +26,13 @@ export default class EditWorkerForm extends Form {
           name: "name",
           type: "text",
           rules: "required|string",
-          placeholder: "Unesite ime...",
+          placeholder: "Name...",
         },
         {
           name: "lastName",
           type: "text",
           rules: "required|string",
-          placeholder: "Unesite prezime...",
+          placeholder: "Lastname...",
         },
         {
           name: "workplace",
@@ -41,12 +41,12 @@ export default class EditWorkerForm extends Form {
         {
           name: "age",
           rules: "required|integer",
-          placeholder: "Unesite godine...",
+          placeholder: "Age...",
         },
         {
           name: "salary",
           rules: "required|integer",
-          placeholder: "Unesite plaću...",
+          placeholder: "Salary...",
         },
         {
           name: "contract",

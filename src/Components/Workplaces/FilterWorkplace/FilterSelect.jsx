@@ -11,10 +11,10 @@ const FilterSelect = () => {
     return (
         <>
             <select defaultValue={'default'} onChange={filterTypeChecker} name="filter-type" id="filter-type">
-                <option value="default" disabled>Filtriraj...</option>
-                <option key="name" value="name">Po nazivu</option>          
-                <option key="salaryMore" value="salaryMore">Plaća više od</option>          
-                <option key="salaryLess" value="salaryLess">Plaća manje od</option>                                  
+                <option value="default" disabled>Filter by...</option>
+                <option key="name" value="name">Name</option>          
+                <option key="salaryMore" value="salaryMore">Salary more than...</option>          
+                <option key="salaryLess" value="salaryLess">Salary less than...</option>                                  
             </select>
         </>
     )

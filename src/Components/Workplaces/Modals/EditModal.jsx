@@ -10,7 +10,7 @@ const EditModal = observer(() => {
     return (
         <div id="myModal" className="modal">
             <div className="modal-content">
-                <h3>Uredi radno mjesto</h3>
+                <h3>Edit workplace</h3>
                 <EditForm form={form}/>
             </div>
         </div>

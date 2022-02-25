@@ -1,13 +1,13 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import CreateStore from '../../../../Stores/Workers/CreateStore'
+import WpCreateStore from '../../../Stores/Workplaces/WpCreateStore'
 
 const Contract = observer(({ field }) => {
     return (
         <div>
             <select {...field.bind()}>
-                <option defaultValue>Contract...</option>
-                {CreateStore.contracts.map(option => 
+                <option defaultValue>Currency...</option>
+                {WpCreateStore.currencies.map(option => 
                     <option key={option} value={option}>{option}</option>)} 
             </select>
         </div>

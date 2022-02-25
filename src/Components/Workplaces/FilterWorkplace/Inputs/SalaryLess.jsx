@@ -3,9 +3,9 @@ import React from 'react'
 const SalaryLess = () => {
     return (
         <div className="salary-wrapper">
-            <p>Manje od </p>
+            <p>Less then </p>
             <input type="number" name="salary"/>
-            <p>kn</p>
+            <p>salary</p>
         </div>
     )
 }

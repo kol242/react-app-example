@@ -11,7 +11,8 @@ const WorkplaceList = observer(({
     name,
     id,
     salary,
-    description
+    description,
+    currency
  }) => {
     const workplaceData = {
         docId: id, 
@@ -24,19 +25,19 @@ const WorkplaceList = observer(({
             <p className="card-item">{name}</p>
             <hr />
             <p className="card-item">{description}</p>
-            <p className="card-item">{salary} Kn (neto)</p>
+            <p className="card-item">{salary} {currency} (neto)</p>
             <div className="btn-wrapper">
                 <button className="btn-primary" onClick={() => CreateStore.createModalHandler(workplaceData)}>
                     <BsPersonPlusFill className="icon"/>
-                    Dodaj radnika
+                    Add worker
                 </button>
                 <button onClick={() => WpDeleteStore.deleteModalHandler(id)} className="btn-red">
                     <IoTrashBin className="icon"/>
-                    Obriši
+                    Delete
                 </button>
                 <button className="btn-secondary" onClick={() => WpEditStore.editModalHandler(workplaceData)}>
                     <AiOutlineEdit className="icon"/>
-                    Uredi
+                    Edit
                 </button>
             </div>
         </>

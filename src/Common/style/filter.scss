@@ -5,6 +5,20 @@
     gap: 2px;
     margin-bottom: 10px;
     align-items: start;
+    #filter-type {
+        border-radius: 10px;
+        font-family: $montserrat;
+        option {
+            font-family: $montserrat;
+        }
+    }
+    #contractType,
+    #workPlaces,
+    #searchInput {
+        border-radius: 10px;
+        font-family: $montserrat;
+        margin-bottom: 5px;
+    }
     .salary-wrapper {
         display: flex;
         gap: 10px;

@@ -2,7 +2,6 @@ import WorkPlaceStore from './WorkPlaceStore'
 import WorkerStore from '../Workers/WorkerStore'
 import WorkplaceService from '../../Common/Services/WorkplaceService'
 import { makeAutoObservable, runInAction } from 'mobx'
-import DataListViewStore from '../DataListViewStore'
 
 class WpDeleteStore {
     deleteId = ""
@@ -19,7 +18,7 @@ class WpDeleteStore {
 
     deleteWorkplace = async () => {
         await WorkplaceService.delete(this.deleteId)
-        await WorkPlaceStore.getWorkplaces(DataListViewStore.fetchFunc)
+        await WorkPlaceStore.getWorkplaces()
         await WorkerStore.getWorkers()
         await WorkPlaceStore.getNames()
         runInAction(() => {

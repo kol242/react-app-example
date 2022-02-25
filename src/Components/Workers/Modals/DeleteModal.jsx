@@ -7,10 +7,10 @@ const DeleteModal = observer(() => {
     return (
         <div id="myModal" className="modal">
             <div className="modal-content">
-                <p>Obrisati odabranog radnika?</p>
+                <p>Delete selected worker?</p>
                 <div className="btn-wrapper">
-                    <button className="btn-primary" onClick={DeleteStore.deleteWorker}>Obriši</button>
-                    <button className="btn-red" onClick={DeleteStore.deleteModalHandler}>Odustani</button> 
+                    <button className="btn-primary" onClick={DeleteStore.deleteWorker}>Delete</button>
+                    <button className="btn-red" onClick={DeleteStore.deleteModalHandler}>Cancel</button> 
                 </div>
             </div>
         </div>

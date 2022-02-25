@@ -10,7 +10,7 @@ const CreateModal = observer(() => {
     return (
         <div id="myModal" className="modal">
             <div className="modal-content">
-                <h3>Dodaj radnika</h3>
+                <h3>Add new worker</h3>
                 <CreateForm form={form}/>
             </div>
         </div>

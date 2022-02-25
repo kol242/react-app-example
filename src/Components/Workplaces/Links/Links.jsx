@@ -7,16 +7,14 @@ import { FaFilter } from 'react-icons/fa'
 const Links = () => {
     return (
         <>
-            <div className="btn-wrapper">
-                <button className="btn-primary" onClick={WpCreateStore.createModalHandler}>
-                    <AiOutlineAppstoreAdd className="icon"/>
-                    Dodaj radno mjesto
-                </button>
-                <button className="btn-undo" onClick={WpFilterStore.filterHandler}>
-                    <FaFilter className="icon"/>
-                    Filtriraj
-                </button>
-            </div>
+            <button className="btn-primary" onClick={WpCreateStore.createModalHandler}>
+                <AiOutlineAppstoreAdd className="icon"/>
+                Add new workplace
+            </button>
+            <button className="btn-undo" onClick={WpFilterStore.filterHandler}>
+                <FaFilter className="icon"/>
+                Filter
+            </button>
         </>
     )
 }

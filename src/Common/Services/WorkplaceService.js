@@ -34,17 +34,18 @@ class WorkerService {
                 Naziv: data.name,
                 Opis: data.descr,
                 Placa: data.salary,
+                Valuta: data.currency
             })
             ToastStore.notificationType({
                 type: "SUCCESS",
-                title: "Uspjeh!",
-                message: "Radno mjesto je uspješno dodano."
+                title: "Success!",
+                message: "Workplace is successfully added."
             })
         } catch {
             ToastStore.notificationType({
                 type: "ERROR",
-                title: "Greška!",
-                message: "Greška prilikom dodavanja radnog mjesta."
+                title: "Error!",
+                message: "Error adding workplace."
             })
         }
     }
@@ -63,8 +64,8 @@ class WorkerService {
         } catch (e) {
             ToastStore.notificationType({
                 type: "ERROR",
-                title: "Greška!",
-                message: "Greška prilikom učitavanja radnih mjesta."
+                title: "Error!",
+                message: "Error loading workplaces."
             })
             console.error(e)
         }
@@ -94,14 +95,14 @@ class WorkerService {
             })
             ToastStore.notificationType({
                 type: "SUCCESS",
-                title: "Uspjeh!",
-                message: "Radno mjesto je uspješno uređeno."
+                title: "Success!",
+                message: "Workplace is successfully updated."
             })
         } catch {
             ToastStore.notificationType({
                 type: "ERROR",
-                title: "Greška!",
-                message: "Greška prilikom uređivanja radnog mjesta."
+                title: "Error!",
+                message: "Error updating workplace."
             })
         }
     }
@@ -119,14 +120,14 @@ class WorkerService {
             await deleteDoc(workplaceRef)
             ToastStore.notificationType({
                 type: "SUCCESS",
-                title: "Uspjeh!",
-                message: "Radno mjesto je uspješno obrisano."
+                title: "Success!",
+                message: "Workplace is successfully deleted."
             })
         } catch {
             ToastStore.notificationType({
                 type: "ERROR",
-                title: "Greška!",
-                message: "Greška prilikom brisanja radnog mjesta."
+                title: "Error!",
+                message: "Error deleting workplace."
             })
         }
     }

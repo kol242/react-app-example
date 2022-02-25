@@ -25,14 +25,15 @@ class WorkerStore {
                 salary: doc.data().Placa,
                 workPlace: doc.data().Pozicija,
                 workPlaceId: doc.data().IdRadnogMjesta,
-                contract: doc.data().Ugovor
+                contract: doc.data().Ugovor,
+                currency: doc.data().Valuta
             }
         })
         this.lastVisible = docs[docs.length-1]
         this.firstVisible = docs[0] 
     }
 
-    getWorkers = async (callback) => {
+    getWorkers = async () => {
         const documentSnapshot = await (
             FilterStore.filter ? WorkerService.filterGet(FilterStore.filterObj) 
             : WorkerService.get(FilterStore.sortingType))
@@ -40,11 +41,10 @@ class WorkerStore {
             this.prevLength = null
             this.nextLength = documentSnapshot.docs.length
             this.pushDocs(documentSnapshot)
-            callback(this.items)
         })
     }
 
-    prevPage = async (callback) => {
+    prevPage = async () => {
         const documentSnapshot = await ( 
             FilterStore.filter ? WorkerService.filterPrevPage(FilterStore.filterObj, this.firstVisible) 
             : WorkerService.prevPage(this.firstVisible, FilterStore.sortingType))
@@ -54,11 +54,10 @@ class WorkerStore {
                 this.nextLength = 7
             }
             this.pushDocs(documentSnapshot)
-            callback(this.items)
         })
     }
 
-    nextPage = async (callback) => {
+    nextPage = async () => {
         const documentSnapshot = await ( 
             FilterStore.filter ? WorkerService.filterNextPage(FilterStore.filterObj, this.lastVisible) 
             : WorkerService.nextPage(this.lastVisible, FilterStore.sortingType))
@@ -68,7 +67,6 @@ class WorkerStore {
                 this.prevLength = 7
             }
             this.pushDocs(documentSnapshot)
-            callback(this.items)
         })
     }
 }

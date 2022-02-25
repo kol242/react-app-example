@@ -5,9 +5,7 @@ import { FaFilter } from 'react-icons/fa'
 const Links = () => {
     return (
         <>
-            <div className="btn-wrapper">
-                <button className="btn-undo" onClick={FilterStore.filterHandler}><FaFilter className="icon"/>Filtriraj</button>
-            </div>
+            <button className="btn-undo" onClick={FilterStore.filterHandler}><FaFilter className="icon"/>Filter</button>
         </>
     )
 }

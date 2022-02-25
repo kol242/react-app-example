@@ -2,7 +2,11 @@
 .main-container {
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
     .home-wrapper {
+        grid-area: 1 / 2 / 2 / 3;
         h1 {
             color: $blue;
         }
@@ -21,7 +25,7 @@
         #img {
             text-align: center;
             img {
-                width: 70%;
+                width: 80%;
                 height: auto;
             }
         }

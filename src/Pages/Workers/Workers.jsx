@@ -9,19 +9,21 @@ import Links from '../../Components/Workers/Links/Links'
 import Modals from '../../Components/Workers/Modals'
 import DataList from '../../Components/DataList'
 import WorkerList from '../../Components/Workers/WorkerList'
-import DataListViewStore from '../../Stores/DataListViewStore'
 import WorkerStore from '../../Stores/Workers/WorkerStore'
+import WorkerSorter from '../../Components/Workers/Sorter/WorkerSorter'
 
 const WorkersList = observer(() => {
   return (
     <div className="main-container__list">
       <Modals />
-      <div/>
       <div className="container">
-        <h2>Popis radnika</h2>
-        <Links />
+        <h2>List of workers</h2>
+        <div className="btn-wrapper">
+          <Links /> 
+          <WorkerSorter />
+        </div>
         { FilterStore.filter ? <WorkerFilter /> : null }
-        <DataList id='docId' dataset={WorkerStore} sorter={FilterStore} items={DataListViewStore.dataset}
+        <DataList id='docId' dataset={WorkerStore} items={WorkerStore.items}
           render={item => <WorkerList
             id={item.docId} 
             name={item.name}
@@ -29,11 +31,11 @@ const WorkersList = observer(() => {
             age={item.age}
             workplace={item.workPlace}
             salary={item.salary}
-            contract={item.contract} />
+            contract={item.contract}
+            currency={item.currency} />
           } />
       </div>
-      <div/>
-    </div>
+    </div>  
   );
 })
 

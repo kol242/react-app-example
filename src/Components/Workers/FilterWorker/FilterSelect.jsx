@@ -12,14 +12,14 @@ const FilterSelect = observer(() => {
     return (
         <>
             <select defaultValue={'default'} onChange={filterTypeChecker} name="filter-type" id="filter-type">
-                <option value="default" disabled>Filtriraj...</option>
-                <option key="lastName" value="lastName">Po prezimenu</option>          
-                <option key="salaryMore" value="salaryMore">Plaća više od</option>          
-                <option key="salaryLess" value="salaryLess">Plaća manje od</option>          
-                <option key="ageMore" value="ageMore">Starost više od</option>          
-                <option key="ageLess" value="ageLess">Starost manje od</option>          
-                <option key="workplace" value="workplace">Po radnom mjestu</option>          
-                <option key="contract" value="contract">Po ugovoru</option>          
+                <option value="default" disabled>Filter by...</option>
+                <option key="lastName" value="lastName">Lastname</option>          
+                <option key="salaryMore" value="salaryMore">Salary more than...</option>          
+                <option key="salaryLess" value="salaryLess">Salary less than...</option>          
+                <option key="ageMore" value="ageMore">Age more than...</option>          
+                <option key="ageLess" value="ageLess">Age less than...</option>          
+                <option key="workplace" value="workplace">Workplace</option>          
+                <option key="contract" value="contract">Type of contract</option>          
             </select>
         </>
     )

@@ -6,7 +6,7 @@ import FilterForm from '../../../Components/Workers/FilterWorker/FilterForm'
 const WorkerFilter = observer(() => {
   return (
     <div className="filter-wrapper">
-      <h3>Filtriranje</h3>
+      <h3>Filtering</h3>
       <FilterSelect />
       <FilterForm />
     </div> 
