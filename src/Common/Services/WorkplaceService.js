@@ -58,7 +58,7 @@ class WorkerService {
         try {
             const sortData = await this.fetchSorter()
             const ref = query(collection(db, "WorkPlaces"), 
-            orderBy(sortData.field, sortData.sorter), 
+            sortData ? orderBy(sortData.field, sortData.sorter) : orderBy("Naziv", "asc"), 
             limit(7))
             return getDocs(ref)
         } catch (e) {

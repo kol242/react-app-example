@@ -8,8 +8,7 @@ function Home() {
             <div className="home-wrapper">
                 <div>
                     <h1>Workers & Workplaces Manager App</h1>
-                    <p>Simple app for reading, adding, updating and deleting workers and workplaces.</p>
-                    <p>Made by: <span>Kolinger</span></p>
+                    <p>Simple app for reading, adding, updating and deleting list of workers and workplaces in simulated company.</p>
                 </div>
                 <div id="img">
                     <img src={Image} alt="homeImage" />

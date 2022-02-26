@@ -2,7 +2,10 @@ import WorkerStore from './WorkerStore'
 import { makeAutoObservable } from 'mobx'
 
 class FilterStore {
-    sortingType = {}
+    sortingType = {
+        field: "Prezime",
+        sorter: "asc"
+    }
     filterTypeChecker = ""
     filter = false
     filterObj = {}

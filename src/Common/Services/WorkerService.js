@@ -16,15 +16,11 @@ import {
     documentId,
     FieldPath
 } from 'firebase/firestore'
-import FilterStore from '../../Stores/Workers/FilterStore'
+// import FilterStore from '../../Stores/Workers/FilterStore'
 import ToastStore from '../../Stores/ToastStore'
 
 class WorkerService {
-    sortingType = {
-        field: "Prezime",
-        sorter: "asc"
-    }
-
+    sortData = {}
     constructor(){
         this.get()
     }
@@ -56,15 +52,15 @@ class WorkerService {
         }
     }
 
-    fetchSorter = () => {
-        return this.sortingType = FilterStore.sortingType
-    }
+    // fetchSorter = () => {
+    //     return this.sortData = FilterStore.sortingType
+    // }
 
     get = async () => {
         try {
             const ref = query(
                 collection(db, "Workers"), 
-                orderBy(this.sortingType.field, this.sortingType.sorter), 
+                orderBy("Prezime", "asc"), 
                 limit(7)
             ) 
         return getDocs(ref)
