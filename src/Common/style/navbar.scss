@@ -9,12 +9,17 @@
     align-items: center;
     padding: 10px 20%;
     background-color: $dark;
-    margin-bottom: 20px;
     box-shadow: $box-shadow;
+    .user-data {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+    }
     .link {
         color: $white;
         text-decoration: none;
         transition: all 0.3s ease 0s;
+        cursor: pointer;
         &:hover {
             color: $blue;
         }

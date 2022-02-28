@@ -1,0 +1,28 @@
+@import 'variables';
+.dashboard-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: $montserrat;
+    margin: 0 30%;
+    .user-info {
+        align-self: flex-start;
+    }
+    p {
+        font-size: 18px;
+    }
+    .userID {
+        color: $blue;
+    }
+    .buttons {
+        margin-top: 30px;
+        display: flex;
+        gap: 20px;
+        button {
+            padding: 15px 60px;
+        }
+    }
+    #bolded {
+        font-weight: 600;
+    }
+}

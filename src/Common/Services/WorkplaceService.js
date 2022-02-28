@@ -20,13 +20,9 @@ import {
 } from 'firebase/firestore'
 import WpFilterStore from '../../Stores/Workplaces/WpFilterStore'
 import ToastStore from '../../Stores/ToastStore'
+import AuthService from './AuthService'
 
 class WorkerService {
-    constructor(){
-        this.get()
-        this.getNames()
-    }
-
     create = async (data) => {
         try {
             const collectionRef = collection(db, "WorkPlaces")
@@ -34,7 +30,8 @@ class WorkerService {
                 Naziv: data.name,
                 Opis: data.descr,
                 Placa: data.salary,
-                Valuta: data.currency
+                Valuta: data.currency,
+                User: AuthService.currentUser.uid
             })
             ToastStore.notificationType({
                 type: "SUCCESS",
@@ -57,16 +54,12 @@ class WorkerService {
     get = async () => {
         try {
             const sortData = await this.fetchSorter()
-            const ref = query(collection(db, "WorkPlaces"), 
+            const user = await AuthService.currentUser.uid
+            const ref = query(collection(db, "WorkPlaces"), where("User", "==", user),
             sortData ? orderBy(sortData.field, sortData.sorter) : orderBy("Naziv", "asc"), 
             limit(7))
             return getDocs(ref)
         } catch (e) {
-            ToastStore.notificationType({
-                type: "ERROR",
-                title: "Error!",
-                message: "Error loading workplaces."
-            })
             console.error(e)
         }
     }

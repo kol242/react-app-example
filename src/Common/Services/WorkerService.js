@@ -18,12 +18,10 @@ import {
 } from 'firebase/firestore'
 // import FilterStore from '../../Stores/Workers/FilterStore'
 import ToastStore from '../../Stores/ToastStore'
+import AuthService from './AuthService'
 
 class WorkerService {
     sortData = {}
-    constructor(){
-        this.get()
-    }
 
     create = async (data) => {
         try {
@@ -36,7 +34,8 @@ class WorkerService {
                 Pozicija: data.workPlace,
                 IdRadnogMjesta: data.workPlaceId,
                 Ugovor: data.contract,
-                Valuta: data.currency
+                Valuta: data.currency,
+                User: AuthService.currentUser.uid
             })
             ToastStore.notificationType({
                 type: "SUCCESS",
@@ -58,8 +57,10 @@ class WorkerService {
 
     get = async () => {
         try {
+            const user = await AuthService.currentUser.uid
             const ref = query(
-                collection(db, "Workers"), 
+                collection(db, "Workers"),
+                where("User", "==", user),
                 orderBy("Prezime", "asc"), 
                 limit(7)
             ) 

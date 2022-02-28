@@ -1,20 +1,35 @@
 import WpFilterStore from './WpFilterStore'
 import WorkplaceService from '../../Common/Services/WorkplaceService'
 import { makeAutoObservable, runInAction } from 'mobx'
+import axios from 'axios'
 
 class WorkPlaceStore {
     items = []
     names = []
     lastVisible = []
     firstVisible = []
+    currencies = []
 
     nextLength = 7
     prevLength = 7
 
     constructor(){
         makeAutoObservable(this)
-        this.getWorkplaces()
-        this.getNames()
+        this.getCurrencies()
+    }
+
+    getCurrencies = async () => {
+        try {
+            await axios.get(`https://openexchangerates.org/api/currencies.json`)
+            .then(res => {
+                const data = res.data
+                for (const [key] of Object.entries(data)) {
+                    this.currencies.push(key)
+                }
+            }) 
+        } catch(err) {
+            console.error(err)  
+        }
     }
 
     pushDocs = (documentSnapshot) => {

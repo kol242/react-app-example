@@ -18,9 +18,12 @@
     flex-direction: column;
     width: 100%;
     transition: height 0.5s;
+    #bolded {
+        font-weight: 600;
+    }
 }
 
-h2 {
+h1 {
     text-align: center;
 }
 

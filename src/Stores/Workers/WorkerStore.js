@@ -11,7 +11,6 @@ class WorkerStore {
 
     constructor(){
         makeAutoObservable(this)
-        this.getWorkers()
     }
 
     pushDocs = (documentSnapshot) => {
