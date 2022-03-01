@@ -28,9 +28,9 @@ const WorkerList = observer(({
         <>
             <p className="card-item">{lastName} {name}, {age}</p>
             <hr />
-            <p className="card-item">{salary} {currency} (netto)</p>
+            <p className="card-item">{salary} {currency} (gross)</p>
             <p className="card-item">{workplace}</p>
-            <p className="card-item">{contract}</p>
+            <p className="card-item">{contract} contract</p>
             <div className="btn-wrapper">
                 <button onClick={() => DeleteStore.deleteModalHandler(id)} className="btn-red">
                     <IoTrashBin className="icon"/>

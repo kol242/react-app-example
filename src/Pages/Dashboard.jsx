@@ -16,8 +16,8 @@ const Dashboard = observer(() => {
           <p><span id="bolded">Company Activity:</span> {AuthService.userData.activity}</p>  
         </div>
         <div className="buttons">
-          <Link to="/workers"><button className="btn-secondary" onClick={WorkPlaceStore.getWorkplaces}>Workers</button></Link>
-          <Link to="/workplaces"><button className="btn-secondary" onClick={WorkerStore.getWorkers}>Workplaces</button></Link>  
+          <Link to="/workers"><button className="btn-secondary" onClick={WorkerStore.getWorkers}>Workers</button></Link>
+          <Link to="/workplaces"><button className="btn-secondary" onClick={WorkPlaceStore.getWorkplaces}>Workplaces</button></Link>  
         </div>
         
     </div>

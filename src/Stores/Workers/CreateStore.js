@@ -7,7 +7,7 @@ class CreateStore {
     newWorker = false
     createModal = false
     workplaceData = ""
-    contracts = ["Određeno", "Neodređeno"]
+    contracts = ["Fixed-term", "Infinite period"]
     
     constructor(){
         makeAutoObservable(this)

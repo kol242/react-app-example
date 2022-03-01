@@ -2,6 +2,7 @@ import WorkerStore from './WorkerStore'
 import WorkerService from '../../Common/Services/WorkerService'
 import WorkplaceService from '../../Common/Services/WorkplaceService'
 import { makeAutoObservable, runInAction } from 'mobx'
+import WorkPlaceStore from '../Workplaces/WorkPlaceStore'
 
 class EditStore {
     editWorker = false
@@ -13,7 +14,8 @@ class EditStore {
         makeAutoObservable(this)
     }
 
-    editModalHandler = (data) => {
+    editModalHandler =  async (data) => {
+        await WorkPlaceStore.getNames()
         this.currentWorker = data
         this.editModal ? this.editModal = false : this.editModal = true
     }

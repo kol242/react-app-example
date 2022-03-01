@@ -25,7 +25,7 @@ const WorkplaceList = observer(({
             <p className="card-item">{name}</p>
             <hr />
             <p className="card-item">{description}</p>
-            <p className="card-item">{salary} {currency} (neto)</p>
+            <p className="card-item">{salary} {currency} (gross)</p>
             <div className="btn-wrapper">
                 <button className="btn-primary" onClick={() => CreateStore.createModalHandler(workplaceData)}>
                     <BsPersonPlusFill className="icon"/>
