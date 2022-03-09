@@ -12,8 +12,9 @@
     box-shadow: $box-shadow;
     .user-data {
         display: flex;
+        align-items: center;
         justify-content: space-between;
-        gap: 15px;
+        gap: 25px;
     }
     .link {
         color: $white;

@@ -26,29 +26,31 @@ export default class EditWorkerForm extends Form {
           name: "name",
           type: "text",
           rules: "required|string",
-          placeholder: "Name...",
+          label: "Name",
         },
         {
           name: "lastName",
           type: "text",
           rules: "required|string",
-          placeholder: "Lastname...",
+          label: "Lastname",
         },
         {
           name: "workplace",
+          label: "Workplaces",
           extra: WorkPlaceStore.names,
         },
         {
           name: "age",
           rules: "required|integer",
-          placeholder: "Age...",
+          label: "Age",
         },
         {
           name: "salary",
           rules: "required|integer",
-          placeholder: "Salary...",
+          label: "Salary",
         },
         {
+          label: "Contract",
           name: "contract",
           extra: EditStore.contract,
         }

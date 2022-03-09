@@ -18,7 +18,8 @@ const WorkplaceList = observer(({
         docId: id, 
         name: name,
         salary: salary,
-        description: description
+        description: description,
+        currency: currency
     }
     return (
         <>

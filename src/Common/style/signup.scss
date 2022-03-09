@@ -48,10 +48,15 @@
                         border-color: rgb(224, 224, 224);
                         font-size: 16px;
                         border-radius: 10px;
-                        margin-bottom: 15px;
                         padding: 10px;
                     }
+                    p {
+                        margin-bottom: 15px;
+                    }
                 }
+            }
+            .links {
+                text-align: center;
             }
         }
     }

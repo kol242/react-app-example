@@ -6,7 +6,7 @@ const Header = observer(() => {
   return (
     <>
         <p>{CreateStore.workplaceData.name}</p>
-        <p>{CreateStore.workplaceData.salary} kn</p>
+        <p>{CreateStore.workplaceData.salary} {CreateStore.workplaceData.currency}</p>
     </>
   )
 })

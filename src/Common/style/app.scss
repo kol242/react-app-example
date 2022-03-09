@@ -6,7 +6,7 @@ body {
 .app-layout {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 10fr 2fr;
+    grid-template-rows: 80px 10fr 2fr;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     .navbar {
@@ -53,6 +53,10 @@ body {
         transition: all 0.3s ease;
         opacity: 0.8;
         cursor: pointer;
+    }
+    &:disabled {
+        opacity: 0.8;
+        cursor: default;
     }
     .icon {
         margin-right: 5px;

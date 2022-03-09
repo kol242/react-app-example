@@ -4,7 +4,7 @@ import validatorjs from "validatorjs";
 import AuthService from '../../Common/Services/AuthService'
 import SignupStore from '../../Stores/SignupStore'
 
-export default class SignupForm extends Form {
+export default class UpdateForm extends Form {
   plugins() {
     return {
       dvr: dvr({
@@ -27,26 +27,30 @@ export default class SignupForm extends Form {
         {
           name: "email",
           type: "text",
-          rules: "required|string",
+          rules: "string",
           label: "Email",
+          placeholder: AuthService.currentUser ? AuthService.currentUser.email : ""
         },
         {
           name: "username",
           type: "text",
-          rules: "required|string",
+          rules: "string",
           label: "Username",
+          placeholder: AuthService.userData.username
         },
         {
           name: "company",
           type: "text",
-          rules: "required|string",
+          rules: "string",
           label: "Company Name",
+          placeholder: AuthService.userData.company
         },
         {
           name: "activity",
           type: "text",
-          rules: "required|string",
+          rules: "string",
           label: "Company Activity",
+          placeholder: AuthService.userData.activity
         },
         {
           name: "password",
@@ -66,7 +70,8 @@ export default class SignupForm extends Form {
           name: "country",
           label: "Country",
           type: "text",
-          extra: SignupStore.countries
+          extra: SignupStore.countries,
+          placeholder: AuthService.userData.country
         }
       ]
     };
@@ -75,7 +80,7 @@ export default class SignupForm extends Form {
   hooks() {
     return {
       onSuccess(form) {
-        AuthService.signup(form.values())
+        AuthService.userUpdate(form.values())
         console.log("Form Values: ", form.values());
       },
       onError(form) {

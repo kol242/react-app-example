@@ -1,9 +1,9 @@
 import { Form } from "mobx-react-form";
 import dvr from "mobx-react-form/lib/validators/DVR";
 import validatorjs from "validatorjs";
-import CreateStore from '../../../Stores/Workers/CreateStore'
+import AuthService from '../../Common/Services/AuthService'
 
-export default class AddWorkerForm extends Form {
+export default class LoginForm extends Form {
   plugins() {
     return {
       dvr: dvr({
@@ -11,7 +11,9 @@ export default class AddWorkerForm extends Form {
         extend: ({ validator, form }) => {
           const messages = validator.getMessages('en')
           messages.required = "This field can't be empty!"
-          messages.integer = 'This field must be a number!'
+          messages.same = "Passwords are not matching!"
+          messages.integer = "This field must be a number!"
+          messages.between = "Password must be between 6 and 20 characters"
           validator.setMessages('en', messages)
         }
       })
@@ -22,27 +24,18 @@ export default class AddWorkerForm extends Form {
     return {
       fields: [
         {
-          name: "name",
+          name: "email",
           type: "text",
           rules: "required|string",
-          label: "Name",
+          label: "Email",
         },
         {
-          name: "lastName",
-          type: "text",
-          rules: "required|string",
-          label: "Lastname",
+          name: "password",
+          type: "password",
+          path: "password",
+          rules: "required|string|between:6,20",
+          label: "Password",
         },
-        {
-          name: "age",
-          rules: "required|integer",
-          label: "Age",
-        },
-        {
-          name: "contract",
-          label: "Contract",
-          extra: CreateStore.contracts
-        }
       ]
     };
   }
@@ -50,8 +43,8 @@ export default class AddWorkerForm extends Form {
   hooks() {
     return {
       onSuccess(form) {
-        CreateStore.createWorker(form.values())
-        console.log("Form Values!", form.values());
+        AuthService.login(form.values())
+        console.log("Form Values: ", form.values());
       },
       onError(form) {
         // get all form errors

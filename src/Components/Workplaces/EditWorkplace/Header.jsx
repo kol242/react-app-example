@@ -6,7 +6,7 @@ const Header = observer(() => {
   return (
       <>
         <p>{WpEditStore.currentWorkplace.name}</p>
-        <p>{WpEditStore.currentWorkplace.descr}</p>
+        <p>{WpEditStore.currentWorkplace.description}</p>
       </>
   );
 })

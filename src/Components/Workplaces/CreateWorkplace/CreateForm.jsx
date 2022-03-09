@@ -8,7 +8,7 @@ import Currency from './Currency'
 const CreateForm = observer(({form}) => {
     return (
         <div>
-             <form className="form-wrapper" onSubmit={form.onSubmit}>
+            <form onSubmit={form.onSubmit}>
                 <Input field={form.$('name')} />
                 <Input field={form.$('description')} />
                 <Input field={form.$('salary')} />

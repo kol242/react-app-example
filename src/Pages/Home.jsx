@@ -1,6 +1,6 @@
 import React from 'react'
-import '../../Common/style/home.scss'
-import Image from '../../Common/images/home-image.png'
+import '../Common/style/home.scss'
+import Image from '../Common/images/home-image.png'
 
 function Home() {
     return (
@@ -8,7 +8,7 @@ function Home() {
             <div className="home-wrapper">
                 <div>
                     <h1>Workers & Workplaces Manager App</h1>
-                    <p>Simple app for reading, adding, updating and deleting list of workers and workplaces in simulated company.</p>
+                    <p>Simple app for reading, adding, updating and deleting list of workers and workplaces in companies and services.</p>
                 </div>
                 <div id="img">
                     <img src={Image} alt="homeImage" />

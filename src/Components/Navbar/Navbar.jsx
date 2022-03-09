@@ -18,10 +18,14 @@ const Navbar = observer(() => {
   
     return (
         <div className="nav">
-            <Link className="link" to="/">W&W Manager App</Link> 
+            { AuthService.loggedIn === true ? 
+              <Link className="link" to="/dashboard">W&W Manager App</Link> 
+            : 
+              <Link className="link" to="/">W&W Manager App</Link> 
+            }
             { AuthService.loggedIn === true ? 
             <div className="user-data">
-              <p className="link">{AuthService.userData.company}</p>
+              <Link to="/properties" className="link">Update profile</Link>
               <p className="link" onClick={handleLogout}>Log Out</p>  
             </div>
             : 

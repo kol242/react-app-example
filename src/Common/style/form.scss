@@ -1,11 +1,19 @@
 @import 'variables';
 form {
+    .input-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
     textArea,
     input {
         padding: 7px 7px;
-        border-radius: 5px;
-        border: 1px solid rgb(141, 141, 141);
+        border: 1px solid rgb(216, 216, 216);
+        border-radius: 10px;
         font-family: $montserrat;
+    }
+    label {
+        font-size: 14px;
     }
     button {
         background-color: $green;
@@ -22,13 +30,13 @@ form {
     }
     select {
         padding: 7px 7px;
-        margin-bottom: 5px;
-        border-radius: 5px;
-        border: 1px solid rgb(141, 141, 141);
+        border-radius: 10px;
+        margin-bottom: 12px;
+        font-family: $montserrat;
+        border: 1px solid rgb(216, 216, 216);
     }
     .input-error {
         margin-top: 2px;
-        margin-bottom: 8px;
         font-size: 12px;
         color: rgb(219, 1, 1);
     }

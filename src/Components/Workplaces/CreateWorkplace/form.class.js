@@ -25,21 +25,22 @@ export default class CreateWP extends Form {
           name: "name",
           type: "text",
           rules: "required|string",
-          placeholder: "Name...",
+          label: "Workplace Name"
         },
         {
           name: "description",
           type: "text",
           rules: "required|string",
-          placeholder: "Description...",
+          label: "Description"
         },
         {
           name: "salary",
           rules: "required|integer",
-          placeholder: "Salary...",
+          label: "Salary"
         },
         {
           name: "currency",
+          label: "Currency",
           extra: WpCreateStore.currencies
         }
       ]

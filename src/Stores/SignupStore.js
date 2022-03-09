@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 class SignupStore {
-    countries 
+    countries = []
 
     constructor(){
         this.getCountries()
@@ -21,7 +21,6 @@ class SignupStore {
         } catch(err) {
             console.error(err)  
         }
-        
     }
 }
 
