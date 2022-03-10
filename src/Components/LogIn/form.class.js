@@ -44,11 +44,11 @@ export default class LoginForm extends Form {
     return {
       onSuccess(form) {
         AuthService.login(form.values())
-        console.log("Form Values: ", form.values());
+        // console.log("Form Values: ", form.values());
       },
       onError(form) {
         // get all form errors
-        console.log("All form errors", form.errors());
+        console.error("Form Errors: ", form.errors());
       }
     };
   }

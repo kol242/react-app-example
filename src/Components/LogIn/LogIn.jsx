@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react'
 import React from 'react'
-import { Link, useNavigate } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
+import AuthService from '../../Common/Services/AuthService'
 import '../../Common/style/auth.scss'
 import LoginForm from './form.class'
 import Input from './Inputs/Input'
@@ -8,23 +9,11 @@ import Input from './Inputs/Input'
 const form = new LoginForm()
 
 const LogIn = observer(() => {
-    const history = useNavigate()
-
-    async function handleSubmit(e) {
-        e.preventDefault()
-        try {
-            await form.onSubmit(e)
-            history("/dashboard") 
-        } catch (err) {
-            console.error(err)
-        }
-    }
-
-    return (
+    return AuthService.loggedIn === true ? <Navigate to="/dashboard" /> : (
         <div className="content-wrapper">
             <div className="content">
                 <h2>Log In</h2>
-                <form onSubmit={handleSubmit} className="form-content">
+                <form onSubmit={form.onSubmit} className="form-content">
                     <Input field={form.$('email')}/>
                     <Input field={form.$('password')}/>
                     <button className="btn-secondary" type="submit">

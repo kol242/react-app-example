@@ -3,6 +3,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import '../../Common/style/navbar.scss'
 import AuthService from '../../Common/Services/AuthService'
+import { FaUserCog } from 'react-icons/fa'
 
 const Navbar = observer(() => {
     const history = useNavigate()
@@ -25,8 +26,11 @@ const Navbar = observer(() => {
             }
             { AuthService.loggedIn === true ? 
             <div className="user-data">
-              <Link to="/properties" className="link">Update profile</Link>
-              <p className="link" onClick={handleLogout}>Log Out</p>  
+              <p className="link" onClick={handleLogout}>Log Out</p>
+              <div className="link-wrapper">
+                <Link to="/properties" className="link">Profile</Link>
+                <FaUserCog className="icon"/>
+              </div>
             </div>
             : 
             <div className="user-data">
