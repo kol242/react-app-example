@@ -1,6 +1,6 @@
 # W&W Manager App
 
-![Webpage image](https://i.imgur.com/pMdMdrb.jpg)
+![Webpage image](https://i.imgur.com/UofSPLc.jpg)
 
 To run the script, first clone or download this repository on your PC, then follow next steps.
 
